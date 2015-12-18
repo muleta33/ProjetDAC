@@ -68,6 +68,8 @@ public class ServletParfum extends HttpServlet {
         parfumFacade.create(p);
         p = new Parfum("Le mâle");
         parfumFacade.create(p);
+        p = new Parfum("Parfum 1");
+        parfumFacade.create(p);
         processRequest(request, response);
     }
 
