@@ -117,7 +117,7 @@ public class ServletPerfume extends HttpServlet {
         Perfume p;
         p = new Perfume("La vie est chouette", fragances, 2, bottle, true);
         perfumeFacade.create(p);
-        User user = new User("Estésie", "Anne", "anne.estesi@gmail.com", "password");
+        User user = new User("Estésie", "Anne", "anne.estesie@gmail.com", "password");
         userFacade.create(user);
         processRequest(request, response);
     }
