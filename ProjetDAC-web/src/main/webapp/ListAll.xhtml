@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Liste des parfums</title>
     </h:head>
@@ -11,12 +13,25 @@
         <h3>Liste des parfums</h3>
         <f:view>
             <h:form>
-                <p:dataTable value="#{listAllParfums.parfums}" var="item">
-                    <p:column>
-                        <f:facet name="header">
-                            Noms
-                        </f:facet>
-                        <h:outputText value="#{item.name}"/>
+                <p:dataTable value="#{listAllPerfumes.perfumes}" var="perfume">
+                    <p:column headerText="Nom">
+                        <h:outputText value="#{perfume.name}" />
+                    </p:column>
+                    <p:column headerText="Senteurs">
+                        <ul>
+                            <ui:repeat value="#{perfume.fragances}" var="fragance">
+                                <li><h:outputText value="#{fragance.name}"/></li>
+                            </ui:repeat> 
+                        </ul>
+                    </p:column>
+
+                    <p:column headerText="Flacon">
+                        <h:outputText value="#{perfume.bottle.type.name}" />
+                    </p:column>
+
+                    <p:column headerText="Embalage">
+                        <h:outputText value="cadeau" rendered="#{perfume.isGift eq true}"/>
+                        <h:outputText value="neutre" rendered="#{perfume.isGift eq false}"/>
                     </p:column>
                 </p:dataTable>
             </h:form>

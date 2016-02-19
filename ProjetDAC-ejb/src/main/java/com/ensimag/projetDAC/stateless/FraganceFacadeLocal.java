@@ -5,7 +5,7 @@
  */
 package com.ensimag.projetDAC.stateless;
 
-import com.ensimag.projetDac.entity.Parfum;
+import com.ensimag.projetDAC.entity.Fragance;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,19 +14,19 @@ import javax.ejb.Local;
  * @author muleta
  */
 @Local
-public interface ParfumFacadeLocal {
+public interface FraganceFacadeLocal {
 
-    void create(Parfum parfum);
+    void create(Fragance fragance);
 
-    void edit(Parfum parfum);
+    void edit(Fragance fragance);
 
-    void remove(Parfum parfum);
+    void remove(Fragance fragance);
 
-    Parfum find(Object id);
+    Fragance find(Object id);
 
-    List<Parfum> findAll();
+    List<Fragance> findAll();
 
-    List<Parfum> findRange(int[] range);
+    List<Fragance> findRange(int[] range);
 
     int count();
     

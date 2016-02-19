@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ensimag.projetDac.entity;
+package com.ensimag.projetDAC.entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -16,16 +16,16 @@ import javax.persistence.Id;
  * @author muleta
  */
 @Entity
-public class Parfum implements Serializable {
+public class SprayerType implements Serializable {
     private static final long serialVersionUID = 1L;
-    
-    public Parfum() {
-        this.Name = "DefaultName";
+
+    public SprayerType() {
+    }
+
+    public SprayerType(String name) {
+        this.name = name;
     }
     
-    public Parfum(String name) {
-        this.Name = name;
-    }
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,26 +38,28 @@ public class Parfum implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
-    private String Name;
+    
+    
+    private String name;
 
     /**
-     * Get the value of Name
+     * Get the value of name
      *
-     * @return the value of Name
+     * @return the value of name
      */
     public String getName() {
-        return Name;
+        return name;
     }
 
     /**
-     * Set the value of Name
+     * Set the value of name
      *
-     * @param Name new value of Name
+     * @param name new value of name
      */
-    public void setName(String Name) {
-        this.Name = Name;
+    public void setName(String name) {
+        this.name = name;
     }
+
 
     @Override
     public int hashCode() {
@@ -69,10 +71,10 @@ public class Parfum implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Parfum)) {
+        if (!(object instanceof SprayerType)) {
             return false;
         }
-        Parfum other = (Parfum) object;
+        SprayerType other = (SprayerType) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -81,7 +83,7 @@ public class Parfum implements Serializable {
 
     @Override
     public String toString() {
-        return "com.ensimag.projetDac.entity.Parfum[ id=" + id + " ]";
+        return "com.ensimag.projetDAC.entity.SprayerType[ id=" + id + " ]";
     }
     
 }

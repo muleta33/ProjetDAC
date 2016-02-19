@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ensimag.ProjetDAC.controller.parfums;
+package com.ensimag.ProjetDAC.controller.perfumes;
 
-import com.ensimag.projetDAC.stateless.ParfumFacadeLocal;
-import com.ensimag.projetDac.entity.Parfum;
+import com.ensimag.projetDAC.stateless.PerfumeFacadeLocal;
+import com.ensimag.projetDAC.entity.Perfume;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -16,13 +16,13 @@ import javax.enterprise.context.RequestScoped;
  *
  * @author muleta
  */
-@Named(value = "listAllParfums")
+@Named(value = "listAllPerfumes")
 @RequestScoped
 public class ListAll {
     @EJB
-    private ParfumFacadeLocal parfumFacade;
+    private PerfumeFacadeLocal perfumeFacade;
     
-    private List<Parfum> parfums = null;
+    private List<Perfume> perfumes = null;
 
     /**
      * Creates a new instance of ListAll
@@ -30,10 +30,10 @@ public class ListAll {
     public ListAll() {
     }
     
-    public List<Parfum> getParfums() {
-        if (parfums == null)
-            parfums = parfumFacade.findAll();
-        return parfums;
+    public List<Perfume> getPerfumes() {
+        if (perfumes == null)
+            perfumes = perfumeFacade.findAll();
+        return perfumes;
     }
     
 }

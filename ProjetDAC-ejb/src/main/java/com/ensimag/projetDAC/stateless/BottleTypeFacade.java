@@ -5,7 +5,7 @@
  */
 package com.ensimag.projetDAC.stateless;
 
-import com.ensimag.projetDac.entity.Parfum;
+import com.ensimag.projetDAC.entity.BottleType;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author muleta
  */
 @Stateless
-public class ParfumFacade extends AbstractFacade<Parfum> implements ParfumFacadeLocal {
+public class BottleTypeFacade extends AbstractFacade<BottleType> implements BottleTypeFacadeLocal {
     @PersistenceContext(unitName = "ProjetDAC_PU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class ParfumFacade extends AbstractFacade<Parfum> implements ParfumFacade
         return em;
     }
 
-    public ParfumFacade() {
-        super(Parfum.class);
+    public BottleTypeFacade() {
+        super(BottleType.class);
     }
     
 }

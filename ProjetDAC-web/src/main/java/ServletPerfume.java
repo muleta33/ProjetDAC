@@ -3,9 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import com.ensimag.projetDac.entity.Parfum;
+import com.ensimag.projetDAC.entity.Bottle;
+import com.ensimag.projetDAC.entity.BottleType;
+import com.ensimag.projetDAC.entity.Fragance;
+import com.ensimag.projetDAC.entity.FraganceCategory;
+import com.ensimag.projetDAC.entity.Inscription;
+import com.ensimag.projetDAC.entity.Perfume;
+import com.ensimag.projetDAC.entity.SprayerType;
+import com.ensimag.projetDAC.stateless.BottleFacadeLocal;
+import com.ensimag.projetDAC.stateless.BottleTypeFacadeLocal;
+import com.ensimag.projetDAC.stateless.FraganceCategoryFacadeLocal;
+import com.ensimag.projetDAC.stateless.FraganceFacadeLocal;
+import com.ensimag.projetDAC.stateless.InscriptionFacadeLocal;
+import com.ensimag.projetDAC.stateless.PerfumeFacadeLocal;
+import com.ensimag.projetDAC.stateless.SprayerTypeFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,10 +33,24 @@ import javax.servlet.http.HttpServletResponse;
  * @author muleta
  */
 @WebServlet(urlPatterns = {"/init"})
-public class ServletParfum extends HttpServlet {
+public class ServletPerfume extends HttpServlet {
     
     @EJB
-    private com.ensimag.projetDAC.stateless.ParfumFacadeLocal parfumFacade;
+    private SprayerTypeFacadeLocal sprayerTypeFacade;
+    @EJB
+    private PerfumeFacadeLocal perfumeFacade;
+    @EJB
+    private InscriptionFacadeLocal inscriptionFacade;
+    @EJB
+    private FraganceFacadeLocal fraganceFacade;
+    @EJB
+    private FraganceCategoryFacadeLocal fraganceCategoryFacade;
+    @EJB
+    private BottleTypeFacadeLocal bottleTypeFacade;
+    
+    @EJB
+    private BottleFacadeLocal bottleFacade;
+      
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -61,15 +90,28 @@ public class ServletParfum extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Parfum p;
-        p = new Parfum("Fleur de lotus");
-        parfumFacade.create(p);
-        p = new Parfum("La vie est belle");
-        parfumFacade.create(p);
-        p = new Parfum("Le mâle");
-        parfumFacade.create(p);
-        p = new Parfum("Parfum 1");
-        parfumFacade.create(p);
+        FraganceCategory cat1 = new FraganceCategory("Fleuries");
+        fraganceCategoryFacade.create(cat1);
+        Fragance f1 = new Fragance("Orchidée", cat1);
+        fraganceFacade.create(f1);
+        FraganceCategory cat2 = new FraganceCategory("Sucrées");
+        fraganceCategoryFacade.create(cat2);
+        Fragance f2 = new Fragance("Glace vanille", cat2);
+        fraganceFacade.create(f2);
+        List<Fragance> fragances = new ArrayList<>();
+        fragances.add(f1);
+        fragances.add(f2);
+        BottleType bottleType = new BottleType("Jazzy");
+        bottleTypeFacade.create(bottleType);
+        SprayerType sprayerType = new SprayerType("Diffuseur");
+        sprayerTypeFacade.create(sprayerType);
+        Inscription inscription = new Inscription("La vie est chouette", "Arial");
+        inscriptionFacade.create(inscription);
+        Bottle bottle = new Bottle(bottleType, 50, sprayerType, inscription);
+        bottleFacade.create(bottle);
+        Perfume p;
+        p = new Perfume("La vie est chouette", fragances, 2, bottle, true);
+        perfumeFacade.create(p);
         processRequest(request, response);
     }
 
