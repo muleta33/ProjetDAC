@@ -26,7 +26,6 @@ public class SprayerType implements Serializable {
         this.name = name;
     }
     
-    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
