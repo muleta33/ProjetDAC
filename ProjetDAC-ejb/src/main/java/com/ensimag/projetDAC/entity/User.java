@@ -110,7 +110,43 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    private boolean isManager = false;
+
+    /**
+     * Get the value of isManager
+     *
+     * @return the value of isManager
+     */
+    public boolean isIsManager() {
+        return isManager;
+    }
+
+    /**
+     * Set the value of isManager
+     *
+     * @param isManager new value of isManager
+     */
+    public void setIsManager(boolean isManager) {
+        this.isManager = isManager;
+    }
+    
+    private Basket basket;
+
+    public Basket getBasket() {
+        return basket;
+    }
+
+    /**
+     * Set the value of password
+     *
+     * @param password new value of password
+     */
+    public void setBasket(Basket basket) {
+        this.basket = basket;
+    }
+    
     public User() {
+        this.basket = new Basket();
     }
 
     public User(String name, String firstName, String email, String password) {
@@ -118,6 +154,20 @@ public class User implements Serializable {
         this.firstName = firstName;
         this.email = email;
         this.password = password;
+        this.basket = new Basket();
+    }
+
+    public User(String name, String firstName, String email, String password, boolean isManager) {
+        this.name = name;
+        this.firstName = firstName;
+        this.email = email;
+        this.password = password;
+        this.isManager = isManager;
+        this.basket = new Basket();
+    }
+    
+    public void clearBasket() {
+        basket.clear();
     }
     
     @Override
