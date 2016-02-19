@@ -23,7 +23,7 @@ public class Bottle implements Serializable {
     public Bottle() {
     }
 
-    public Bottle(BottleType type, float capacity, SprayerType sprayer, Inscription inscription) {
+    public Bottle(BottleType type, Capacity capacity, SprayerType sprayer, Inscription inscription) {
         this.type = type;
         this.capacity = capacity;
         this.sprayer = sprayer;
@@ -66,14 +66,14 @@ public class Bottle implements Serializable {
     }
 
     
-    private float capacity;
+    private Capacity capacity;
 
     /**
      * Get the value of capacity
      *
      * @return the value of capacity
      */
-    public float getCapacity() {
+    public Capacity getCapacity() {
         return capacity;
     }
 
@@ -82,7 +82,7 @@ public class Bottle implements Serializable {
      *
      * @param capacity new value of capacity
      */
-    public void setCapacity(float capacity) {
+    public void setCapacity(Capacity capacity) {
         this.capacity = capacity;
     }
 

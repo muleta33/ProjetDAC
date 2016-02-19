@@ -154,6 +154,9 @@ public class Perfume implements Serializable {
         this.isGift = isGift;
     }
 
+    public double getPrice() {
+        return bottle.getCapacity().getPrice();
+    }
     
     @Override
     public int hashCode() {
