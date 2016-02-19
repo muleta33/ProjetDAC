@@ -110,26 +110,6 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    private boolean isManager = false;
-
-    /**
-     * Get the value of isManager
-     *
-     * @return the value of isManager
-     */
-    public boolean isIsManager() {
-        return isManager;
-    }
-
-    /**
-     * Set the value of isManager
-     *
-     * @param isManager new value of isManager
-     */
-    public void setIsManager(boolean isManager) {
-        this.isManager = isManager;
-    }
-
     public User() {
     }
 
@@ -138,14 +118,6 @@ public class User implements Serializable {
         this.firstName = firstName;
         this.email = email;
         this.password = password;
-    }
-
-    public User(String name, String firstName, String email, String password, boolean isManager) {
-        this.name = name;
-        this.firstName = firstName;
-        this.email = email;
-        this.password = password;
-        this.isManager = isManager;
     }
     
     @Override

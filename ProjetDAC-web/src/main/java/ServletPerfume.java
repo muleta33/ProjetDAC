@@ -10,6 +10,7 @@ import com.ensimag.projetDAC.entity.FraganceCategory;
 import com.ensimag.projetDAC.entity.Inscription;
 import com.ensimag.projetDAC.entity.Perfume;
 import com.ensimag.projetDAC.entity.SprayerType;
+import com.ensimag.projetDAC.entity.User;
 import com.ensimag.projetDAC.stateless.BottleFacadeLocal;
 import com.ensimag.projetDAC.stateless.BottleTypeFacadeLocal;
 import com.ensimag.projetDAC.stateless.FraganceCategoryFacadeLocal;
@@ -17,6 +18,7 @@ import com.ensimag.projetDAC.stateless.FraganceFacadeLocal;
 import com.ensimag.projetDAC.stateless.InscriptionFacadeLocal;
 import com.ensimag.projetDAC.stateless.PerfumeFacadeLocal;
 import com.ensimag.projetDAC.stateless.SprayerTypeFacadeLocal;
+import com.ensimag.projetDAC.stateless.UserFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -50,6 +52,9 @@ public class ServletPerfume extends HttpServlet {
     
     @EJB
     private BottleFacadeLocal bottleFacade;
+    
+    @EJB
+    private UserFacadeLocal userFacade;
       
 
     /**
@@ -112,6 +117,8 @@ public class ServletPerfume extends HttpServlet {
         Perfume p;
         p = new Perfume("La vie est chouette", fragances, 2, bottle, true);
         perfumeFacade.create(p);
+        User user = new User("Estésie", "Anne", "anne.estesi@gmail.com", "password");
+        userFacade.create(user);
         processRequest(request, response);
     }
 
