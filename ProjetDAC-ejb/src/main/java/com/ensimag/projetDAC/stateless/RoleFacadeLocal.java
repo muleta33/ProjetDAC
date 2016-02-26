@@ -5,7 +5,7 @@
  */
 package com.ensimag.projetDAC.stateless;
 
-import com.ensimag.projetDAC.entity.User;
+import com.ensimag.projetDAC.entity.Role;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,19 +14,19 @@ import javax.ejb.Local;
  * @author ensimag
  */
 @Local
-public interface UserFacadeLocal {
+public interface RoleFacadeLocal {
 
-    void create(User user);
+    void create(Role role);
 
-    void edit(User user);
+    void edit(Role role);
 
-    void remove(User user);
+    void remove(Role role);
 
-    User find(Object id);
+    Role find(Object id);
 
-    List<User> findAll();
+    List<Role> findAll();
 
-    List<User> findRange(int[] range);
+    List<Role> findRange(int[] range);
 
     int count();
     

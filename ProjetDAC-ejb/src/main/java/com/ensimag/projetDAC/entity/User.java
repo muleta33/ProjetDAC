@@ -6,30 +6,56 @@
 package com.ensimag.projetDAC.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import com.ensimag.projetDAC.entity.Role.ROLE;
+
 
 /**
  *
  * @author margotj
  */
-@Entity
+@Entity(name = "USERS")
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    public Long getId() {
-        return id;
+    @Column(name = "EMAIL")
+    private String email;
+    
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
+    protected User() {
+    }
+
+    public User(String email, String name, String firstName, char[] password, ROLE role, Basket basket) {
+        this.email = email;
+        this.name = name;
+        this.firstName = firstName;
+        this.password = hashPassword(password);
+        this.role = new Role(role, this);
+        this.basket = basket;
+    }
+
+    
     private String name;
 
     /**
@@ -50,6 +76,7 @@ public class User implements Serializable {
         this.name = name;
     }
 
+    
     private String firstName;
 
     /**
@@ -69,122 +96,91 @@ public class User implements Serializable {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+    
+    
+    @Column(name = "PASSWORD", length = 32, 
+            columnDefinition = "VARCHAR(32)")
+    private char[] password;
 
-    private String email;
-
-    /**
-     * Get the value of email
-     *
-     * @return the value of email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * Set the value of email
-     *
-     * @param email new value of email
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    private String password;
-
-    /**
-     * Get the value of password
-     *
-     * @return the value of password
-     */
-    public String getPassword() {
+    public char[] getPassword() {
         return password;
     }
 
-    /**
-     * Set the value of password
-     *
-     * @param password new value of password
-     */
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(char[] password) {
+        this.password = hashPassword(password);
     }
 
-    private boolean isManager = false;
 
-    /**
-     * Get the value of isManager
-     *
-     * @return the value of isManager
-     */
-    public boolean isIsManager() {
-        return isManager;
+    @OneToOne(fetch = FetchType.EAGER, 
+      cascade = CascadeType.ALL, mappedBy = "user")
+    private Role role;
+    
+    public Role getRole() {
+        return role;
     }
 
-    /**
-     * Set the value of isManager
-     *
-     * @param isManager new value of isManager
-     */
-    public void setIsManager(boolean isManager) {
-        this.isManager = isManager;
+    public void setRole(Role role) {
+        this.role = role;
+        role.setUser(this);
     }
+    
     
     private Basket basket;
 
+    /**
+     * Get the value of basket
+     *
+     * @return the value of basket
+     */
     public Basket getBasket() {
         return basket;
     }
 
     /**
-     * Set the value of password
+     * Set the value of basket
      *
-     * @param password new value of password
+     * @param basket new value of basket
      */
     public void setBasket(Basket basket) {
         this.basket = basket;
     }
+
     
-    public User() {
-        this.basket = new Basket();
-    }
+    private char[] hashPassword(char[] password) {
+        char[] encoded = null;
+        try {
+            ByteBuffer passwdBuffer = 
+              Charset.defaultCharset().encode(CharBuffer.wrap(password));
+            byte[] passwdBytes = passwdBuffer.array();
+            MessageDigest mdEnc = MessageDigest.getInstance("MD5");
+            mdEnc.update(passwdBytes, 0, password.length);
+            encoded = new BigInteger(1, mdEnc.digest()).toString(16).toCharArray();
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-    public User(String name, String firstName, String email, String password) {
-        this.name = name;
-        this.firstName = firstName;
-        this.email = email;
-        this.password = password;
-        this.basket = new Basket();
-    }
-
-    public User(String name, String firstName, String email, String password, boolean isManager) {
-        this.name = name;
-        this.firstName = firstName;
-        this.email = email;
-        this.password = password;
-        this.isManager = isManager;
-        this.basket = new Basket();
+        return encoded;
     }
     
-    public void clearBasket() {
-        basket.clear();
-    }
     
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 3;
+        hash = 83 * hash + (this.email != null ? this.email.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        User other = (User) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if ((this.email == null) ? (other.email != null) : 
+                    !this.email.equals(other.email)) {
             return false;
         }
         return true;
@@ -192,7 +188,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.ensimag.projetDAC.entity.User[ id=" + id + " ]";
+        return "com.ensimag.projetDAC.entity.User[ name=" + email + " ]";
     }
     
 }

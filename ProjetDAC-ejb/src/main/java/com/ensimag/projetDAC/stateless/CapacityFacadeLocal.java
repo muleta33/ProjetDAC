@@ -5,7 +5,7 @@
  */
 package com.ensimag.projetDAC.stateless;
 
-import com.ensimag.projetDAC.entity.User;
+import com.ensimag.projetDAC.entity.Capacity;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,19 +14,19 @@ import javax.ejb.Local;
  * @author ensimag
  */
 @Local
-public interface UserFacadeLocal {
+public interface CapacityFacadeLocal {
 
-    void create(User user);
+    void create(Capacity capacity);
 
-    void edit(User user);
+    void edit(Capacity capacity);
 
-    void remove(User user);
+    void remove(Capacity capacity);
 
-    User find(Object id);
+    Capacity find(Object id);
 
-    List<User> findAll();
+    List<Capacity> findAll();
 
-    List<User> findRange(int[] range);
+    List<Capacity> findRange(int[] range);
 
     int count();
     

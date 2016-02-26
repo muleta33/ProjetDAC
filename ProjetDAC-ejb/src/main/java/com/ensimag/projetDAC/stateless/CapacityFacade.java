@@ -5,7 +5,7 @@
  */
 package com.ensimag.projetDAC.stateless;
 
-import com.ensimag.projetDAC.entity.User;
+import com.ensimag.projetDAC.entity.Capacity;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author ensimag
  */
 @Stateless
-public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal {
+public class CapacityFacade extends AbstractFacade<Capacity> implements CapacityFacadeLocal {
 
     @PersistenceContext(unitName = "ProjetDAC_PU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
         return em;
     }
 
-    public UserFacade() {
-        super(User.class);
+    public CapacityFacade() {
+        super(Capacity.class);
     }
     
 }

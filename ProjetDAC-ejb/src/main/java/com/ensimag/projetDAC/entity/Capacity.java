@@ -18,6 +18,16 @@ import javax.persistence.Id;
 @Entity
 public class Capacity implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    public Capacity() {
+    }
+
+    public Capacity(int capacity, double price) {
+        this.capacity = capacity;
+        this.price = price;
+    }
+    
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

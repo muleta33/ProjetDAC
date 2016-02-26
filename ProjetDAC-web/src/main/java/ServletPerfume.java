@@ -5,18 +5,22 @@
  */
 import com.ensimag.projetDAC.entity.Bottle;
 import com.ensimag.projetDAC.entity.BottleType;
+import com.ensimag.projetDAC.entity.Capacity;
 import com.ensimag.projetDAC.entity.Fragance;
 import com.ensimag.projetDAC.entity.FraganceCategory;
 import com.ensimag.projetDAC.entity.Inscription;
 import com.ensimag.projetDAC.entity.Perfume;
+import com.ensimag.projetDAC.entity.Role;
 import com.ensimag.projetDAC.entity.SprayerType;
 import com.ensimag.projetDAC.entity.User;
 import com.ensimag.projetDAC.stateless.BottleFacadeLocal;
 import com.ensimag.projetDAC.stateless.BottleTypeFacadeLocal;
+import com.ensimag.projetDAC.stateless.CapacityFacadeLocal;
 import com.ensimag.projetDAC.stateless.FraganceCategoryFacadeLocal;
 import com.ensimag.projetDAC.stateless.FraganceFacadeLocal;
 import com.ensimag.projetDAC.stateless.InscriptionFacadeLocal;
 import com.ensimag.projetDAC.stateless.PerfumeFacadeLocal;
+import com.ensimag.projetDAC.stateless.RoleFacadeLocal;
 import com.ensimag.projetDAC.stateless.SprayerTypeFacadeLocal;
 import com.ensimag.projetDAC.stateless.UserFacadeLocal;
 import java.io.IOException;
@@ -36,7 +40,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = {"/init"})
 public class ServletPerfume extends HttpServlet {
-    
+
+    @EJB
+    private CapacityFacadeLocal capacityFacade;
     @EJB
     private SprayerTypeFacadeLocal sprayerTypeFacade;
     @EJB
@@ -49,12 +55,12 @@ public class ServletPerfume extends HttpServlet {
     private FraganceCategoryFacadeLocal fraganceCategoryFacade;
     @EJB
     private BottleTypeFacadeLocal bottleTypeFacade;
-    
     @EJB
     private BottleFacadeLocal bottleFacade;
-    
     @EJB
     private UserFacadeLocal userFacade;
+    @EJB
+    private RoleFacadeLocal roleFacade;
       
 
     /**
@@ -108,17 +114,22 @@ public class ServletPerfume extends HttpServlet {
         fragances.add(f2);
         BottleType bottleType = new BottleType("Jazzy");
         bottleTypeFacade.create(bottleType);
+        Capacity capacity = new Capacity(50, 60);
+        capacityFacade.create(capacity);
         SprayerType sprayerType = new SprayerType("Diffuseur");
         sprayerTypeFacade.create(sprayerType);
         Inscription inscription = new Inscription("La vie est chouette", "Arial");
         inscriptionFacade.create(inscription);
-        Bottle bottle = new Bottle(bottleType, 50, sprayerType, inscription);
+        Bottle bottle = new Bottle(bottleType, capacity, sprayerType, inscription);
         bottleFacade.create(bottle);
         Perfume p;
         p = new Perfume("La vie est chouette", fragances, 2, bottle, true);
         perfumeFacade.create(p);
-        User user = new User("Estésie", "Anne", "anne.estesie@gmail.com", "password");
+        String password = "ensimag";
+        char[] pass = password.toCharArray();
+        User user = new User("ntn.mulet@gmail.com", "Mulet", "Antoine", pass, Role.ROLE.USER, null);
         userFacade.create(user);
+
         processRequest(request, response);
     }
 
