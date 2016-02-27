@@ -33,9 +33,22 @@
                         <h:outputText value="cadeau" rendered="#{perfume.isGift eq true}"/>
                         <h:outputText value="neutre" rendered="#{perfume.isGift eq false}"/>
                     </p:column>
+                    
+                    <p:column headerText="Panier">
+                        <h:commandLink action="#{shoppingCartBean.addPerfume(perfume.name)}" value="Add to cart" 
+                                       rendered="#{shoppingCartBean.containsPerfume(perfume.name) eq false}" />
+                        <h:commandLink action="#{shoppingCartBean.removePerfume(perfume.name)}" value="Remove from cart" 
+                                       rendered="#{shoppingCartBean.containsPerfume(perfume.name) eq true}" />
+                    </p:column>
                 </p:dataTable>
             </h:form>
         </f:view>
+        Contenu du panier de <h:outputText value="#{authenticationBean.currentUser}"/>:
+        <ul>
+            <ui:repeat value="#{shoppingCartBean.content}" var="article">
+                <li><h:outputText value="#{article}"/></li>
+            </ui:repeat> 
+        </ul>
     </h:body>
 </html>
 

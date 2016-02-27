@@ -127,7 +127,7 @@ public class ServletPerfume extends HttpServlet {
         perfumeFacade.create(p);
         String password = "ensimag";
         char[] pass = password.toCharArray();
-        User user = new User("ntn.mulet@gmail.com", "Mulet", "Antoine", pass, Role.ROLE.USER, null);
+        User user = new User("user@gmail.com", "LastName", "FirstName", pass, Role.ROLE.USER, null);
         userFacade.create(user);
 
         processRequest(request, response);

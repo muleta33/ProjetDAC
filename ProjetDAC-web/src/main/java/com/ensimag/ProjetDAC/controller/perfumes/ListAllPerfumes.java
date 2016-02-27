@@ -18,7 +18,7 @@ import javax.enterprise.context.RequestScoped;
  */
 @Named(value = "listAllPerfumes")
 @RequestScoped
-public class ListAll {
+public class ListAllPerfumes {
     @EJB
     private PerfumeFacadeLocal perfumeFacade;
     
@@ -27,7 +27,7 @@ public class ListAll {
     /**
      * Creates a new instance of ListAll
      */
-    public ListAll() {
+    public ListAllPerfumes() {
     }
     
     public List<Perfume> getPerfumes() {

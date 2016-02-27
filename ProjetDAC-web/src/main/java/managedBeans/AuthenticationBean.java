@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 @ManagedBean
 public class AuthenticationBean {
+    
+    private String currentUser = null;
  
     public void checkErrors(ComponentSystemEvent event) {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -39,6 +41,12 @@ public class AuthenticationBean {
         else if (request.getParameter("logout")!=null && request.getParameter("logout").equalsIgnoreCase("true")) {
             context.addMessage(null, new FacesMessage("Logout done."));
         }
+    }
+    
+    public String getCurrentUser() {
+        if (currentUser == null)
+            currentUser = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
+        return currentUser;
     }
  
     public String logout() {
