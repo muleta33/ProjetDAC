@@ -21,6 +21,9 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import com.ensimag.projetDAC.entity.Role.ROLE;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 
 /**
@@ -28,6 +31,7 @@ import com.ensimag.projetDAC.entity.Role.ROLE;
  * @author margotj
  */
 @Entity(name = "USERS")
+@ManagedBean
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     
@@ -143,6 +147,11 @@ public class User implements Serializable {
      */
     public void setBasket(Basket basket) {
         this.basket = basket;
+    }
+    
+    public void save() {
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage("Welcome " + firstName + " " + name));
     }
 
     
