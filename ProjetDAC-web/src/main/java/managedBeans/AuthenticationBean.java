@@ -16,6 +16,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -54,7 +55,10 @@ public class AuthenticationBean {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
-          request.logout();
+            request.logout();
+            HttpSession session = request.getSession(false);
+            if (session != null)
+                session.invalidate();
         } catch (ServletException e) {
             context.addMessage(null, new FacesMessage("Logout failed!"));
             page="/login?logout=false&faces-redirect=true";
