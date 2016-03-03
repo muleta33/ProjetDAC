@@ -32,15 +32,15 @@ public class AuthenticationBean {
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         if ("true".equals((String)request.getParameter("failed"))) {
             /* GET parameter "failed" has been sent in the HTTP request... */
-            context.addMessage(null, new FacesMessage("Login failed!"));
+            context.addMessage(null, new FacesMessage("Info", "Login failed!"));
         }
         else if (request.getRequestedSessionId()!=null && !request.isRequestedSessionIdValid()
                     & request.getParameter("logout")==null) {
             /* The user session has timed out (not caused by a logout action)... */
-            context.addMessage(null, new FacesMessage("Your session has timed out!"));
+            context.addMessage(null, new FacesMessage("Info", "Your session has timed out!"));
         }
         else if (request.getParameter("logout")!=null && request.getParameter("logout").equalsIgnoreCase("true")) {
-            context.addMessage(null, new FacesMessage("Logout done."));
+            context.addMessage(null, new FacesMessage("Info", "Logout done."));
         }
     }
     
@@ -60,7 +60,7 @@ public class AuthenticationBean {
             if (session != null)
                 session.invalidate();
         } catch (ServletException e) {
-            context.addMessage(null, new FacesMessage("Logout failed!"));
+            context.addMessage(null, new FacesMessage("Info", "Logout failed!"));
             page="/login?logout=false&faces-redirect=true";
         }
         return page;

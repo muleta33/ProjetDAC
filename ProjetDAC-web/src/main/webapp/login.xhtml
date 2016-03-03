@@ -9,16 +9,33 @@
     </h:head>
     <h:body>
         <f:event listener="#{authenticationBean.checkErrors}" type="preRenderView"/>
-        <h:messages/>
-        <h3>Identification ou </h3>
-        <p:link outcome="signup" value="Créer un compte"/>
-        <form method="post" action="j_security_check">
-            Login<br/>
-            <input type="text" name="j_username" />
-            <br/>Password<br/>
-            <input type="password" name="j_password" />
-            <br/><button type="submit">Valider</button>
+        <p:growl id="message" showDetail="true" /> 
+        <form action="j_security_check">
+            <p:panel id="panel" header="S'identifier">
+                <table>
+                <tbody>
+                    <tr>
+                        <td><label for="j_username" class="ui-outputlabel ui-widget" >Login: <span class="ui-outputlabel-rfi">*</span></label></td>
+                        <td><input type="text" name="j_username" required="true" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="j_password" class="ui-outputlabel ui-widget" >Password: <span class="ui-outputlabel-rfi">*</span></label></td>
+                        <td><input type="password" name="j_password" required="true" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" /></td>
+                    </tr>
+                </tbody>
+                </table>
+                
+                <div class="submit">
+                    <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left">
+                        <span class="ui-button-icon-left ui-icon ui-c ui-icon-check"></span><span class="ui-button-text ui-c">Login</span>
+                    </button>
+                </div>
+            </p:panel>
         </form>
+        
+        <p:link outcome="index" value="Accueil"/><br/>
+        <p:link outcome="signup" value="Créer un compte"/>
+        
     </h:body>
 </html>
 
