@@ -23,7 +23,7 @@ public class Fragrance implements Serializable {
     public Fragrance() {
     }
 
-    public Fragrance(String name, FraganceCategory category) {
+    public Fragrance(String name, FragranceCategory category) {
         this.name = name;
         this.category = category;
     }
@@ -62,14 +62,14 @@ public class Fragrance implements Serializable {
 
     
     @ManyToOne
-    private FraganceCategory category;
+    private FragranceCategory category;
 
     /**
      * Get the value of category
      *
      * @return the value of category
      */
-    public FraganceCategory getCategory() {
+    public FragranceCategory getCategory() {
         return category;
     }
 
@@ -78,7 +78,7 @@ public class Fragrance implements Serializable {
      *
      * @param category new value of category
      */
-    public void setCategory(FraganceCategory category) {
+    public void setCategory(FragranceCategory category) {
         this.category = category;
     }
 

@@ -18,7 +18,7 @@
                         <p:messages />
                         <h:panelGrid columns="2" columnClasses="label, value">
                             <h:outputText value="3 senteurs au plus" />
-                            <p:selectManyCheckbox id="fragrances" value="#{perfumeBean.fragranceIds}" layout="grid" columns="2">
+                            <p:selectManyCheckbox id="fragrances" value="#{perfumeBean.fragranceIds}" layout="grid" columns="3">
                                 <f:selectItems value="#{listAllPerfumeFeatures.fragrances}" var="fragrance" itemLabel="#{fragrance.name}" itemValue="#{fragrance.id}" />
                                 <f:validator validatorId="numberOfFragrancesValidator" />
                             </p:selectManyCheckbox>

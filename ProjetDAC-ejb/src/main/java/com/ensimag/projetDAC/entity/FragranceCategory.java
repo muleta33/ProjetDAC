@@ -16,13 +16,13 @@ import javax.persistence.Id;
  * @author muleta
  */
 @Entity
-public class FraganceCategory implements Serializable {
+public class FragranceCategory implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public FraganceCategory() {
+    public FragranceCategory() {
     }
 
-    public FraganceCategory(String name) {
+    public FragranceCategory(String name) {
         this.name = name;
     }
     
@@ -71,10 +71,10 @@ public class FraganceCategory implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof FraganceCategory)) {
+        if (!(object instanceof FragranceCategory)) {
             return false;
         }
-        FraganceCategory other = (FraganceCategory) object;
+        FragranceCategory other = (FragranceCategory) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

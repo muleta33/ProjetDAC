@@ -5,7 +5,9 @@
  */
 package com.ensimag.projetDAC.stateless;
 
+import com.ensimag.projetDAC.entity.FragranceCategory;
 import com.ensimag.projetDAC.entity.Fragrance;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -13,8 +15,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
 /**
@@ -41,16 +44,19 @@ public class FragranceFacade extends AbstractFacade<Fragrance> implements Fragra
         // Création du critère
         CriteriaQuery<Fragrance> q = cb.createQuery(Fragrance.class);
         // Propriété sur lequel porte le WHERE
-        Root<Fragrance> c = q.from(Fragrance.class);
-        Expression<String> path = c.get("category");
+        Root<Fragrance> fragrance = q.from(Fragrance.class);
+        Join<Fragrance, FragranceCategory> category = fragrance.join("category");
+        Path<String> categoryName = category.get("name");
         // Paramètre sur lequel porte le test du WHERE
-        ParameterExpression<String> param = cb.parameter(String.class);
+        ParameterExpression<String> param = cb.parameter(String.class, "param");
         // Création de la requête
-        q.select(c).where(cb.like(path, param));
+        q.select(fragrance).where(cb.like(categoryName, param));
         TypedQuery<Fragrance> query = em.createQuery(q);
         // Valeur pour le paramètre
-        query.setParameter(param, name);
-        // Exécution de la requête
+        List<String> p = new ArrayList<>();
+        p.add(name);
+        query.setParameter("param", p);
+        // Exécution de requête
         List<Fragrance> results = query.getResultList();
         return results;
     }

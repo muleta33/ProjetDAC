@@ -5,7 +5,7 @@
  */
 package com.ensimag.projetDAC.stateless;
 
-import com.ensimag.projetDAC.entity.FraganceCategory;
+import com.ensimag.projetDAC.entity.FragranceCategory;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author muleta
  */
 @Stateless
-public class FraganceCategoryFacade extends AbstractFacade<FraganceCategory> implements FraganceCategoryFacadeLocal {
+public class FragranceCategoryFacade extends AbstractFacade<FragranceCategory> implements FragranceCategoryFacadeLocal {
     @PersistenceContext(unitName = "ProjetDAC_PU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class FraganceCategoryFacade extends AbstractFacade<FraganceCategory> imp
         return em;
     }
 
-    public FraganceCategoryFacade() {
-        super(FraganceCategory.class);
+    public FragranceCategoryFacade() {
+        super(FragranceCategory.class);
     }
     
 }

@@ -7,7 +7,7 @@ import com.ensimag.projetDAC.entity.Bottle;
 import com.ensimag.projetDAC.entity.BottleType;
 import com.ensimag.projetDAC.entity.Capacity;
 import com.ensimag.projetDAC.entity.Fragrance;
-import com.ensimag.projetDAC.entity.FraganceCategory;
+import com.ensimag.projetDAC.entity.FragranceCategory;
 import com.ensimag.projetDAC.entity.Inscription;
 import com.ensimag.projetDAC.entity.Perfume;
 import com.ensimag.projetDAC.entity.Role;
@@ -16,7 +16,7 @@ import com.ensimag.projetDAC.entity.User;
 import com.ensimag.projetDAC.stateless.BottleFacadeLocal;
 import com.ensimag.projetDAC.stateless.BottleTypeFacadeLocal;
 import com.ensimag.projetDAC.stateless.CapacityFacadeLocal;
-import com.ensimag.projetDAC.stateless.FraganceCategoryFacadeLocal;
+import com.ensimag.projetDAC.stateless.FragranceCategoryFacadeLocal;
 import com.ensimag.projetDAC.stateless.FragranceFacadeLocal;
 import com.ensimag.projetDAC.stateless.InscriptionFacadeLocal;
 import com.ensimag.projetDAC.stateless.PerfumeFacadeLocal;
@@ -52,7 +52,7 @@ public class ServletPerfume extends HttpServlet {
     @EJB
     private FragranceFacadeLocal fraganceFacade;
     @EJB
-    private FraganceCategoryFacadeLocal fraganceCategoryFacade;
+    private FragranceCategoryFacadeLocal fraganceCategoryFacade;
     @EJB
     private BottleTypeFacadeLocal bottleTypeFacade;
     @EJB
@@ -102,13 +102,13 @@ public class ServletPerfume extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Création des catégories de senteurs
-        FraganceCategory cat1 = new FraganceCategory("Fruitées");
+        FragranceCategory cat1 = new FragranceCategory("Fruitées");
         fraganceCategoryFacade.create(cat1);
-        FraganceCategory cat2 = new FraganceCategory("Orientales");
+        FragranceCategory cat2 = new FragranceCategory("Orientales");
         fraganceCategoryFacade.create(cat2);
-        FraganceCategory cat3 = new FraganceCategory("Fleuries");
+        FragranceCategory cat3 = new FragranceCategory("Fleuries");
         fraganceCategoryFacade.create(cat3);
-        FraganceCategory cat4 = new FraganceCategory("Sucrées");
+        FragranceCategory cat4 = new FragranceCategory("Sucrées");
         fraganceCategoryFacade.create(cat4);
         
         // Création des senteurs
