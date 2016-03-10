@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package managedBeans;
+package com.ensimag.ProjetDAC.controller.SessionManagedBeans;
 
 import com.ensimag.projetDAC.entity.Bottle;
 import com.ensimag.projetDAC.entity.Capacity;
