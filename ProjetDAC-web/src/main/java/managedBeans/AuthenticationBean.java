@@ -42,6 +42,7 @@ public class AuthenticationBean {
         else if (request.getParameter("logout")!=null && request.getParameter("logout").equalsIgnoreCase("true")) {
             context.addMessage(null, new FacesMessage("Logout done."));
         }
+        String version = FacesContext.class.getPackage().getImplementationVersion();
     }
     
     public String getCurrentUser() {

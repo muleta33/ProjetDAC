@@ -6,7 +6,7 @@
 import com.ensimag.projetDAC.entity.Bottle;
 import com.ensimag.projetDAC.entity.BottleType;
 import com.ensimag.projetDAC.entity.Capacity;
-import com.ensimag.projetDAC.entity.Fragance;
+import com.ensimag.projetDAC.entity.Fragrance;
 import com.ensimag.projetDAC.entity.FraganceCategory;
 import com.ensimag.projetDAC.entity.Inscription;
 import com.ensimag.projetDAC.entity.Perfume;
@@ -17,7 +17,7 @@ import com.ensimag.projetDAC.stateless.BottleFacadeLocal;
 import com.ensimag.projetDAC.stateless.BottleTypeFacadeLocal;
 import com.ensimag.projetDAC.stateless.CapacityFacadeLocal;
 import com.ensimag.projetDAC.stateless.FraganceCategoryFacadeLocal;
-import com.ensimag.projetDAC.stateless.FraganceFacadeLocal;
+import com.ensimag.projetDAC.stateless.FragranceFacadeLocal;
 import com.ensimag.projetDAC.stateless.InscriptionFacadeLocal;
 import com.ensimag.projetDAC.stateless.PerfumeFacadeLocal;
 import com.ensimag.projetDAC.stateless.RoleFacadeLocal;
@@ -50,7 +50,7 @@ public class ServletPerfume extends HttpServlet {
     @EJB
     private InscriptionFacadeLocal inscriptionFacade;
     @EJB
-    private FraganceFacadeLocal fraganceFacade;
+    private FragranceFacadeLocal fraganceFacade;
     @EJB
     private FraganceCategoryFacadeLocal fraganceCategoryFacade;
     @EJB
@@ -103,13 +103,13 @@ public class ServletPerfume extends HttpServlet {
             throws ServletException, IOException {
         FraganceCategory cat1 = new FraganceCategory("Fleuries");
         fraganceCategoryFacade.create(cat1);
-        Fragance f1 = new Fragance("Orchidée", cat1);
+        Fragrance f1 = new Fragrance("Orchidée", cat1);
         fraganceFacade.create(f1);
         FraganceCategory cat2 = new FraganceCategory("Sucrées");
         fraganceCategoryFacade.create(cat2);
-        Fragance f2 = new Fragance("Glace vanille", cat2);
+        Fragrance f2 = new Fragrance("Glace vanille", cat2);
         fraganceFacade.create(f2);
-        List<Fragance> fragances = new ArrayList<>();
+        List<Fragrance> fragances = new ArrayList<>();
         fragances.add(f1);
         fragances.add(f2);
         BottleType bottleType = new BottleType("Jazzy");

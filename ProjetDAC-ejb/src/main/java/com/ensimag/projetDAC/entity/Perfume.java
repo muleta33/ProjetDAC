@@ -26,7 +26,7 @@ public class Perfume implements Serializable {
         this.Name = "DefaultName";
     }
 
-    public Perfume(String Name, List<Fragance> fragances, int intensity, Bottle bottle, boolean isGift) {
+    public Perfume(String Name, List<Fragrance> fragances, int intensity, Bottle bottle, boolean isGift) {
         this.Name = Name;
         this.fragances = fragances;
         this.intensity = intensity;
@@ -70,14 +70,14 @@ public class Perfume implements Serializable {
     
     
     @ManyToMany
-    private List<Fragance> fragances;
+    private List<Fragrance> fragances;
 
     /**
      * Get the value of fragances
      *
      * @return the value of fragances
      */
-    public List<Fragance> getFragances() {
+    public List<Fragrance> getFragances() {
         return fragances;
     }
 
@@ -86,7 +86,7 @@ public class Perfume implements Serializable {
      *
      * @param fragances new value of fragances
      */
-    public void setFragances(List<Fragance> fragances) {
+    public void setFragances(List<Fragrance> fragances) {
         this.fragances = fragances;
     }
 

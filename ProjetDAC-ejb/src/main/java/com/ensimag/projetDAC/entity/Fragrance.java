@@ -17,17 +17,16 @@ import javax.persistence.ManyToOne;
  * @author muleta
  */
 @Entity
-public class Fragance implements Serializable {
+public class Fragrance implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public Fragance() {
+    public Fragrance() {
     }
 
-    public Fragance(String name, FraganceCategory category) {
+    public Fragrance(String name, FraganceCategory category) {
         this.name = name;
         this.category = category;
     }
-
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,7 +39,6 @@ public class Fragance implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    
     
     private String name;
 
@@ -84,7 +82,6 @@ public class Fragance implements Serializable {
         this.category = category;
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -95,10 +92,10 @@ public class Fragance implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Fragance)) {
+        if (!(object instanceof Fragrance)) {
             return false;
         }
-        Fragance other = (Fragance) object;
+        Fragrance other = (Fragrance) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -107,7 +104,7 @@ public class Fragance implements Serializable {
 
     @Override
     public String toString() {
-        return "com.ensimag.projetDAC.entity.Fragance[ id=" + id + " ]";
+        return "com.ensimag.projetDAC.entity.Fragance[ name=" + name + " ]";
     }
     
 }

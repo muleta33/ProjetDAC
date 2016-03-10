@@ -26,7 +26,6 @@ public class BottleType implements Serializable {
         this.name = name;
     }
     
-    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -39,7 +38,6 @@ public class BottleType implements Serializable {
         this.id = id;
     }
     
-
     private String name;
 
     /**
@@ -83,7 +81,7 @@ public class BottleType implements Serializable {
 
     @Override
     public String toString() {
-        return "com.ensimag.projetDAC.entity.BottleType[ id=" + id + " ]";
+        return "com.ensimag.projetDAC.entity.BottleType[ name=" + name + " ]";
     }
     
 }

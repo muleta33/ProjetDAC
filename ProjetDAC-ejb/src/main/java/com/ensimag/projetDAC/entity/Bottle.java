@@ -66,6 +66,7 @@ public class Bottle implements Serializable {
     }
 
     
+    @ManyToOne
     private Capacity capacity;
 
     /**

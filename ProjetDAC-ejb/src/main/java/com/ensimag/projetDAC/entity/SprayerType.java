@@ -38,7 +38,6 @@ public class SprayerType implements Serializable {
         this.id = id;
     }
     
-    
     private String name;
 
     /**
@@ -82,7 +81,7 @@ public class SprayerType implements Serializable {
 
     @Override
     public String toString() {
-        return "com.ensimag.projetDAC.entity.SprayerType[ id=" + id + " ]";
+        return "com.ensimag.projetDAC.entity.SprayerType[ name=" + name + " ]";
     }
     
 }
