@@ -210,6 +210,13 @@ public class PerfumeBean implements Serializable {
         return event.getNewStep();
     }
     
+    public boolean validNumberOfFragrances() {
+        if (fragranceIds.length <= 3)
+            return true;
+        else
+            return false;
+    }
+    
     public String savePerfume() {
         // On récupère les senteurs
         List<Fragrance> fragrancesList = new ArrayList<>();
