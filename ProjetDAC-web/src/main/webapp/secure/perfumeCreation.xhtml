@@ -16,7 +16,7 @@
                 <p:tab id="senteurs" title="Senteurs">
                     <p:panel header="Choisissez vos senteurs !">
                         <p:messages />
-                        <h:panelGrid columns="2" columnClasses="label, value">
+                        <h:panelGrid columns="2" columnClasses="label,value">
                             <h:outputText value="3 senteurs au plus" />
                             <p:selectManyCheckbox id="fragrances" value="#{perfumeBean.fragranceIds}" layout="grid" columns="2">
                                 <f:selectItems value="#{listAllPerfumeFeatures.fragrances}" var="fragrance" itemLabel="#{fragrance.name}" itemValue="#{fragrance.id}" />
@@ -29,7 +29,7 @@
                 <p:tab id="intensite" title="Intensité">
                     <p:panel header="Choisissez l'intensité de votre parfum !">
                         <p:messages />
-                        <h:panelGrid columns="2" columnClasses="label, value">
+                        <h:panelGrid columns="2" columnClasses="label,value">
                             <p:outputLabel for="intensity" value="Intensité" />
                             <p:selectOneRadio id="intensity" value="#{perfumeBean.intensity}" required="true" layout="grid" columns="1">
                                 <f:selectItem itemLabel="Eau de parfum" itemValue="0" />
@@ -43,26 +43,32 @@
                 <p:tab id="flacon" title="Flacon">
                     <p:panel header="Choisissez votre flacon">
                         <p:messages />
-                        <h:panelGrid columns="3" columnClasses="value1, value2, value3">
-                            <p:outputLabel for="taille" value="Taille" />
-                            <p:selectOneRadio id="taille" value="#{perfumeBean.capacityId}" required="true" layout="grid" columns="1">
-                                <f:selectItems value="#{listAllPerfumeFeatures.capacities}" var="capacity" itemLabel="#{capacity.capacity} (#{capacity.price} €)" itemValue="#{capacity.id}" />
-                            </p:selectOneRadio>
-                            <p:outputLabel for="modele" value="Modèle" />
-                            <p:selectOneRadio id="modele" value="#{perfumeBean.bottleTypeId}" required="true" layout="grid" columns="1">
-                                <f:selectItems value="#{listAllPerfumeFeatures.bottleTypes}" var="bottleType" itemLabel="#{bottleType.name}" itemValue="#{bottleType.id}" />
-                            </p:selectOneRadio>
-                            <p:outputLabel for="pulverisateur" value="Pulvérisateur" />
-                            <p:selectOneRadio id="pulverisateur" value="#{perfumeBean.spayerTypeId}" required="true" layout="grid" columns="1">
-                                <f:selectItems value="#{listAllPerfumeFeatures.sprayerTypes}" var="sprayerType" itemLabel="#{sprayerType.name}" itemValue="#{sprayerType.id}" />
-                            </p:selectOneRadio>
+                        <h:panelGrid id="grilleFlacon" columns="3" columnClasses="grid,grid,grid">
+                            <h:panelGrid columns="1">
+                                <h:outputLabel for="taille" value="Taille" />
+                                <p:selectOneRadio id="taille" value="#{perfumeBean.capacityId}" required="true" layout="grid" columns="1">
+                                    <f:selectItems value="#{listAllPerfumeFeatures.capacities}" var="capacity" itemLabel="#{capacity.capacity} (#{capacity.price} €)" itemValue="#{capacity.id}" />
+                                </p:selectOneRadio>
+                            </h:panelGrid>
+                            <h:panelGrid columns="1">
+                                <h:outputLabel for="modele" value="Modèle" />
+                                <p:selectOneRadio id="modele" value="#{perfumeBean.bottleTypeId}" required="true" layout="grid" columns="1">
+                                    <f:selectItems value="#{listAllPerfumeFeatures.bottleTypes}" var="bottleType" itemLabel="#{bottleType.name}" itemValue="#{bottleType.id}" />
+                                </p:selectOneRadio>
+                            </h:panelGrid>
+                            <h:panelGrid columns="1">
+                                <h:outputLabel for="pulverisateur" value="Pulvérisateur" />
+                                <p:selectOneRadio id="pulverisateur" value="#{perfumeBean.spayerTypeId}" required="true" layout="grid" columns="1">
+                                    <f:selectItems value="#{listAllPerfumeFeatures.sprayerTypes}" var="sprayerType" itemLabel="#{sprayerType.name}" itemValue="#{sprayerType.id}" />
+                                </p:selectOneRadio>
+                            </h:panelGrid>
                         </h:panelGrid>
                     </p:panel>
                 </p:tab>
                 <p:tab id="nom" title="Nom">
                     <p:panel header="Personnalisez le nom de votre parfum">
                         <p:messages />
-                        <h:panelGrid columns="2" columnClasses="label, value">
+                        <h:panelGrid columns="2" columnClasses="label,value">
                             <p:outputLabel for="name" value="Nom" />
                             <p:inputText id="name" value="#{perfumeBean.name}" required="true" label="name" />
                         </h:panelGrid>
@@ -71,7 +77,7 @@
                 <p:tab id="emballage" title="Emballage">
                     <p:panel header="Choisissez votre emballage !">
                         <p:messages />
-                        <h:panelGrid columns="2" columnClasses="label, value">
+                        <h:panelGrid columns="2" columnClasses="label,value">
                             <p:outputLabel for="isGift" value="Types d'emballages" />
                             <p:selectOneRadio id="isGift" value="#{perfumeBean.isGift}" required="true" layout="grid" columns="1">
                                 <f:selectItem itemLabel="Emballage cadeau" itemValue="true" />
