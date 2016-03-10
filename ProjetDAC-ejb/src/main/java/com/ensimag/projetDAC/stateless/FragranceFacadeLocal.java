@@ -25,6 +25,8 @@ public interface FragranceFacadeLocal {
     Fragrance find(Object id);
 
     List<Fragrance> findAll();
+    
+    List<Fragrance> findByCategory(String name);
 
     List<Fragrance> findRange(int[] range);
 
