@@ -5,6 +5,7 @@
  */
 package managedBeans;
 
+import com.ensimag.ProjetDAC.controller.SessionManagedBeans.ShoppingCartBean;
 import com.ensimag.projetDAC.entity.Bottle;
 import com.ensimag.projetDAC.entity.Capacity;
 import com.ensimag.projetDAC.entity.Fragrance;
