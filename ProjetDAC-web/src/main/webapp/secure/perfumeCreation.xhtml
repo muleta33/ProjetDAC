@@ -19,7 +19,7 @@
                         <h:panelGrid columns="2" columnClasses="label, value">
                             <h:outputText value="3 senteurs au plus" />
                             <p:selectManyCheckbox id="fragrances" value="#{perfumeBean.fragranceIds}" layout="grid" columns="2">
-                                <f:selectItems value="#{listAllFragrances.fragrances}" var="fragrance" itemLabel="#{fragrance.name}" itemValue="#{fragrance.id}" />
+                                <f:selectItems value="#{listAllPerfumeFeatures.fragrances}" var="fragrance" itemLabel="#{fragrance.name}" itemValue="#{fragrance.id}" />
                                 <f:validator validatorId="numberOfFragrancesValidator" />
                             </p:selectManyCheckbox>
                             <h:message for="fragrances" style="color:red" />
@@ -46,15 +46,15 @@
                         <h:panelGrid columns="2" columnClasses="label, value">
                             <p:outputLabel for="taille" value="Taille" />
                             <p:selectOneRadio id="taille" value="#{perfumeBean.capacityId}" required="true" layout="grid" columns="1">
-                                <f:selectItems value="#{listAllCapacities.capacities}" var="capacity" itemLabel="#{capacity.capacity} (#{capacity.price} €)" itemValue="#{capacity.id}" />
+                                <f:selectItems value="#{listAllPerfumeFeatures.capacities}" var="capacity" itemLabel="#{capacity.capacity} (#{capacity.price} €)" itemValue="#{capacity.id}" />
                             </p:selectOneRadio>
                             <p:outputLabel for="modele" value="Modèle" />
                             <p:selectOneRadio id="modele" value="#{perfumeBean.bottleTypeId}" required="true" layout="grid" columns="1">
-                                <f:selectItems value="#{listAllBottleTypes.bottleTypes}" var="bottleType" itemLabel="#{bottleType.name}" itemValue="#{bottleType.id}" />
+                                <f:selectItems value="#{listAllPerfumeFeatures.bottleTypes}" var="bottleType" itemLabel="#{bottleType.name}" itemValue="#{bottleType.id}" />
                             </p:selectOneRadio>
                             <p:outputLabel for="pulverisateur" value="Pulvérisateur" />
                             <p:selectOneRadio id="pulverisateur" value="#{perfumeBean.spayerTypeId}" required="true" layout="grid" columns="1">
-                                <f:selectItems value="#{listAllSprayerTypes.sprayerTypes}" var="sprayerType" itemLabel="#{sprayerType.name}" itemValue="#{sprayerType.id}" />
+                                <f:selectItems value="#{listAllPerfumeFeatures.sprayerTypes}" var="sprayerType" itemLabel="#{sprayerType.name}" itemValue="#{sprayerType.id}" />
                             </p:selectOneRadio>
                         </h:panelGrid>
                     </p:panel>
