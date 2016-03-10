@@ -101,30 +101,96 @@ public class ServletPerfume extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        FraganceCategory cat1 = new FraganceCategory("Fleuries");
+        // Création des catégories de senteurs
+        FraganceCategory cat1 = new FraganceCategory("Fruitées");
         fraganceCategoryFacade.create(cat1);
-        Fragrance f1 = new Fragrance("Orchidée", cat1);
-        fraganceFacade.create(f1);
-        FraganceCategory cat2 = new FraganceCategory("Sucrées");
+        FraganceCategory cat2 = new FraganceCategory("Orientales");
         fraganceCategoryFacade.create(cat2);
-        Fragrance f2 = new Fragrance("Glace vanille", cat2);
+        FraganceCategory cat3 = new FraganceCategory("Fleuries");
+        fraganceCategoryFacade.create(cat3);
+        FraganceCategory cat4 = new FraganceCategory("Sucrées");
+        fraganceCategoryFacade.create(cat4);
+        
+        // Création des senteurs
+        Fragrance f1 = new Fragrance("Ananas tropical", cat1);
+        fraganceFacade.create(f1);
+        Fragrance f2 = new Fragrance("Framboises des bois", cat1);
         fraganceFacade.create(f2);
+        Fragrance f3 = new Fragrance("Noix de coco", cat1);
+        fraganceFacade.create(f3);
+        Fragrance f4 = new Fragrance("Mandarine", cat1);
+        fraganceFacade.create(f4);
+        
+        Fragrance f5 = new Fragrance("Epices douces", cat2);
+        fraganceFacade.create(f5);
+        Fragrance f6 = new Fragrance("Ambre orientale", cat2);
+        fraganceFacade.create(f6);
+        Fragrance f7 = new Fragrance("Musc blanc", cat2);
+        fraganceFacade.create(f7);
+        Fragrance f8 = new Fragrance("Patchouli d'Inde", cat2);
+        fraganceFacade.create(f8);
+        
+        Fragrance f9 = new Fragrance("Fleur d'oranger", cat3);
+        fraganceFacade.create(f9);
+        Fragrance f10 = new Fragrance("Feuilles de violette", cat3);
+        fraganceFacade.create(f10);
+        Fragrance f11 = new Fragrance("Jasmin blanc", cat3);
+        fraganceFacade.create(f11);
+        Fragrance f12 = new Fragrance("Orchidée", cat3);
+        fraganceFacade.create(f12);
+        
+        Fragrance f13 = new Fragrance("Fraise tagada", cat4);
+        fraganceFacade.create(f13);
+        Fragrance f14 = new Fragrance("Amande douce", cat4);
+        fraganceFacade.create(f14);
+        Fragrance f15 = new Fragrance("Barbe à papa", cat4);
+        fraganceFacade.create(f15);
+        Fragrance f16 = new Fragrance("Glace vanille", cat4);
+        fraganceFacade.create(f16);
+        
+        // Création des capacités
+        Capacity c1 = new Capacity(30, 40);
+        capacityFacade.create(c1);
+        Capacity c2 = new Capacity(50, 60);
+        capacityFacade.create(c2);
+        Capacity c3 = new Capacity(100, 100);
+        capacityFacade.create(c3);
+        Capacity c4 = new Capacity(150, 130);
+        capacityFacade.create(c4);
+        
+        // Création des modèles
+        BottleType bt1 = new BottleType("Angie");
+        bottleTypeFacade.create(bt1);
+        BottleType bt2 = new BottleType("Eclat");
+        bottleTypeFacade.create(bt2);
+        BottleType bt3 = new BottleType("Charm");
+        bottleTypeFacade.create(bt3);
+        BottleType bt4 = new BottleType("Challenge");
+        bottleTypeFacade.create(bt4);
+        BottleType bt5 = new BottleType("Jazzy");
+        bottleTypeFacade.create(bt5);
+        
+        // Création des types de pulvérisateur
+        SprayerType st1 = new SprayerType("Diffuseur");
+        sprayerTypeFacade.create(st1);
+        SprayerType st2 = new SprayerType("Spray");
+        sprayerTypeFacade.create(st2);
+        SprayerType st3 = new SprayerType("Vaporisateur");
+        sprayerTypeFacade.create(st3);
+        
+        // Création d'un premier parfum
         List<Fragrance> fragances = new ArrayList<>();
         fragances.add(f1);
         fragances.add(f2);
-        BottleType bottleType = new BottleType("Jazzy");
-        bottleTypeFacade.create(bottleType);
-        Capacity capacity = new Capacity(50, 60);
-        capacityFacade.create(capacity);
-        SprayerType sprayerType = new SprayerType("Diffuseur");
-        sprayerTypeFacade.create(sprayerType);
         Inscription inscription = new Inscription("La vie est chouette", "Arial");
         inscriptionFacade.create(inscription);
-        Bottle bottle = new Bottle(bottleType, capacity, sprayerType, inscription);
+        Bottle bottle = new Bottle(bt5, c2, st1, inscription);
         bottleFacade.create(bottle);
         Perfume p;
         p = new Perfume("La vie est chouette", fragances, 2, bottle, true);
         perfumeFacade.create(p);
+        
+        // Création d'utilisateurs
         String password = "ensimag";
         char[] pass = password.toCharArray();
         User user = new User("user@gmail.com", "LastName", "FirstName", pass, Role.ROLE.USER);
