@@ -43,7 +43,7 @@
                 <p:tab id="flacon" title="Flacon">
                     <p:panel header="Choisissez votre flacon">
                         <p:messages />
-                        <h:panelGrid columns="2" columnClasses="label, value">
+                        <h:panelGrid columns="3" columnClasses="value1, value2, value3">
                             <p:outputLabel for="taille" value="Taille" />
                             <p:selectOneRadio id="taille" value="#{perfumeBean.capacityId}" required="true" layout="grid" columns="1">
                                 <f:selectItems value="#{listAllPerfumeFeatures.capacities}" var="capacity" itemLabel="#{capacity.capacity} (#{capacity.price} €)" itemValue="#{capacity.id}" />
