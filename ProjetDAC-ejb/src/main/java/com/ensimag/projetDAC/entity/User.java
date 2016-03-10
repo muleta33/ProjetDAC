@@ -21,9 +21,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import com.ensimag.projetDAC.entity.Role.ROLE;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 
 
 /**
@@ -50,13 +48,12 @@ public class User implements Serializable {
     protected User() {
     }
 
-    public User(String email, String name, String firstName, char[] password, ROLE role, Basket basket) {
+    public User(String email, String name, String firstName, char[] password, ROLE role) {
         this.email = email;
         this.name = name;
         this.firstName = firstName;
         this.password = hashPassword(password);
         this.role = new Role(role, this);
-        this.basket = basket;
     }
 
     
@@ -128,32 +125,6 @@ public class User implements Serializable {
         role.setUser(this);
     }
     
-    
-    private Basket basket;
-
-    /**
-     * Get the value of basket
-     *
-     * @return the value of basket
-     */
-    public Basket getBasket() {
-        return basket;
-    }
-
-    /**
-     * Set the value of basket
-     *
-     * @param basket new value of basket
-     */
-    public void setBasket(Basket basket) {
-        this.basket = basket;
-    }
-    
-    public void save() {
-        FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage("Welcome " + firstName + " " + name));
-    }
-
     
     private char[] hashPassword(char[] password) {
         char[] encoded = null;

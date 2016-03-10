@@ -40,7 +40,6 @@ public class Order implements Serializable {
 
     public void setClient(User client) {
         this.client = client;
-        this.perfumes = client.getBasket().getPerfumes();
     }
     
     private Map<Perfume,Integer> perfumes;
@@ -117,11 +116,9 @@ public class Order implements Serializable {
     
     public Order(User client, Map<Perfume, Integer> perfumes, DeliveryMethod deliveryMethod, String deliveryAdress, double price, DeliveryStatus status) {
         this.client = client;
-        this.perfumes = client.getBasket().getPerfumes();
         this.deliveryMethod = deliveryMethod;
         this.deliveryAdress = deliveryAdress;
         this.status = status;
-        this.price = client.getBasket().getPrice() + deliveryMethod.getPrice();
     }
 
     

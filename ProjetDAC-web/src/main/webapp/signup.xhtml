@@ -8,40 +8,42 @@
         <title>Sign up</title>
     </h:head>
     <h:body>
-        <h:messages/>
         <h:form>
             <p:panel id="panel" header="Créer un compte">
 
-                <p:messages id="msgs" />
+                <p:growl id="message" showDetail="true" sticky="true" /> 
 
                 <h:panelGrid columns="3" cellpadding="5">
                     <p:outputLabel for="name" value="Nom: " />
-                    <p:inputText id="name" value="#{user.name}" required="true" label="name">
+                    <p:inputText id="name" value="#{userBean.userName}" required="true" label="name">
                         <f:validateLength minimum="2" />
                     </p:inputText>
                     <p:message for="name" display="icon" />
 
                     <p:outputLabel for="firstName" value="Prénom: " />
-                    <p:inputText id="firstName" value="#{user.firstName}" label="firstName" required="true">
+                    <p:inputText id="firstName" value="#{userBean.userFirstName}" label="firstName" required="true">
                         <f:validateLength minimum="2" />
                     </p:inputText>
                     <p:message for="firstName" id="msgFirstName" display="icon" />
                     
                     <p:outputLabel for="email" value="Adresse e-mail: " />
-                    <p:inputText id="email" value="#{user.email}" label="email" required="true">
+                    <p:inputText id="email" value="#{userBean.userEmail}" label="email" required="true">
                         <f:validateLength minimum="4" />
                     </p:inputText>
                     <p:message for="email" id="msgEmail" display="icon" />
                     
                     <p:outputLabel for="password" value="Mot de passe: " />
-                    <p:password id="password" value="#{user.password}" match="password" label="Password" required="true" />
+                    <p:password id="password" value="#{userBean.userPassword}" match="password" label="Password" required="true" />
                     <p:message for="password" id="msgPassword" display="icon" />
 
                 </h:panelGrid>
 
-                <p:commandButton value="Save" update="panel" actionListener="#{user.save}" icon="ui-icon-check" />
+                <p:commandButton value="Save" action="#{userBean.saveUser}" icon="ui-icon-check" />
             </p:panel>
         </h:form>
+        
+        <p:link outcome="index" value="Accueil"/>
+        
     </h:body>
 </html>
 
