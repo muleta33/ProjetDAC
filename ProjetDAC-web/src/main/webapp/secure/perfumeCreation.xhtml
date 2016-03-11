@@ -16,14 +16,12 @@
                 <p:tab id="senteurs" title="Senteurs">
                     <p:panel header="Choisissez vos senteurs !">
                         <p:messages />
-                        <h:panelGrid columns="2" columnClasses="label,value">
-                            <h:outputText value="3 senteurs au plus" />
-                            <p:selectManyCheckbox id="fragrances" value="#{perfumeBean.fragranceIds}" layout="grid" columns="3">
-                                <f:selectItems value="#{listAllPerfumeFeatures.fragrances}" var="fragrance" itemLabel="#{fragrance.name}" itemValue="#{fragrance.id}" />
-                                <f:validator validatorId="numberOfFragrancesValidator" />
-                            </p:selectManyCheckbox>
-                            <h:message for="fragrances" style="color:red" />
-                        </h:panelGrid>
+                        <h:outputText value="3 senteurs au plus" />
+                        <p:selectManyCheckbox id="fragrances" value="#{perfumeBean.fragranceIds}" layout="grid" columns="4">
+                            <f:selectItems value="#{listAllPerfumeFeatures.fragrances}" var="fragrance" itemLabel="#{fragrance.name}" itemValue="#{fragrance.id}" />
+                            <f:validator validatorId="numberOfFragrancesValidator" />
+                        </p:selectManyCheckbox>
+                        <h:message for="fragrances" style="color:red" />
                     </p:panel>
                 </p:tab>
                 <p:tab id="intensite" title="Intensité">
@@ -88,47 +86,7 @@
                 </p:tab>
                 <p:tab id="confirmation" title="Confirmation">
                     <p:panel header="Confirmation">
-                        <!--
-                        <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
-                            <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Firstname: " />
-                                <h:outputText value="#{userWizard.user.firstname}" styleClass="outputLabel"/>
-
-                                <h:outputText value="Lastname: " />
-                                <h:outputText value="#{userWizard.user.lastname}" styleClass="outputLabel"/>
-
-                                <h:outputText value="Age: " />
-                                <h:outputText value="#{userWizard.user.age}" styleClass="outputLabel"/>
-                            </h:panelGrid>
-
-                            <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Street: " />
-                                <h:outputText value="#{userWizard.user.street}" styleClass="outputLabel"/>
-
-                                <h:outputText value="Postal: " />
-                                <h:outputText value="#{userWizard.user.postalCode}" styleClass="outputLabel"/>
-
-                                <h:outputText value="City: " />
-                                <h:outputText value="#{userWizard.user.city}" styleClass="outputLabel"/>
-                            </h:panelGrid>
-
-                            <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Email: " />
-                                <h:outputText value="#{userWizard.user.email}" styleClass="outputLabel"/>
-
-                                <h:outputText value="Phone " />
-                                <h:outputText value="#{userWizard.user.phone}" styleClass="outputLabel"/>
-
-                                <h:outputText value="Info: " />
-                                <h:outputText value="#{userWizard.user.info}" styleClass="outputLabel"/>
-
-                                <h:outputText />
-                                <h:outputText />
-                            </h:panelGrid>
-                        </h:panelGrid>
-                        -->
                         <p:commandButton value="Submit" action="#{perfumeBean.savePerfume}" update="growl" process="@this"/>
-                        <!--<p:commandButton value="Save" action="#{perfumeBean.savePerfume}" icon="ui-icon-check" />-->
                     </p:panel>
                 </p:tab>
             </p:wizard>

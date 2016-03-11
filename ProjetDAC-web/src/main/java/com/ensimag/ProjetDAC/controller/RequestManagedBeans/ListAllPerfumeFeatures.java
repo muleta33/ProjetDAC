@@ -87,8 +87,7 @@ public class ListAllPerfumeFeatures {
     }
     
     public List<Fragrance> getFragrancesByCategory(String name) {
-        if (fragrancesByCategory == null)
-            fragrancesByCategory = fragranceFacade.findByCategory(name);
+        fragrancesByCategory = fragranceFacade.findByCategory(name);
         return fragrancesByCategory;
     }
     
