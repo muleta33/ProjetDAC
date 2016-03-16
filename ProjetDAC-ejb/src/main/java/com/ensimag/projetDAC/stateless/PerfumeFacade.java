@@ -6,7 +6,6 @@
 package com.ensimag.projetDAC.stateless;
 
 import com.ensimag.projetDAC.entity.Perfume;
-import com.ensimag.projetDAC.entity.Perfume_;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -16,6 +15,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
 /**
@@ -43,10 +43,11 @@ public class PerfumeFacade extends AbstractFacade<Perfume> implements PerfumeFac
         CriteriaQuery<Perfume> q = cb.createQuery(Perfume.class);
         // Propriété sur laquelle porte le WHERE
         Root<Perfume> perfume = q.from(Perfume.class);
+        Path<String> perfumeName = perfume.get("name");
         // Paramètre sur lequel porte le test du WHERE
         ParameterExpression<String> param = cb.parameter(String.class, "param");
         // Création de la requête
-        q.select(perfume).where(cb.like(perfume.get(Perfume_.name), param));
+        q.select(perfume).where(cb.like(perfumeName, param));
         TypedQuery<Perfume> query = em.createQuery(q);
         // Valeur pour le paramètre
         List<String> p = new ArrayList<>();

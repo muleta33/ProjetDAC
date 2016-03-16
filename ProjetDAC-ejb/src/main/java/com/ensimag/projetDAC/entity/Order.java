@@ -53,7 +53,8 @@ public class Order implements Serializable {
         return perfumes;
     }
 
-    @OneToMany
+    
+    @ManyToOne
     private DeliveryMethod deliveryMethod;
     
     public DeliveryMethod getDeliveryMethod() {
@@ -104,8 +105,8 @@ public class Order implements Serializable {
         this.price = price;
     }
 
-    @OneToMany
-    DeliveryStatus status;
+    @ManyToOne
+    private DeliveryStatus status;
     
     public DeliveryStatus getStatus() {
         return status;

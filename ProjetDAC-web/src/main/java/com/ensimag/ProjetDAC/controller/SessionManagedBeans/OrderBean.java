@@ -23,4 +23,9 @@ public class OrderBean implements Serializable {
     public OrderBean() {
     }
     
+    public String savePerfume() {
+        
+        
+        return "/secure/shoppingCart?logout=false&faces-redirect=true";
+    }
 }
