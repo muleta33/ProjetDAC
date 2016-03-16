@@ -23,11 +23,11 @@ public class Perfume implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public Perfume() {
-        this.Name = "DefaultName";
+        this.name = "DefaultName";
     }
 
     public Perfume(String Name, List<Fragrance> fragances, int intensity, Bottle bottle, boolean isGift) {
-        this.Name = Name;
+        this.name = Name;
         this.fragances = fragances;
         this.intensity = intensity;
         this.bottle = bottle;
@@ -48,24 +48,24 @@ public class Perfume implements Serializable {
     }
 
     
-    private String Name;
+    private String name;
 
     /**
-     * Get the value of Name
+     * Get the value of name
      *
-     * @return the value of Name
+     * @return the value of name
      */
     public String getName() {
-        return Name;
+        return name;
     }
 
     /**
-     * Set the value of Name
+     * Set the value of name
      *
-     * @param Name new value of Name
+     * @param name new value of name
      */
-    public void setName(String Name) {
-        this.Name = Name;
+    public void setName(String name) {
+        this.name = name;
     }
     
     

@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Mon panier</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:dataTable value="#{shoppingCartBean.content}" var="perfume">
+                <p:column headerText="Parfum">
+                    <h:outputText value="Eau de parfum #{perfume.name}" rendered="#{perfume.intensity == 3}" />
+                    <h:outputText value="Eau de toilette #{perfume.name}" rendered="#{perfume.intensity == 2}" />
+                    <h:outputText value="Eau fraîche #{perfume.name}" rendered="#{perfume.intensity == 1}" />
+                    <h:outputText value="Eau tendre #{perfume.name}" rendered="#{perfume.intensity == 0}" />
+                    <br/>
+                    <ui:repeat value="#{perfume.fragances}" var="fragance">
+                        <h:outputText value="#{fragance.name} - "/>
+                    </ui:repeat>
+                    <h:outputText value="#{perfume.bottle.capacity.capacity} ml - #{perfume.bottle.type.name}" />
+                </p:column>
+                <p:column headerText="Quantité">
+                    <h:outputText value="1" />
+                </p:column>
+                <p:column headerText="Prix">
+                    <h:outputText value="#{perfume.price} €" />
+                </p:column>
+                <p:column headerText="Supprimer">
+                    <h:commandLink action="#{shoppingCartBean.removePerfume(perfume)}" value="Remove from cart" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</html>
+

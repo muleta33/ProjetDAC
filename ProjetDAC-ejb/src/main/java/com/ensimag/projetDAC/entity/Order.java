@@ -12,6 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -32,6 +35,7 @@ public class Order implements Serializable {
         this.id = id;
     }
 
+    @ManyToOne
     private User client;
     
     public User getClient() {
@@ -42,13 +46,14 @@ public class Order implements Serializable {
         this.client = client;
     }
     
-    private Map<Perfume,Integer> perfumes;
+    @ManyToMany
+    private Map<Perfume, Integer> perfumes;
     
-    public Map<Perfume,Integer> getPerfumes() {
+    public Map<Perfume, Integer> getPerfumes() {
         return perfumes;
     }
 
-    
+    @OneToMany
     private DeliveryMethod deliveryMethod;
     
     public DeliveryMethod getDeliveryMethod() {
@@ -99,6 +104,7 @@ public class Order implements Serializable {
         this.price = price;
     }
 
+    @OneToMany
     DeliveryStatus status;
     
     public DeliveryStatus getStatus() {
@@ -110,7 +116,7 @@ public class Order implements Serializable {
     }
 
     public Order() {
-        this.perfumes = new HashMap<Perfume, Integer>();
+        this.perfumes = new HashMap<>();
     }
 
     

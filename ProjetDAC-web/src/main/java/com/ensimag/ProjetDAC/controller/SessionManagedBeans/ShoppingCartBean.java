@@ -5,6 +5,7 @@
  */
 package com.ensimag.ProjetDAC.controller.SessionManagedBeans;
 
+import com.ensimag.projetDAC.entity.Perfume;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -20,7 +21,7 @@ import javax.annotation.PostConstruct;
 @SessionScoped
 public class ShoppingCartBean implements Serializable {
     
-    private List<String> content = null;
+    private List<Perfume> content = null;
 
     /**
      * Creates a new instance of ShoppingCartBean
@@ -33,20 +34,20 @@ public class ShoppingCartBean implements Serializable {
         content = new ArrayList<>();
     }
     
-    public List<String> getContent() {
+    public List<Perfume> getContent() {
         return content;
     }
     
-    public void addPerfume(String perfumeName) {
-        content.add(perfumeName);
+    public void addPerfume(Perfume perfume) {
+        content.add(perfume);
     }
     
-    public void removePerfume(String perfumeName) {
-        content.remove(perfumeName);
+    public void removePerfume(Perfume perfume) {
+        content.remove(perfume);
     }
     
-    public boolean containsPerfume(String perfumeName) {
-        return content.contains(perfumeName);
+    public boolean containsPerfume(Perfume perfume) {
+        return content.contains(perfume);
     }
     
     public boolean isEmpty() {

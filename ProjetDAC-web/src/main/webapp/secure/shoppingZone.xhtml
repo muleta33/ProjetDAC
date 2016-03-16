@@ -35,10 +35,10 @@
                     </p:column>
                     
                     <p:column headerText="Panier">
-                        <h:commandLink action="#{shoppingCartBean.addPerfume(perfume.name)}" value="Add to cart" 
-                                       rendered="#{shoppingCartBean.containsPerfume(perfume.name) eq false}" />
-                        <h:commandLink action="#{shoppingCartBean.removePerfume(perfume.name)}" value="Remove from cart" 
-                                       rendered="#{shoppingCartBean.containsPerfume(perfume.name) eq true}" />
+                        <h:commandLink action="#{shoppingCartBean.addPerfume(perfume)}" value="Add to cart" 
+                                       rendered="#{shoppingCartBean.containsPerfume(perfume) eq false}" />
+                        <h:commandLink action="#{shoppingCartBean.removePerfume(perfume)}" value="Remove from cart" 
+                                       rendered="#{shoppingCartBean.containsPerfume(perfume) eq true}" />
                     </p:column>
                 </p:dataTable>
             </h:form>

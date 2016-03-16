@@ -24,6 +24,8 @@ public interface PerfumeFacadeLocal {
 
     Perfume find(Object id);
 
+    List<Perfume> findByName(String name);
+    
     List<Perfume> findAll();
 
     List<Perfume> findRange(int[] range);
