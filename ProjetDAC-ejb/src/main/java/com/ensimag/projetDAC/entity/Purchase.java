@@ -6,17 +6,18 @@
 package com.ensimag.projetDAC.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import static javax.persistence.TemporalType.DATE;
 
 /**
  *
@@ -49,6 +50,28 @@ public class Purchase implements Serializable {
     public void setClient(User client) {
         this.client = client;
     }
+    
+    @Temporal(DATE)
+    private Date purchaseDate;
+
+    /**
+     * Get the value of purchaseDate
+     *
+     * @return the value of purchaseDate
+     */
+    public Date getPurchaseDate() {
+        return purchaseDate;
+    }
+
+    /**
+     * Set the value of purchaseDate
+     *
+     * @param purchaseDate new value of purchaseDate
+     */
+    public void setPurchaseDate(Date purchaseDate) {
+        this.purchaseDate = purchaseDate;
+    }
+
     
     @ManyToMany
     @ElementCollection
@@ -112,11 +135,11 @@ public class Purchase implements Serializable {
     @ManyToOne
     private DeliveryStatus deliveryStatus;
     
-    public DeliveryStatus getStatus() {
+    public DeliveryStatus getDeliveryStatus() {
         return deliveryStatus;
     }
     
-    public void setStatus(DeliveryStatus deliveryStatus) {
+    public void setDeliveryStatus(DeliveryStatus deliveryStatus) {
         this.deliveryStatus = deliveryStatus;
     }
 
@@ -124,8 +147,9 @@ public class Purchase implements Serializable {
         this.perfumes = new HashMap<>();
     }
     
-    public Purchase(User client, Map<Perfume, Integer> perfumes, DeliveryMethod deliveryMethod, String deliveryAddress, DeliveryStatus deliveryStatus, double price) {
+    public Purchase(User client, Date purchaseDate, Map<Perfume, Integer> perfumes, DeliveryMethod deliveryMethod, String deliveryAddress, DeliveryStatus deliveryStatus, double price) {
         this.client = client;
+        this.purchaseDate = purchaseDate;
         this.perfumes = perfumes;
         this.deliveryMethod = deliveryMethod;
         this.deliveryAddress = deliveryAddress;

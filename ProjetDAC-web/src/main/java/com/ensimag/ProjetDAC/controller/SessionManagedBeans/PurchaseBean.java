@@ -15,6 +15,9 @@ import com.ensimag.projetDAC.stateless.DeliveryStatusFacadeLocal;
 import com.ensimag.projetDAC.stateless.PurchaseFacadeLocal;
 import com.ensimag.projetDAC.stateless.UserFacadeLocal;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.ejb.EJB;
@@ -185,11 +188,14 @@ public class PurchaseBean implements Serializable {
         // Récupération de l'utilisateur courant
         User user = userFacade.find(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName());
         
+        // Récupération de la date courante
+        Date purchaseDate = new Date();
+        
         // Calcul du prix de la commande
         double currentPrice = computePrice();
         
         if (!perfumes.isEmpty()) {
-            Purchase purchase = new Purchase(user, perfumes, deliveryMethod, deliveryAddress, deliveryStatus, currentPrice);
+            Purchase purchase = new Purchase(user, purchaseDate, perfumes, deliveryMethod, deliveryAddress, deliveryStatus, currentPrice);
             purchaseFacade.create(purchase);
         }
         
@@ -197,6 +203,6 @@ public class PurchaseBean implements Serializable {
         for (Map.Entry<Perfume, Integer> entry : perfumes.entrySet())
             shoppingCartBean.removePerfume(entry.getKey());
         
-        return "/secure/shoppingCart?logout=false&faces-redirect=true";
+        return "/secure/userAccount?faces-redirect=true";
     }
 }
