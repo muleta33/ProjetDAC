@@ -7,63 +7,64 @@
       
     <h:head></h:head>
     <h:body>
-        <p:tabView>
-            <p:tab title="Commandes">
-                <p:dataTable value="#{listAllPurchaseFeatures.orders}" var="order">
-                    <p:column headerText="Numéro de commande">
-                        <h:outputText value="#{order.id}" />
-                    </p:column>
-
-                    <p:column headerText="Client">
-                        <h:outputText value="#{order.client.name}" />
-                    </p:column>
-
-                    <p:column headerText="Montant" sortBy="#{order.price}">
-                        <h:outputText value="#{order.price}" />
-                    </p:column>
-
-                    <p:column headerText="État">
-                        <h:outputText value="#{order.deliveryStatus}" />
-                    </p:column>
-                </p:dataTable> 
-            </p:tab>
-
-            <p:tab title="Clients">
-                <p:dataTable value="#{listAllPurchaseFeatures.clients}" var="client">
-                    <p:column headerText="Nom">
-                        <h:outputText value="#{client.name}" />
-                    </p:column>
-
-                    <p:column headerText="Prénom">
-                        <h:outputText value="#{client.firstName}" />
-                    </p:column>
-
-                    <p:column headerText="Adresse e-mail" >
-                        <h:outputText value="#{client.email}" />
-                    </p:column>
-                </p:dataTable> 
-            </p:tab>
-
-            <p:tab title="Notre Sélection">
-              <h:panelGrid columns="2" cellpadding="10">
-                    <p:dataTable value="#{listAllPerfumeFeatures.perfumes}" var="perfume">
-                        <p:column headerText="Produit">
-                            <h:outputText value="#{perfume.name}" />
-                        </p:column>
-                        
-                        <p:column headerText="Supprimer">
-                            
+        <h:form>
+            <p:tabView>
+                <p:tab title="Commandes">
+                    <p:dataTable value="#{listAllPurchaseFeatures.orders}" var="order">
+                        <p:column headerText="Numéro de commande">
+                            <h:outputText value="#{order.id}" />
                         </p:column>
 
-                        
+                        <p:column headerText="Client">
+                            <h:outputText value="#{order.client.name}" />
+                        </p:column>
+
+                        <p:column headerText="Montant" sortBy="#{order.price}">
+                            <h:outputText value="#{order.price}" />
+                        </p:column>
+
+                        <p:column headerText="État">
+                            <h:outputText value="#{order.deliveryStatus}" />
+                        </p:column>
                     </p:dataTable> 
-                </h:panelGrid>
-            </p:tab>
+                </p:tab>
 
-            <p:tab title="Gestion de la parfumerie">
+                <p:tab title="Clients">
+                    <p:dataTable value="#{listAllPurchaseFeatures.clients}" var="client">
+                        <p:column headerText="Nom">
+                            <h:outputText value="#{client.name}" />
+                        </p:column>
 
-            </p:tab>
-        </p:tabView>
+                        <p:column headerText="Prénom">
+                            <h:outputText value="#{client.firstName}" />
+                        </p:column>
+
+                        <p:column headerText="Adresse e-mail" >
+                            <h:outputText value="#{client.email}" />
+                        </p:column>
+                    </p:dataTable> 
+                </p:tab>
+
+                <p:tab title="Notre Sélection">
+                  <h:panelGrid columns="2" cellpadding="10">
+                        <p:dataTable id="basicDT" value="#{listAllPerfumeFeatures.perfumes}" var="perfume">
+                            <p:column headerText="Produit">
+                                <h:outputText value="#{perfume.name}" />
+                            </p:column>
+                            <p:column headerText="Supprimer">
+                            <h:commandLink action="#{managerBean.removePerfume(perfume)}" value="supprimer" />
+                        </p:column>
+
+
+                        </p:dataTable> 
+                    </h:panelGrid>
+                </p:tab>
+
+                <p:tab title="Gestion de la parfumerie">
+
+                </p:tab>
+            </p:tabView>
+        </h:form>
         
     </h:body>
 </html>
