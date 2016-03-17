@@ -60,7 +60,7 @@ public class AuthenticationBean {
     }
  
     public String logout() {
-        String page="/login?logout=true&faces-redirect=true";
+        String page="/index?logout=true&faces-redirect=true";
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
