@@ -28,8 +28,8 @@
                 <h:form class="float-align-right">
                     <h:commandLink action="#{authenticationBean.logout}" rendered="#{!empty authenticationBean.currentUser}">Déconnexion</h:commandLink>
                 </h:form>
-                <p:button class="float-align-right" outcome="index" value="Mon compte" icon="ui-icon-extlink" rendered="#{!empty authenticationBean.currentUser}"/>
-                <p:button class="float-align-right" outcome="index" value="Mon panier" icon="ui-icon-extlink" rendered="#{!empty authenticationBean.currentUser}"/>
+                <p:button class="float-align-right" outcome="secure/userAccount" value="Mon compte" icon="ui-icon-extlink" rendered="#{!empty authenticationBean.currentUser}"/>
+                <p:button class="float-align-right" outcome="secure/shoppingCart" value="Mon panier" icon="ui-icon-extlink" rendered="#{!empty authenticationBean.currentUser}"/>
                 <h:outputText class="float-align-right" value="#{authenticationBean.getCurrentUser().name}" rendered="#{!empty authenticationBean.currentUser}" />
                 <p:button class="float-align-right" outcome="signup" value="Créer un compte" icon="ui-icon-extlink" rendered="#{empty authenticationBean.currentUser}"/>
                 <p:button class="float-align-right" outcome="secure/welcomePage" value="S'identifier" icon="ui-icon-extlink" rendered="#{empty authenticationBean.currentUser}"/>

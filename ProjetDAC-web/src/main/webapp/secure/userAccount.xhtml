@@ -32,7 +32,7 @@
                         <h:outputText value="#{purchase.id}" />
                     </p:column>
                     <p:column headerText="Nombre de parfums">
-                        <h:outputText value="#{purchase.perfumes.size()}" />
+                        <h:outputText value="#{userAccountBean.numberOfPerfumes(purchase)}" />
                     </p:column>
                     <p:column headerText="Prix">
                         <h:outputText value="#{purchase.price} €" />
@@ -50,16 +50,17 @@
                 <p:overlayPanel widgetVar="purchaseOP" showEffect="fade" hideEffect="fade" dismissable="false" showCloseIcon="true">
                     <p:outputPanel id="purchaseDetail" style="text-align:center;">
                         <p:panelGrid  columns="1" rendered="#{not empty userAccountBean.selectedPurchase}" columnClasses="value">
-                            <ui:repeat value="#{userAccountBean.selectedPurchase.perfumes.keySet().toArray()}" var="perfume">
-                                <h:outputText value="Eau de parfum #{perfume.name}" rendered="#{perfume.intensity == 3}" />
-                                <h:outputText value="Eau de toilette #{perfume.name}" rendered="#{perfume.intensity == 2}" />
-                                <h:outputText value="Eau fraîche #{perfume.name}" rendered="#{perfume.intensity == 1}" />
-                                <h:outputText value="Eau tendre #{perfume.name}" rendered="#{perfume.intensity == 0}" />
+                            <ui:repeat value="#{userAccountBean.selectedPurchase.perfumes.entrySet().toArray()}" var="entry">
+                                <h:outputText value="#{entry.value} " />
+                                <h:outputText value="Eau de parfum #{entry.key.name}" rendered="#{entry.key.intensity == 3}" />
+                                <h:outputText value="Eau de toilette #{entry.key.name}" rendered="#{entry.key.intensity == 2}" />
+                                <h:outputText value="Eau fraîche #{entry.key.name}" rendered="#{entry.key.intensity == 1}" />
+                                <h:outputText value="Eau tendre #{entry.key.name}" rendered="#{entry.key.intensity == 0}" />
                                 <br/>
-                                <ui:repeat value="#{perfume.fragances}" var="fragance">
+                                <ui:repeat value="#{entry.key.fragances}" var="fragance">
                                     <h:outputText value="#{fragance.name} - "/>
                                 </ui:repeat>
-                                <h:outputText value="#{perfume.bottle.capacity.capacity} ml - #{perfume.bottle.type.name}" />
+                                <h:outputText value="#{entry.key.bottle.capacity.capacity} ml - #{entry.key.bottle.type.name}" />
                                 <br/>
                             </ui:repeat>
                         </p:panelGrid>
