@@ -17,7 +17,9 @@ import javax.persistence.Id;
  */
 @Entity
 public class DeliveryMethod implements Serializable {
+    
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -29,6 +31,7 @@ public class DeliveryMethod implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+    
     private String name;
 
     /**

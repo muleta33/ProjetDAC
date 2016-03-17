@@ -2,16 +2,46 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Commande</title>
     </h:head>
     <h:body>
         <h:form id="form">
-            <p:panel header="Choisissez vos senteurs !">
-                <p:messages />
-                <h:outputText value="3 senteurs au plus" />
-                <h:message for="fragrances" style="color:red" />
+            <p:panel id="panel">
+
+                <p:growl id="message" showDetail="true" sticky="true" /> 
+
+                <h:panelGrid columns="3" cellpadding="5" title="Adresse de livraison">
+                    <p:outputLabel for="address" value="Adresse :" />
+                    <p:inputText id="address" value="#{orderBean.addressStreet}" required="true" label="address">
+                        <f:validateLength minimum="2" />
+                    </p:inputText>
+                    <p:message for="address" display="icon" />
+                    
+                    <p:outputLabel for="city" value="Ville :" />
+                    <p:inputText id="city" value="#{orderBean.addressCity}" required="true" label="city">
+                        <f:validateLength minimum="2" />
+                    </p:inputText>
+                    <p:message for="city" display="icon" />
+                    
+                    <p:outputLabel for="postalCode" value="Code postal :" />
+                    <p:inputText id="postalCode" value="#{orderBean.addressPostalCode}" required="true" label="postalCode">
+                        <f:validateLength minimum="2" />
+                    </p:inputText>
+                    <p:message for="postalCode" display="icon" />
+                </h:panelGrid>
+                
+                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" title="Mode de livraison">
+                    <p:selectOneRadio id="modeLivraison" value="#{orderBean.deliveryMethodId}">
+                        <f:selectItems value="#{listAllOrderFeatures.deliveryMethods}" var="deliveryMethod" itemLabel="#{deliveryMethod.name} (#{deliveryMethod.price} €)" itemValue="#{deliveryMethod.id}" />
+                    </p:selectOneRadio>
+                </h:panelGrid>
+                
+                <h:outputText value="Montant total : TODO"/>
+                
+                <p:commandButton value="Save" action="#{orderBean.saveOrder}" icon="ui-icon-check" />
             </p:panel>
         </h:form>
     </h:body>

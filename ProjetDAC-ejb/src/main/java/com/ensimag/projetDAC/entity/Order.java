@@ -6,15 +6,17 @@
 package com.ensimag.projetDAC.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 /**
  *
@@ -22,7 +24,9 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Order implements Serializable {
+    
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -47,13 +51,13 @@ public class Order implements Serializable {
     }
     
     @ManyToMany
+    @ElementCollection
     private Map<Perfume, Integer> perfumes;
     
     public Map<Perfume, Integer> getPerfumes() {
         return perfumes;
     }
 
-    
     @ManyToOne
     private DeliveryMethod deliveryMethod;
     
@@ -65,24 +69,24 @@ public class Order implements Serializable {
         this.deliveryMethod = method;
     }
     
-    private String deliveryAdress;
+    private String deliveryAddress;
 
     /**
-     * Get the value of deliveryAdress
+     * Get the value of deliveryAddress
      *
-     * @return the value of deliveryAdress
+     * @return the value of deliveryAddress
      */
-    public String getDeliveryAdress() {
-        return deliveryAdress;
+    public String getDeliveryAddress() {
+        return deliveryAddress;
     }
     
     /**
-     * Set the value of deliveryAdress
+     * Set the value of deliveryAddress
      *
-     * @param deliveryAdress new value of deliveryAdress
+     * @param deliveryAddress new value of deliveryAddress
      */
-    public void setDeliveryAdress(String deliveryAdress) {
-        this.deliveryAdress = deliveryAdress;
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
     }
     
     private double price;
@@ -106,26 +110,27 @@ public class Order implements Serializable {
     }
 
     @ManyToOne
-    private DeliveryStatus status;
+    private DeliveryStatus deliveryStatus;
     
     public DeliveryStatus getStatus() {
-        return status;
+        return deliveryStatus;
     }
     
-    public void setStatus(DeliveryStatus status) {
-        this.status = status;
+    public void setStatus(DeliveryStatus deliveryStatus) {
+        this.deliveryStatus = deliveryStatus;
     }
 
     public Order() {
         this.perfumes = new HashMap<>();
     }
-
     
-    public Order(User client, Map<Perfume, Integer> perfumes, DeliveryMethod deliveryMethod, String deliveryAdress, double price, DeliveryStatus status) {
+    public Order(User client, Map<Perfume, Integer> perfumes, DeliveryMethod deliveryMethod, String deliveryAddress, DeliveryStatus deliveryStatus, double price) {
         this.client = client;
+        this.perfumes = perfumes;
         this.deliveryMethod = deliveryMethod;
-        this.deliveryAdress = deliveryAdress;
-        this.status = status;
+        this.deliveryAddress = deliveryAddress;
+        this.deliveryStatus = deliveryStatus;
+        this.price = price;
     }
 
     

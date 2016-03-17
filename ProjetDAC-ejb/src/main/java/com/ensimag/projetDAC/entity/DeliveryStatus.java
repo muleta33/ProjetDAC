@@ -17,7 +17,9 @@ import javax.persistence.Id;
  */
 @Entity
 public class DeliveryStatus implements Serializable {
+    
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -47,6 +49,13 @@ public class DeliveryStatus implements Serializable {
      * @param name new value of name
      */
     public void setName(String name) {
+        this.name = name;
+    }
+    
+    public DeliveryStatus() {
+    }
+    
+    public DeliveryStatus(String name) {
         this.name = name;
     }
 
