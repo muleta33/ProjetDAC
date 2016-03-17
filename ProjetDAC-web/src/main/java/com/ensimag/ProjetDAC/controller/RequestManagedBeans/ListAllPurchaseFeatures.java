@@ -5,18 +5,16 @@
  */
 package com.ensimag.ProjetDAC.controller.RequestManagedBeans;
 
-import com.ensimag.ProjetDAC.controller.SessionManagedBeans.AuthenticationBean;
 import com.ensimag.projetDAC.entity.DeliveryMethod;
 import com.ensimag.projetDAC.entity.Purchase;
 import com.ensimag.projetDAC.entity.User;
 import com.ensimag.projetDAC.stateless.DeliveryMethodFacadeLocal;
 import com.ensimag.projetDAC.stateless.PurchaseFacadeLocal;
+import com.ensimag.projetDAC.stateless.UserFacadeLocal;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-
 /**
  *
  * @author muleta
@@ -33,6 +31,16 @@ public class ListAllPurchaseFeatures {
     
     private List<DeliveryMethod> deliveryMethods = null;
     
+    @EJB
+    private UserFacadeLocal userFacade;
+    
+    private List<User> clients = null;
+    
+    @EJB
+    private PurchaseFacadeLocal orderFacade;
+    
+    private List<Purchase> orders = null;
+    
     /**
      * Creates a new instance of ListAllOrderFeatures
      */
@@ -47,5 +55,20 @@ public class ListAllPurchaseFeatures {
     
     public List<Purchase> getCurrentUserPurchases(User user) {
         return purchaseFacade.findByUser(user);
+    }
+    
+    
+    
+    public List<Purchase> getOrders() {
+        if (orders == null)
+            orders = orderFacade.findAll();
+        return orders;
+    }
+    
+    
+    public List<User> getClients() {
+        if (clients == null)
+            clients = userFacade.findAll();
+        return clients;
     }
 }

@@ -205,6 +205,8 @@ public class ServletPerfume extends HttpServlet {
         userFacade.create(user);
         User secondUser = new User("second-user@gmail.com", "LastName", "FirstName", pass, Role.ROLE.USER);
         userFacade.create(secondUser);
+        User manager = new User("manager@gmail.com", "LastName", "FirstName", pass, Role.ROLE.MANAGER);
+        userFacade.create(manager);
         
         // Ajout de méthodes de livraison
         DeliveryMethod dm1 = new DeliveryMethod("Normal", 0);
