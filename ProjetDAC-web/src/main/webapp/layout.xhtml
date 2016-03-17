@@ -24,6 +24,7 @@
         <p:layout fullPage="true">
  
             <p:layoutUnit position="north" size="80">
+                <p:link outcome="/index.xhtml" value="Retour à l'accueil" rendered="#{!empty authenticationBean.currentUser}"></p:link>
                 <h:form class="float-align-right">
                     <h:commandLink action="#{authenticationBean.logout}" rendered="#{!empty authenticationBean.currentUser}">Déconnexion</h:commandLink>
                 </h:form>

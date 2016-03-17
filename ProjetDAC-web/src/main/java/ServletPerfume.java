@@ -188,15 +188,40 @@ public class ServletPerfume extends HttpServlet {
         
         // Création d'un premier parfum
         List<Fragrance> fragances = new ArrayList<>();
-        fragances.add(f1);
-        fragances.add(f2);
+        fragances.add(f14);
+        fragances.add(f8);
         Inscription inscription = new Inscription("La vie est chouette", "Arial");
         inscriptionFacade.create(inscription);
-        Bottle bottle = new Bottle(bt5, c2, st1, inscription);
+        Bottle bottle = new Bottle(bt1, c3, st1, inscription);
         bottleFacade.create(bottle);
-        Perfume p;
-        p = new Perfume("La vie est chouette", fragances, 2, bottle, true);
-        perfumeFacade.create(p);
+        Perfume p1;
+        p1 = new Perfume("La vie est chouette", fragances, 2, bottle, true, true);
+        perfumeFacade.create(p1);
+        
+        // Création d'un second parfum
+        fragances = new ArrayList<>();
+        fragances.add(f7);
+        fragances.add(f4);
+        fragances.add(f15);
+        inscription = new Inscription("J'adoooore", "Serif");
+        inscriptionFacade.create(inscription);
+        bottle = new Bottle(bt5, c2, st2, inscription);
+        bottleFacade.create(bottle);
+        Perfume p2;
+        p2 = new Perfume("J'adoooore", fragances, 3, bottle, true, true);
+        perfumeFacade.create(p2);
+        
+        // Création d'un premier parfum
+        fragances = new ArrayList<>();
+        fragances.add(f2);
+        fragances.add(f11);
+        inscription = new Inscription("La nuit du mâle", "Arial");
+        inscriptionFacade.create(inscription);
+        bottle = new Bottle(bt2, c1, st3, inscription);
+        bottleFacade.create(bottle);
+        Perfume p3;
+        p3 = new Perfume("La nuit du mâle", fragances, 3, bottle, true, true);
+        perfumeFacade.create(p3);
         
         // Création d'utilisateurs
         String password = "ensimag";

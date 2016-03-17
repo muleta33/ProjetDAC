@@ -1,78 +1,64 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <h:head>
-        <title>Liste des parfums</title>
-    </h:head>
-    <h:body>
-        <h3>Liste des parfums</h3>
-        
-        <p:ring id="basic" value="#{listAllPerfumeFeatures.perfumes}" var="perfume" style="width: 300px; height: 200px;">
-            <p:outputPanel style="text-align: center;" layout="block">
-                #{perfume.name}
-                <br />
-                <p:commandButton update=":form:perfumeDetail" icon="ui-icon-search" title="Détails" oncomplete="PF('perfumeDialog').show();">
-                    <f:setPropertyActionListener value="#{perfume}" target="#{shoppingZoneBean.selectedPerfume}" />
-                </p:commandButton>
-            </p:outputPanel>
-        </p:ring>
-        
-        <p:dialog header="Détails du parfum" widgetVar="perfumeDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="170">
-            <p:outputPanel id="perfumeDetail" style="text-align:center;" layout="block">
-                <p:panelGrid  columns="2" rendered="#{not empty shoppingZoneBean.selectedPerfume}" columnClasses="value">
+<ui:composition template="../layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"   
+    xmlns:p="http://primefaces.org/ui"   
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"     
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <ui:define name="content">
+        <h:form id="form">
+            <p:ring id="custom" value="#{listAllPerfumeFeatures.perfumes}" var="perfume" >
+                <p:outputPanel style="text-align: center;" layout="block">
+                    #{perfume.name}
+                    <br />
+                    <p:commandButton update=":form:perfumeDetail" icon="ui-icon-search" title="Détails" oncomplete="PF('perfumeDialog').show();">
+                        <f:setPropertyActionListener value="#{perfume}" target="#{shoppingZoneBean.selectedPerfume}" />
+                    </p:commandButton>
+                </p:outputPanel>
+            </p:ring>
 
-                    <h:outputText value="Nom du parfum : " />
-                    <h:outputText value="#{shoppingZoneBean.selectedPerfume.name}" />
+            <p:dialog header="Détails du parfum" widgetVar="perfumeDialog" showEffect="fade" hideEffect="fade" resizable="false" >
+                <p:outputPanel id="perfumeDetail" layout="block">
+                    <p:panelGrid rendered="#{not empty shoppingZoneBean.selectedPerfume}" columnClasses="value">
 
-                    <h:outputText value="Inscription : " />
-                    <h:outputText value="#{shoppingZoneBean.selectedPerfume.bottle.inscription.text}" />
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Senteurs : " />
+                            </p:column>
+                            <p:column>
+                                <ul>
+                                    <ui:repeat value="#{shoppingZoneBean.selectedPerfume.fragances}" var="fragance">
+                                        <li><h:outputText value="#{fragance.name}"/></li>
+                                    </ui:repeat> 
+                                </ul>
+                            </p:column>
+                        </p:row>
 
-                </p:panelGrid>
-            </p:outputPanel>
-        </p:dialog>
-        
-        <f:view>
-            <h:form>
-                <p:dataTable value="#{listAllPerfumeFeatures.perfumes}" var="perfume">
-                    <p:column headerText="Nom">
-                        <h:outputText value="#{perfume.name}" />
-                    </p:column>
-                    <p:column headerText="Senteurs">
-                        <ul>
-                            <ui:repeat value="#{perfume.fragances}" var="fragance">
-                                <li><h:outputText value="#{fragance.name}"/></li>
-                            </ui:repeat> 
-                        </ul>
-                    </p:column>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Intensité : " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="Eau de parfum" rendered="#{shoppingZoneBean.selectedPerfume.intensity == 3}" />
+                                <h:outputText value="Eau de toilette" rendered="#{shoppingZoneBean.selectedPerfume.intensity == 2}" />
+                                <h:outputText value="Eau fraîche" rendered="#{shoppingZoneBean.selectedPerfume.intensity == 1}" />
+                                <h:outputText value="Eau tendre" rendered="#{shoppingZoneBean.selectedPerfume.intensity == 0}" />
+                            </p:column>
+                        </p:row>
 
-                    <p:column headerText="Flacon">
-                        <h:outputText value="#{perfume.bottle.type.name}" />
-                    </p:column>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Flacon : " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{shoppingZoneBean.selectedPerfume.bottle.type.name}" />
+                            </p:column>
+                        </p:row>
 
-                    <p:column headerText="Embalage">
-                        <h:outputText value="cadeau" rendered="#{perfume.isGift eq true}"/>
-                        <h:outputText value="neutre" rendered="#{perfume.isGift eq false}"/>
-                    </p:column>
-                    
-                    <p:column headerText="Panier">
-                        <h:commandLink action="#{shoppingCartBean.addPerfume(perfume)}" value="Add to cart" 
-                                       rendered="#{shoppingCartBean.containsPerfume(perfume) eq false}" />
-                        <h:commandLink action="#{shoppingCartBean.removePerfume(perfume)}" value="Remove from cart" 
-                                       rendered="#{shoppingCartBean.containsPerfume(perfume) eq true}" />
-                    </p:column>
-                </p:dataTable>
-            </h:form>
-        </f:view>
-        Contenu du panier de <h:outputText value="#{authenticationBean.currentUser}"/>:
-        <ul>
-            <ui:repeat value="#{shoppingCartBean.content}" var="article">
-                <li><h:outputText value="#{article}"/></li>
-            </ui:repeat> 
-        </ul>
-    </h:body>
-</html>
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>
 

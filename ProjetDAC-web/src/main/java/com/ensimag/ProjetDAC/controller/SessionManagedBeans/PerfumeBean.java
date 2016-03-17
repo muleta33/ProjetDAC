@@ -229,7 +229,7 @@ public class PerfumeBean implements Serializable {
         bottleFacade.create(bottle);
         
         // On crée le parfum
-        Perfume perfume = new Perfume(name, fragrancesList, intensity, bottle, Boolean.parseBoolean(isGift));
+        Perfume perfume = new Perfume(name, fragrancesList, intensity, bottle, Boolean.parseBoolean(isGift), false);
         perfumeFacade.create(perfume);
         
         // On l'ajoute au panier
