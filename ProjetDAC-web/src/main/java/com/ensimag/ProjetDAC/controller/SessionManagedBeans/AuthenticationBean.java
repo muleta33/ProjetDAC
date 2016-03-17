@@ -10,6 +10,10 @@ package com.ensimag.ProjetDAC.controller.SessionManagedBeans;
  *
  * @author ensimag
  */
+import com.ensimag.projetDAC.entity.User;
+import com.ensimag.projetDAC.stateless.UserFacadeLocal;
+import java.security.Principal;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -25,7 +29,10 @@ import javax.servlet.http.HttpSession;
 @ManagedBean
 public class AuthenticationBean {
     
-    private String currentUser = null;
+    @EJB
+    private UserFacadeLocal userFacade;
+    
+    private User currentUser = null;
  
     public void checkErrors(ComponentSystemEvent event) {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -45,9 +52,10 @@ public class AuthenticationBean {
         String version = FacesContext.class.getPackage().getImplementationVersion();
     }
     
-    public String getCurrentUser() {
-        if (currentUser == null)
-            currentUser = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
+    public User getCurrentUser() {
+        Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
+        if ((currentUser == null) && (principal != null))
+            currentUser = userFacade.find(principal.getName());
         return currentUser;
     }
  

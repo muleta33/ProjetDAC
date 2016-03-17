@@ -9,40 +9,40 @@
     </h:head>
     <h:body>
         <h:form id="form">
-            <p:panel id="panel">
-
-                <p:growl id="message" showDetail="true" sticky="true" /> 
-
-                <h:panelGrid columns="3" cellpadding="5" title="Adresse de livraison">
+            <p:panel header="Adresse de livraison">
+                <h:panelGrid columns="2" columnClasses="label,value" title="Adresse de livraison">
                     <p:outputLabel for="address" value="Adresse :" />
-                    <p:inputText id="address" value="#{orderBean.addressStreet}" required="true" label="address">
+                    <p:inputText id="address" value="#{purchaseBean.addressStreet}" required="true" label="address">
                         <f:validateLength minimum="2" />
                     </p:inputText>
-                    <p:message for="address" display="icon" />
-                    
+
                     <p:outputLabel for="city" value="Ville :" />
-                    <p:inputText id="city" value="#{orderBean.addressCity}" required="true" label="city">
+                    <p:inputText id="city" value="#{purchaseBean.addressCity}" required="true" label="city">
                         <f:validateLength minimum="2" />
                     </p:inputText>
-                    <p:message for="city" display="icon" />
-                    
+
                     <p:outputLabel for="postalCode" value="Code postal :" />
-                    <p:inputText id="postalCode" value="#{orderBean.addressPostalCode}" required="true" label="postalCode">
+                    <p:inputText id="postalCode" value="#{purchaseBean.addressPostalCode}" required="true" label="postalCode">
                         <f:validateLength minimum="2" />
                     </p:inputText>
-                    <p:message for="postalCode" display="icon" />
                 </h:panelGrid>
-                
-                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" title="Mode de livraison">
-                    <p:selectOneRadio id="modeLivraison" value="#{orderBean.deliveryMethodId}">
+            </p:panel>
+            
+            <p:panel header="Adresse de livraison">
+                <h:panelGrid columns="1">
+                    <h:outputLabel for="modeLivraison" value="Mode de livraison" />
+                    <p:selectOneRadio id="modeLivraison" value="#{purchaseBean.deliveryMethodId}">
                         <f:selectItems value="#{listAllOrderFeatures.deliveryMethods}" var="deliveryMethod" itemLabel="#{deliveryMethod.name} (#{deliveryMethod.price} €)" itemValue="#{deliveryMethod.id}" />
+                        <p:ajax event="valueChange" update="prix" />
                     </p:selectOneRadio>
                 </h:panelGrid>
-                
-                <h:outputText value="Montant total : TODO"/>
-                
-                <p:commandButton value="Save" action="#{orderBean.saveOrder}" icon="ui-icon-check" />
             </p:panel>
+
+            <p:panel header="Montant total">
+                <h:outputText id="prix" value="#{purchaseBean.price} €" />
+            </p:panel>
+            
+            <p:commandButton value="Valider" action="#{purchaseBean.savePurchase}" icon="ui-icon-check" />
         </h:form>
     </h:body>
 </html>

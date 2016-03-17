@@ -7,11 +7,12 @@ package com.ensimag.ProjetDAC.controller.SessionManagedBeans;
 
 import com.ensimag.projetDAC.entity.DeliveryMethod;
 import com.ensimag.projetDAC.entity.DeliveryStatus;
-import com.ensimag.projetDAC.entity.Order;
+import com.ensimag.projetDAC.entity.Purchase;
 import com.ensimag.projetDAC.entity.Perfume;
 import com.ensimag.projetDAC.entity.User;
 import com.ensimag.projetDAC.stateless.DeliveryMethodFacadeLocal;
-import com.ensimag.projetDAC.stateless.OrderFacadeLocal;
+import com.ensimag.projetDAC.stateless.DeliveryStatusFacadeLocal;
+import com.ensimag.projetDAC.stateless.PurchaseFacadeLocal;
 import com.ensimag.projetDAC.stateless.UserFacadeLocal;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -26,17 +27,20 @@ import javax.inject.Inject;
  *
  * @author margotj
  */
-@Named(value = "orderBean")
+@Named(value = "purchaseBean")
 @SessionScoped
-public class OrderBean implements Serializable {
+public class PurchaseBean implements Serializable {
     @EJB
-    private OrderFacadeLocal orderFacade;
+    private PurchaseFacadeLocal purchaseFacade;
     
     @EJB
     private DeliveryMethodFacadeLocal deliveryMethodFacade;
     
     @EJB
     private UserFacadeLocal userFacade;
+    
+    @EJB
+    private DeliveryStatusFacadeLocal deliveryStatusFacade;
     
     @Inject
     private ShoppingCartBean shoppingCartBean;
@@ -121,17 +125,52 @@ public class OrderBean implements Serializable {
         this.deliveryMethodId = deliveryMethodId;
     }
 
+    private double price;
+
+    /**
+     * Get the value of price
+     *
+     * @return the value of price
+     */
+    public double getPrice() {
+        computePrice();
+        return price;
+    }
+
+    /**
+     * Set the value of price
+     *
+     * @param price new value of price
+     */
+    public void setPrice(double price) {
+        this.price = price;
+    }
+    
+    public Map<Perfume, Integer> constructPerfumesMap() {
+        Map<Perfume, Integer> perfumes = new HashMap<>();
+        for (Perfume perfume : shoppingCartBean.getContent())
+            perfumes.put(perfume, 1); // Attention, toujours un parfum pour l'instant
+        return perfumes;
+    }
+
+    public double computePrice() {
+        Map<Perfume, Integer> perfumes = constructPerfumesMap();
+        price = 0;
+        for (Map.Entry<Perfume, Integer> entry : perfumes.entrySet())
+            price += entry.getKey().getPrice() * entry.getValue();
+        if (deliveryMethodId != null)
+            price += deliveryMethodFacade.find(deliveryMethodId).getPrice();
+        return price;
+    }
     
     /**
      * Creates a new instance of OrderBean
      */
-    public OrderBean() {
+    public PurchaseBean() {
     }
     
-    public String saveOrder() {
-        Map<Perfume, Integer> perfumes = new HashMap<>();
-        for (Perfume perfume : shoppingCartBean.getContent())
-            perfumes.put(perfume, 1); // Attention, toujours un parfum pour l'instant
+    public String savePurchase() {
+        Map<Perfume, Integer> perfumes = constructPerfumesMap();
         
         // Récupération de la méthode de livraison
         DeliveryMethod deliveryMethod = deliveryMethodFacade.find(deliveryMethodId);
@@ -141,16 +180,22 @@ public class OrderBean implements Serializable {
         
         // Find or create pour statut de livraison
         DeliveryStatus deliveryStatus = new DeliveryStatus("En cours");
+        deliveryStatusFacade.create(deliveryStatus);
         
-        // Calcul du prix total d ela commande
-        double price = 0;
-        for (Map.Entry<Perfume, Integer> entry : perfumes.entrySet())
-            price += entry.getKey().getPrice() * entry.getValue();
-        
+        // Récupération de l'utilisateur courant
         User user = userFacade.find(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName());
         
-        Order order = new Order(user, perfumes, deliveryMethod, deliveryAddress, deliveryStatus, price);
-        orderFacade.create(order);
+        // Calcul du prix de la commande
+        double currentPrice = computePrice();
+        
+        if (!perfumes.isEmpty()) {
+            Purchase purchase = new Purchase(user, perfumes, deliveryMethod, deliveryAddress, deliveryStatus, currentPrice);
+            purchaseFacade.create(purchase);
+        }
+        
+        // On supprime les parfums du panier de l'utilisateur
+        for (Map.Entry<Perfume, Integer> entry : perfumes.entrySet())
+            shoppingCartBean.removePerfume(entry.getKey());
         
         return "/secure/shoppingCart?logout=false&faces-redirect=true";
     }
