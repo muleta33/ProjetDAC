@@ -6,6 +6,8 @@
 import com.ensimag.projetDAC.entity.Bottle;
 import com.ensimag.projetDAC.entity.BottleType;
 import com.ensimag.projetDAC.entity.Capacity;
+import com.ensimag.projetDAC.entity.DeliveryMethod;
+import com.ensimag.projetDAC.entity.DeliveryStatus;
 import com.ensimag.projetDAC.entity.Fragrance;
 import com.ensimag.projetDAC.entity.FragranceCategory;
 import com.ensimag.projetDAC.entity.Inscription;
@@ -16,6 +18,8 @@ import com.ensimag.projetDAC.entity.User;
 import com.ensimag.projetDAC.stateless.BottleFacadeLocal;
 import com.ensimag.projetDAC.stateless.BottleTypeFacadeLocal;
 import com.ensimag.projetDAC.stateless.CapacityFacadeLocal;
+import com.ensimag.projetDAC.stateless.DeliveryMethodFacadeLocal;
+import com.ensimag.projetDAC.stateless.DeliveryStatusFacadeLocal;
 import com.ensimag.projetDAC.stateless.FragranceCategoryFacadeLocal;
 import com.ensimag.projetDAC.stateless.FragranceFacadeLocal;
 import com.ensimag.projetDAC.stateless.InscriptionFacadeLocal;
@@ -61,6 +65,10 @@ public class ServletPerfume extends HttpServlet {
     private UserFacadeLocal userFacade;
     @EJB
     private RoleFacadeLocal roleFacade;
+    @EJB
+    private DeliveryMethodFacadeLocal deliveryMethodFacade;
+    @EJB
+    private DeliveryStatusFacadeLocal deliveryStatusFacade;
       
 
     /**
@@ -197,6 +205,18 @@ public class ServletPerfume extends HttpServlet {
         userFacade.create(user);
         User secondUser = new User("second-user@gmail.com", "LastName", "FirstName", pass, Role.ROLE.USER);
         userFacade.create(secondUser);
+        
+        // Ajout de méthodes de livraison
+        DeliveryMethod dm1 = new DeliveryMethod("Normal", 0);
+        deliveryMethodFacade.create(dm1);
+        DeliveryMethod dm2 = new DeliveryMethod("Express", 20);
+        deliveryMethodFacade.create(dm2);
+        
+        // Ajout de statuts de livraison
+        DeliveryStatus ds1 = new DeliveryStatus("En cours");
+        deliveryStatusFacade.create(ds1);
+        DeliveryStatus ds2 = new DeliveryStatus("Effectuée");
+        deliveryStatusFacade.create(ds2);
 
         processRequest(request, response);
     }

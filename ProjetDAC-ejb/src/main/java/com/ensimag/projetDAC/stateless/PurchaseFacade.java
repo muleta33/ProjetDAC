@@ -5,7 +5,7 @@
  */
 package com.ensimag.projetDAC.stateless;
 
-import com.ensimag.projetDAC.entity.Order;
+import com.ensimag.projetDAC.entity.Purchase;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author margotj
  */
 @Stateless
-public class OrderFacade extends AbstractFacade<Order> implements OrderFacadeLocal {
+public class PurchaseFacade extends AbstractFacade<Purchase> implements PurchaseFacadeLocal {
     @PersistenceContext(unitName = "ProjetDAC_PU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class OrderFacade extends AbstractFacade<Order> implements OrderFacadeLoc
         return em;
     }
 
-    public OrderFacade() {
-        super(Order.class);
+    public PurchaseFacade() {
+        super(Purchase.class);
     }
     
 }

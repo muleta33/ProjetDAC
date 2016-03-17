@@ -32,6 +32,8 @@
                 </p:column>
             </p:dataTable>
         </h:form>
+        
+        <p:button outcome="purchase" value="Commander" icon="ui-icon-extlink" rendered="#{shoppingCartBean.isEmpty() == false}" />
     </h:body>
 </html>
 

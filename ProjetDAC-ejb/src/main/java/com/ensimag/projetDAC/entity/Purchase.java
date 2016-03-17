@@ -6,12 +6,12 @@
 package com.ensimag.projetDAC.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +23,7 @@ import javax.persistence.ManyToOne;
  * @author souihlic
  */
 @Entity
-public class Order implements Serializable {
+public class Purchase implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
@@ -120,11 +120,11 @@ public class Order implements Serializable {
         this.deliveryStatus = deliveryStatus;
     }
 
-    public Order() {
+    public Purchase() {
         this.perfumes = new HashMap<>();
     }
     
-    public Order(User client, Map<Perfume, Integer> perfumes, DeliveryMethod deliveryMethod, String deliveryAddress, DeliveryStatus deliveryStatus, double price) {
+    public Purchase(User client, Map<Perfume, Integer> perfumes, DeliveryMethod deliveryMethod, String deliveryAddress, DeliveryStatus deliveryStatus, double price) {
         this.client = client;
         this.perfumes = perfumes;
         this.deliveryMethod = deliveryMethod;
@@ -144,10 +144,10 @@ public class Order implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Order)) {
+        if (!(object instanceof Purchase)) {
             return false;
         }
-        Order other = (Order) object;
+        Purchase other = (Purchase) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

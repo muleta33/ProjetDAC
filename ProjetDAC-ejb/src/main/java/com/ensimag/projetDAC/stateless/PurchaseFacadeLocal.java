@@ -5,7 +5,7 @@
  */
 package com.ensimag.projetDAC.stateless;
 
-import com.ensimag.projetDAC.entity.Order;
+import com.ensimag.projetDAC.entity.Purchase;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,19 +14,19 @@ import javax.ejb.Local;
  * @author margotj
  */
 @Local
-public interface OrderFacadeLocal {
+public interface PurchaseFacadeLocal {
 
-    void create(Order order);
+    void create(Purchase purchase);
 
-    void edit(Order order);
+    void edit(Purchase purchase);
 
-    void remove(Order order);
+    void remove(Purchase purchase);
 
-    Order find(Object id);
+    Purchase find(Object id);
 
-    List<Order> findAll();
+    List<Purchase> findAll();
 
-    List<Order> findRange(int[] range);
+    List<Purchase> findRange(int[] range);
 
     int count();
     
