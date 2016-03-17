@@ -23,9 +23,11 @@
         </p:panel>
         
         <h:form id="form">
-            <p:panel header="Mes informations">
+            <p:panel header="Mes commandes">
                 <p:dataTable value="#{listAllPurchaseFeatures.getCurrentUserPurchases(authenticationBean.currentUser)}" var="purchase">
-                    <!-- TODO : Date -->
+                    <p:column headerText="Date">
+                        <h:outputText value="#{userAccountBean.dateFormat.format(purchase.purchaseDate)}" />
+                    </p:column>
                     <p:column headerText="Numéro de la commande">
                         <h:outputText value="#{purchase.id}" />
                     </p:column>

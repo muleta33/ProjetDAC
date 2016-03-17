@@ -9,6 +9,9 @@ import com.ensimag.projetDAC.entity.Purchase;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import javax.annotation.PostConstruct;
 
 /**
  *
@@ -38,10 +41,35 @@ public class UserAccountBean implements Serializable {
         this.selectedPurchase = selectedPurchase;
     }
     
+    private DateFormat dateFormat;
+
+    /**
+     * Get the value of dateFormat
+     *
+     * @return the value of dateFormat
+     */
+    public DateFormat getDateFormat() {
+        return dateFormat;
+    }
+
+    /**
+     * Set the value of dateFormat
+     *
+     * @param dateFormat new value of dateFormat
+     */
+    public void setDateFormat(DateFormat dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+    
     /**
      * Creates a new instance of UserAccountBean
      */
     public UserAccountBean() {
+    }
+    
+    @PostConstruct
+    public void init() {
+        dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     }
     
 }
