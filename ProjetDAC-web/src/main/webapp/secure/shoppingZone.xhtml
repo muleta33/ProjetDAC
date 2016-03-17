@@ -4,13 +4,37 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Liste des parfums</title>
     </h:head>
     <h:body>
         <h3>Liste des parfums</h3>
+        
+        <p:ring id="basic" value="#{listAllPerfumeFeatures.perfumes}" var="perfume" style="width: 300px; height: 200px;">
+            <p:outputPanel style="text-align: center;" layout="block">
+                #{perfume.name}
+                <br />
+                <p:commandButton update=":form:perfumeDetail" icon="ui-icon-search" title="Détails" oncomplete="PF('perfumeDialog').show();">
+                    <f:setPropertyActionListener value="#{perfume}" target="#{shoppingZoneBean.selectedPerfume}" />
+                </p:commandButton>
+            </p:outputPanel>
+        </p:ring>
+        
+        <p:dialog header="Détails du parfum" widgetVar="perfumeDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="170">
+            <p:outputPanel id="perfumeDetail" style="text-align:center;" layout="block">
+                <p:panelGrid  columns="2" rendered="#{not empty shoppingZoneBean.selectedPerfume}" columnClasses="value">
+
+                    <h:outputText value="Nom du parfum : " />
+                    <h:outputText value="#{shoppingZoneBean.selectedPerfume.name}" />
+
+                    <h:outputText value="Inscription : " />
+                    <h:outputText value="#{shoppingZoneBean.selectedPerfume.bottle.inscription.text}" />
+
+                </p:panelGrid>
+            </p:outputPanel>
+        </p:dialog>
+        
         <f:view>
             <h:form>
                 <p:dataTable value="#{listAllPerfumeFeatures.perfumes}" var="perfume">
