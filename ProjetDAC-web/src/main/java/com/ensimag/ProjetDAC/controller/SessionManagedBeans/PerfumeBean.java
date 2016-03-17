@@ -236,6 +236,6 @@ public class PerfumeBean implements Serializable {
         // Ne fonctionne pas
         shoppingCartBean.addPerfume(perfume);
         
-        return "/secure/shoppingCart?logout=false&faces-redirect=true";
+        return "/secure/shoppingCart?faces-redirect=true";
     }
 }

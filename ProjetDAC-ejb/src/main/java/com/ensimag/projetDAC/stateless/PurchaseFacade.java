@@ -48,7 +48,7 @@ public class PurchaseFacade extends AbstractFacade<Purchase> implements Purchase
         // Paramètre sur lequel porte le test du WHERE
         ParameterExpression<String> param = cb.parameter(String.class, "param");
         // Création de la requête
-        q.select(purchase).where(cb.like(purchaseUser, param));
+        q.select(purchase).where(cb.equal(purchaseUser, param));
         TypedQuery<Purchase> query = em.createQuery(q);
         // Valeur pour le paramètre
         List<String> parameters = new ArrayList<>();

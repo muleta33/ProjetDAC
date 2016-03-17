@@ -110,11 +110,11 @@ public class Purchase implements Serializable {
     @ManyToOne
     private DeliveryStatus deliveryStatus;
     
-    public DeliveryStatus getStatus() {
+    public DeliveryStatus getDeliveryStatus() {
         return deliveryStatus;
     }
     
-    public void setStatus(DeliveryStatus deliveryStatus) {
+    public void setDeliveryStatus(DeliveryStatus deliveryStatus) {
         this.deliveryStatus = deliveryStatus;
     }
 

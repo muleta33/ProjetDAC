@@ -197,6 +197,6 @@ public class PurchaseBean implements Serializable {
         for (Map.Entry<Perfume, Integer> entry : perfumes.entrySet())
             shoppingCartBean.removePerfume(entry.getKey());
         
-        return "/secure/shoppingCart?logout=false&faces-redirect=true";
+        return "/secure/userAccount?faces-redirect=true";
     }
 }
