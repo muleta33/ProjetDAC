@@ -11,6 +11,10 @@
         .ui-widget-content {
             border: 0;
          }
+         .float-align-right {
+             float: right;
+             margin: 10px;
+         }
         </style>
     </h:head>
     
@@ -21,9 +25,14 @@
         <p:layout fullPage="true">
  
             <p:layoutUnit position="north" size="80">
-                <h:commandLink action="#{authenticationBean.logout}" rendered="#{!empty authenticationBean.currentUser}">Déconnexion</h:commandLink>
-                <p:button style="float: right; margin: 10px;" outcome="signup" value="Créer un compte" icon="ui-icon-extlink" rendered="#{empty authenticationBean.currentUser}"/>
-                <p:button style="float: right; margin: 10px;" outcome="secure/welcomePage" value="S'identifier" icon="ui-icon-extlink" rendered="#{empty authenticationBean.currentUser}"/>
+                <h:form class="float-align-right">
+                    <h:commandLink action="#{authenticationBean.logout}" rendered="#{!empty authenticationBean.currentUser}">Déconnexion</h:commandLink>
+                </h:form>
+                <p:button class="float-align-right" outcome="index" value="Mon compte" icon="ui-icon-extlink" rendered="#{!empty authenticationBean.currentUser}"/>
+                <p:button class="float-align-right" outcome="index" value="Mon panier" icon="ui-icon-extlink" rendered="#{!empty authenticationBean.currentUser}"/>
+                <h:outputText class="float-align-right" value="#{authenticationBean.getCurrentUser().name}" rendered="#{!empty authenticationBean.currentUser}" />
+                <p:button class="float-align-right" outcome="signup" value="Créer un compte" icon="ui-icon-extlink" rendered="#{empty authenticationBean.currentUser}"/>
+                <p:button class="float-align-right" outcome="secure/welcomePage" value="S'identifier" icon="ui-icon-extlink" rendered="#{empty authenticationBean.currentUser}"/>
             </p:layoutUnit>
 
             <p:layoutUnit position="south" size="50" style="text-align: right;">
