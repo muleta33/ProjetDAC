@@ -6,6 +6,7 @@
 package com.ensimag.projetDAC.stateless;
 
 import com.ensimag.projetDAC.entity.Purchase;
+import com.ensimag.projetDAC.entity.User;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -24,6 +25,8 @@ public interface PurchaseFacadeLocal {
 
     Purchase find(Object id);
 
+    List<Purchase> findByUser(User user);
+    
     List<Purchase> findAll();
 
     List<Purchase> findRange(int[] range);

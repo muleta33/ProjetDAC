@@ -32,7 +32,7 @@
                 <h:panelGrid columns="1">
                     <h:outputLabel for="modeLivraison" value="Mode de livraison" />
                     <p:selectOneRadio id="modeLivraison" value="#{purchaseBean.deliveryMethodId}">
-                        <f:selectItems value="#{listAllOrderFeatures.deliveryMethods}" var="deliveryMethod" itemLabel="#{deliveryMethod.name} (#{deliveryMethod.price} €)" itemValue="#{deliveryMethod.id}" />
+                        <f:selectItems value="#{listAllPurchaseFeatures.deliveryMethods}" var="deliveryMethod" itemLabel="#{deliveryMethod.name} (#{deliveryMethod.price} €)" itemValue="#{deliveryMethod.id}" />
                         <p:ajax event="valueChange" update="prix" />
                     </p:selectOneRadio>
                 </h:panelGrid>
