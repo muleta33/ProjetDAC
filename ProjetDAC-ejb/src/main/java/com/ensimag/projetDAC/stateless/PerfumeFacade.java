@@ -58,4 +58,26 @@ public class PerfumeFacade extends AbstractFacade<Perfume> implements PerfumeFac
         return results;
     }
     
+    @Override
+    public List<Perfume> findBySelection() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        // Création du critère
+        CriteriaQuery<Perfume> q = cb.createQuery(Perfume.class);
+        // Propriété sur laquelle porte le WHERE
+        Root<Perfume> perfume = q.from(Perfume.class);
+        Path<String> belongToSelection = perfume.get("belongToSelection");
+        // Paramètre sur lequel porte le test du WHERE
+        ParameterExpression<String> param = cb.parameter(String.class, "param");
+        // Création de la requête
+        q.select(perfume).where(cb.like(belongToSelection, param));
+        TypedQuery<Perfume> query = em.createQuery(q);
+        // Valeur pour le paramètre
+        List<Boolean> p = new ArrayList<>();
+        p.add(true);
+        query.setParameter("param", p);
+        // Exécution de requête
+        List<Perfume> results = query.getResultList();
+        return results;
+    }
+    
 }

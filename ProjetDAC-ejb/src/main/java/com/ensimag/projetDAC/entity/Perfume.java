@@ -26,12 +26,14 @@ public class Perfume implements Serializable {
         this.name = "DefaultName";
     }
 
-    public Perfume(String Name, List<Fragrance> fragances, int intensity, Bottle bottle, boolean isGift) {
+    public Perfume(String Name, List<Fragrance> fragances, int intensity, 
+            Bottle bottle, boolean isGift, boolean belongToSelection) {
         this.name = Name;
         this.fragances = fragances;
         this.intensity = intensity;
         this.bottle = bottle;
         this.isGift = isGift;
+        this.belongToSelection = belongToSelection;
     }
     
     
@@ -153,6 +155,28 @@ public class Perfume implements Serializable {
     public void setIsGift(boolean isGift) {
         this.isGift = isGift;
     }
+    
+    
+    private boolean belongToSelection;
+
+    /**
+     * Get the value of belongToSelection
+     *
+     * @return the value of belongToSelection
+     */
+    public boolean getBelongToSelection() {
+        return belongToSelection;
+    }
+
+    /**
+     * Set the value of belongToSelection
+     *
+     * @param belongToSelection new value of belongToSelection
+     */
+    public void setBelongToSelection(boolean belongToSelection) {
+        this.belongToSelection = belongToSelection;
+    }
+
 
     public double getPrice() {
         return bottle.getCapacity().getPrice();
