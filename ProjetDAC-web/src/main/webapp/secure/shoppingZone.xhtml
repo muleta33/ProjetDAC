@@ -6,59 +6,52 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core">
     
     <ui:define name="content">
+        
         <h:form id="form">
-            <p:ring id="custom" value="#{listAllPerfumeFeatures.perfumes}" var="perfume" >
-                <p:outputPanel style="text-align: center;" layout="block">
-                    #{perfume.name}
-                    <br />
-                    <p:commandButton update=":form:perfumeDetail" icon="ui-icon-search" title="Détails" oncomplete="PF('perfumeDialog').show();">
-                        <f:setPropertyActionListener value="#{perfume}" target="#{shoppingZoneBean.selectedPerfume}" />
-                    </p:commandButton>
-                </p:outputPanel>
-            </p:ring>
+            <p:carousel value="#{shoppingZoneBean.perfumesBySelection}" headerText="Notre sélection" var="perfume" responsive="true">
+                <p:panelGrid columns="1" style="width:100%;margin:10px 0px; border: 1px solid #a8a8a8;" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank" >
 
-            <p:dialog header="Détails du parfum" widgetVar="perfumeDialog" showEffect="fade" hideEffect="fade" resizable="false" >
-                <p:outputPanel id="perfumeDetail" layout="block">
-                    <p:panelGrid rendered="#{not empty shoppingZoneBean.selectedPerfume}" columnClasses="value">
-
+                    <p:column>
                         <p:row>
-                            <p:column>
-                                <h:outputText value="Senteurs : " />
-                            </p:column>
-                            <p:column>
-                                <ul>
-                                    <ui:repeat value="#{shoppingZoneBean.selectedPerfume.fragances}" var="fragance">
-                                        <li><h:outputText value="#{fragance.name}"/></li>
-                                    </ui:repeat> 
-                                </ul>
-                            </p:column>
+                            <h:outputText value="Nom : " />
                         </p:row>
-
                         <p:row>
-                            <p:column>
-                                <h:outputText value="Intensité : " />
-                            </p:column>
-                            <p:column>
-                                <h:outputText value="Eau de parfum" rendered="#{shoppingZoneBean.selectedPerfume.intensity == 3}" />
-                                <h:outputText value="Eau de toilette" rendered="#{shoppingZoneBean.selectedPerfume.intensity == 2}" />
-                                <h:outputText value="Eau fraîche" rendered="#{shoppingZoneBean.selectedPerfume.intensity == 1}" />
-                                <h:outputText value="Eau tendre" rendered="#{shoppingZoneBean.selectedPerfume.intensity == 0}" />
-                            </p:column>
-                        </p:row>
-
+                            <h:outputText value="#{perfume.name}" />
+                        </p:row>     
+                    </p:column>
+                    
+                    <p:column>
                         <p:row>
-                            <p:column>
-                                <h:outputText value="Flacon : " />
-                            </p:column>
-                            <p:column>
-                                <h:outputText value="#{shoppingZoneBean.selectedPerfume.bottle.type.name}" />
-                            </p:column>
+                            <h:outputText value="Senteurs : " />
                         </p:row>
+                        <p:row>
+                            <ul>
+                                <ui:repeat value="#{perfume.fragances}" var="fragance">
+                                    <li><h:outputText value="#{fragance.name}"/></li>
+                                </ui:repeat> 
+                            </ul>
+                        </p:row>     
+                    </p:column>
+                    
+                    <p:column>
+                        <p:row>
+                            <h:outputText value="Capacité : " />
+                        </p:row>
+                        <p:row>
+                            <h:outputText value="#{perfume.bottle.capacity.capacity} ml" />
+                        </p:row>     
+                    </p:column>
 
-                    </p:panelGrid>
-                </p:outputPanel>
-            </p:dialog>
+                </p:panelGrid>
+                
+                <p:commandButton value="Ajouter au panier" action="#{shoppingCartBean.addPerfume(perfume)}" icon="ui-icon-check" />
+
+                <f:facet name="footer">
+                        blabla
+                </f:facet>
+            </p:carousel>
         </h:form>
+        
     </ui:define>
 </ui:composition>
 

@@ -6,42 +6,42 @@
 package com.ensimag.projetDAC.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
 
 /**
  *
  * @author ensimag
  */
-@Entity(name="ROLES")
+@Entity(name = "ROLES")
 public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     public static enum ROLE {
+
         MANAGER, USER
     }
+
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users;
 
     @Id
     @Column(name = "ROLE_NAME")
     @Enumerated(EnumType.STRING)
     private ROLE role;
-    @Id
-    @OneToOne
-    @JoinColumn(name = "USER_NAME")
-    private User user;
 
     protected Role() {
     }
 
-    public Role(ROLE role, User user) {
+    public Role(ROLE role) {
         this.role = role;
-        this.user = user;
     }
 
     public ROLE getRole() {
@@ -52,12 +52,19 @@ public class Role implements Serializable {
         this.role = role;
     }
 
-    public User getUser() {
-        return user;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public boolean addUser(User userToAdd) {
+        if (users == null) {
+            this.users = new ArrayList<>();
+        }
+        return this.users.add(userToAdd);
     }
 
     @Override
@@ -72,10 +79,6 @@ public class Role implements Serializable {
         if (this.role != other.role) {
             return false;
         }
-        if (this.user != other.user && (this.user == null || 
-                    !this.user.equals(other.user))) {
-            return false;
-        }
         return true;
     }
 
@@ -83,7 +86,6 @@ public class Role implements Serializable {
     public int hashCode() {
         int hash = 5;
         hash = 89 * hash + (this.role != null ? this.role.hashCode() : 0);
-        hash = 89 * hash + (this.user != null ? this.user.hashCode() : 0);
         return hash;
     }
 
@@ -91,5 +93,5 @@ public class Role implements Serializable {
     public String toString() {
         return "com.ensimag.projetDAC.entity.Role[ name=" + role + " ]";
     }
-    
+
 }

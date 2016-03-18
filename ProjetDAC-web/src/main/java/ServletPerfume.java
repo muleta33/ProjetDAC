@@ -13,6 +13,7 @@ import com.ensimag.projetDAC.entity.FragranceCategory;
 import com.ensimag.projetDAC.entity.Inscription;
 import com.ensimag.projetDAC.entity.Perfume;
 import com.ensimag.projetDAC.entity.Role;
+import com.ensimag.projetDAC.entity.Role.ROLE;
 import com.ensimag.projetDAC.entity.SprayerType;
 import com.ensimag.projetDAC.entity.User;
 import com.ensimag.projetDAC.stateless.BottleFacadeLocal;
@@ -211,7 +212,7 @@ public class ServletPerfume extends HttpServlet {
         p2 = new Perfume("J'adoooore", fragances, 3, bottle, true, true);
         perfumeFacade.create(p2);
         
-        // Création d'un premier parfum
+        // Création d'un troisième parfum
         fragances = new ArrayList<>();
         fragances.add(f2);
         fragances.add(f11);
@@ -223,14 +224,32 @@ public class ServletPerfume extends HttpServlet {
         p3 = new Perfume("La nuit du mâle", fragances, 3, bottle, true, true);
         perfumeFacade.create(p3);
         
+        // Création d'un quatrième parfum
+        fragances = new ArrayList<>();
+        fragances.add(f7);
+        fragances.add(f15);
+        inscription = new Inscription("Bleu de Perfume", "Arial");
+        inscriptionFacade.create(inscription);
+        bottle = new Bottle(bt5, c3, st1, inscription);
+        bottleFacade.create(bottle);
+        Perfume p4;
+        p4 = new Perfume("Bleu de Perfume", fragances, 2, bottle, true, true);
+        perfumeFacade.create(p4);
+        
+        //Création des rôles
+        Role userRole = new Role(ROLE.USER);
+        roleFacade.create(userRole);
+        Role managerRole = new Role(ROLE.MANAGER);
+        roleFacade.create(managerRole);
+        
         // Création d'utilisateurs
         String password = "ensimag";
         char[] pass = password.toCharArray();
-        User user = new User("user@gmail.com", "LastName", "FirstName", pass, Role.ROLE.USER);
+        User user = new User("user@gmail.com", "LastName", "FirstName", pass, userRole);
         userFacade.create(user);
-        User secondUser = new User("second-user@gmail.com", "LastName", "FirstName", pass, Role.ROLE.USER);
+        User secondUser = new User("second-user@gmail.com", "LastName", "FirstName", pass, userRole);
         userFacade.create(secondUser);
-        User manager = new User("manager@gmail.com", "LastName", "FirstName", pass, Role.ROLE.MANAGER);
+        User manager = new User("manager@gmail.com", "LastName", "FirstName", pass, managerRole);
         userFacade.create(manager);
         
         // Ajout de méthodes de livraison

@@ -117,7 +117,8 @@ public class UserBean {
     
     public String saveUser() {
         char[] pass = userPassword.toCharArray();
-        User newUser = new User(userEmail, userName, userFirstName, pass, Role.ROLE.USER);
+        Role userRole = new Role(Role.ROLE.USER);
+        User newUser = new User(userEmail, userName, userFirstName, pass, userRole);
         FacesContext context = FacesContext.getCurrentInstance();
         context.getExternalContext().getFlash().setKeepMessages(true);
         try {

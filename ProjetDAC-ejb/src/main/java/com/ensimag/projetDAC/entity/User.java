@@ -12,16 +12,15 @@ import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import com.ensimag.projetDAC.entity.Role.ROLE;
 import javax.faces.bean.ManagedBean;
+import javax.persistence.ManyToMany;
 
 
 /**
@@ -48,12 +47,14 @@ public class User implements Serializable {
     protected User() {
     }
 
-    public User(String email, String name, String firstName, char[] password, ROLE role) {
+    public User(String email, String name, String firstName, char[] password, Role role) {
         this.email = email;
         this.name = name;
         this.firstName = firstName;
         this.password = hashPassword(password);
-        this.role = new Role(role, this);
+        this.roles = new ArrayList<>();
+        roles.add(role);
+        role.addUser(this);
     }
 
     
@@ -112,17 +113,15 @@ public class User implements Serializable {
     }
 
 
-    @OneToOne(fetch = FetchType.EAGER, 
-      cascade = CascadeType.ALL, mappedBy = "user")
-    private Role role;
+    @ManyToMany
+    private List<Role> roles;
     
-    public Role getRole() {
-        return role;
+    public List<Role> getRole() {
+        return roles;
     }
 
     public void setRole(Role role) {
-        this.role = role;
-        role.setUser(this);
+        this.roles = roles;
     }
     
     
