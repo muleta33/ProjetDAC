@@ -12,6 +12,7 @@ import com.ensimag.projetDAC.entity.Fragrance;
 import com.ensimag.projetDAC.entity.FragranceCategory;
 import com.ensimag.projetDAC.entity.Inscription;
 import com.ensimag.projetDAC.entity.Perfume;
+import com.ensimag.projetDAC.entity.Purchase;
 import com.ensimag.projetDAC.entity.Role;
 import com.ensimag.projetDAC.entity.Role.ROLE;
 import com.ensimag.projetDAC.entity.SprayerType;
@@ -25,13 +26,17 @@ import com.ensimag.projetDAC.stateless.FragranceCategoryFacadeLocal;
 import com.ensimag.projetDAC.stateless.FragranceFacadeLocal;
 import com.ensimag.projetDAC.stateless.InscriptionFacadeLocal;
 import com.ensimag.projetDAC.stateless.PerfumeFacadeLocal;
+import com.ensimag.projetDAC.stateless.PurchaseFacadeLocal;
 import com.ensimag.projetDAC.stateless.RoleFacadeLocal;
 import com.ensimag.projetDAC.stateless.SprayerTypeFacadeLocal;
 import com.ensimag.projetDAC.stateless.UserFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -70,6 +75,8 @@ public class ServletPerfume extends HttpServlet {
     private DeliveryMethodFacadeLocal deliveryMethodFacade;
     @EJB
     private DeliveryStatusFacadeLocal deliveryStatusFacade;
+    @EJB
+    private PurchaseFacadeLocal purchaseFacadeLocal;
       
 
     /**
@@ -259,10 +266,21 @@ public class ServletPerfume extends HttpServlet {
         deliveryMethodFacade.create(dm2);
         
         // Ajout de statuts de livraison
-        DeliveryStatus ds1 = new DeliveryStatus("En cours");
+        DeliveryStatus ds1 = new DeliveryStatus("en attente");
         deliveryStatusFacade.create(ds1);
-        DeliveryStatus ds2 = new DeliveryStatus("Effectuée");
+        DeliveryStatus ds2 = new DeliveryStatus("en cours de préparation");
         deliveryStatusFacade.create(ds2);
+        DeliveryStatus ds3 = new DeliveryStatus("expédiée");
+        deliveryStatusFacade.create(ds3);
+        DeliveryStatus ds4 = new DeliveryStatus("reçue");
+        deliveryStatusFacade.create(ds4);
+        
+        
+        //Purchase(User client, Date purchaseDate, Map<Perfume, Integer> perfumes, DeliveryMethod deliveryMethod, String deliveryAddress, DeliveryStatus deliveryStatus, double price)
+        Map<Perfume, Integer> perfumes = new HashMap<>();
+        perfumes.put(p, 1);
+        Purchase purchase = new Purchase(user, new Date(),perfumes , dm1, "Grenoble", ds1, 100.0);
+        purchaseFacadeLocal.create(purchase);
 
         processRequest(request, response);
     }
