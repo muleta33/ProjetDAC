@@ -9,8 +9,8 @@ import com.ensimag.projetDAC.entity.Perfume;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 
 /**
@@ -21,8 +21,29 @@ import javax.annotation.PostConstruct;
 @SessionScoped
 public class ShoppingCartBean implements Serializable {
     
-    private List<Perfume> content = null;
+    private Map<Perfume, Integer> content = null;
 
+    private int temporaryQuantityOfPerfume;
+
+    /**
+     * Get the value of temporaryQuantityOfPerfume
+     *
+     * @return the value of temporaryQuantityOfPerfume
+     */
+    public int getTemporaryQuantityOfPerfume() {
+        return temporaryQuantityOfPerfume;
+    }
+
+    /**
+     * Set the value of temporaryQuantityOfPerfume
+     *
+     * @param temporaryQuantityOfPerfume new value of temporaryQuantityOfPerfume
+     */
+    public void setTemporaryQuantityOfPerfume(int temporaryQuantityOfPerfume) {
+        this.temporaryQuantityOfPerfume = temporaryQuantityOfPerfume;
+    }
+
+    
     /**
      * Creates a new instance of ShoppingCartBean
      */
@@ -31,15 +52,20 @@ public class ShoppingCartBean implements Serializable {
     
     @PostConstruct
     public void init() {
-        content = new ArrayList<>();
+        content = new HashMap<>();
+        temporaryQuantityOfPerfume = 1;
     }
     
-    public List<Perfume> getContent() {
+    public Map<Perfume, Integer> getContent() {
         return content;
     }
     
+    public void setNumberOfPerfumes(Perfume perfume) {
+        content.replace(perfume, temporaryQuantityOfPerfume);
+    }
+    
     public void addPerfume(Perfume perfume) {
-        content.add(perfume);
+        content.put(perfume, 1);
     }
     
     public void removePerfume(Perfume perfume) {
@@ -47,7 +73,7 @@ public class ShoppingCartBean implements Serializable {
     }
     
     public boolean containsPerfume(Perfume perfume) {
-        return content.contains(perfume);
+        return content.containsKey(perfume);
     }
     
     public boolean isEmpty() {

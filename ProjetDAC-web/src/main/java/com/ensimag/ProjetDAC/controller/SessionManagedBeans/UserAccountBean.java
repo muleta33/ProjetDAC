@@ -5,12 +5,15 @@
  */
 package com.ensimag.ProjetDAC.controller.SessionManagedBeans;
 
+import com.ensimag.projetDAC.entity.Perfume;
 import com.ensimag.projetDAC.entity.Purchase;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 
 /**
@@ -70,6 +73,14 @@ public class UserAccountBean implements Serializable {
     @PostConstruct
     public void init() {
         dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    }
+    
+    public int numberOfPerfumes(Purchase purchase) {
+        int totalNumberOfPerfumes = 0;
+        for (Map.Entry<Perfume, Integer> entry : purchase.getPerfumes().entrySet()) {
+            totalNumberOfPerfumes += entry.getValue();
+	}
+        return totalNumberOfPerfumes;
     }
     
 }

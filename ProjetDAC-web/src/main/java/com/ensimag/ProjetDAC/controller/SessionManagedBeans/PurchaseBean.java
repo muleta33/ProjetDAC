@@ -15,8 +15,6 @@ import com.ensimag.projetDAC.stateless.DeliveryStatusFacadeLocal;
 import com.ensimag.projetDAC.stateless.PurchaseFacadeLocal;
 import com.ensimag.projetDAC.stateless.UserFacadeLocal;
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -148,16 +146,9 @@ public class PurchaseBean implements Serializable {
     public void setPrice(double price) {
         this.price = price;
     }
-    
-    public Map<Perfume, Integer> constructPerfumesMap() {
-        Map<Perfume, Integer> perfumes = new HashMap<>();
-        for (Perfume perfume : shoppingCartBean.getContent())
-            perfumes.put(perfume, 1); // Attention, toujours un parfum pour l'instant
-        return perfumes;
-    }
 
     public double computePrice() {
-        Map<Perfume, Integer> perfumes = constructPerfumesMap();
+        Map<Perfume, Integer> perfumes = shoppingCartBean.getContent();
         price = 0;
         for (Map.Entry<Perfume, Integer> entry : perfumes.entrySet())
             price += entry.getKey().getPrice() * entry.getValue();
@@ -173,7 +164,7 @@ public class PurchaseBean implements Serializable {
     }
     
     public String savePurchase() {
-        Map<Perfume, Integer> perfumes = constructPerfumesMap();
+        Map<Perfume, Integer> perfumes = shoppingCartBean.getContent();
         
         // Récupération de la méthode de livraison
         DeliveryMethod deliveryMethod = deliveryMethodFacade.find(deliveryMethodId);

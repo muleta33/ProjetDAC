@@ -9,7 +9,7 @@
     </h:head>
     <h:body>
         <h:form>
-            <p:dataTable value="#{shoppingCartBean.content}" var="perfume">
+            <p:dataTable value="#{shoppingCartBean.content.keySet().toArray()}" var="perfume">
                 <p:column headerText="Parfum">
                     <h:outputText value="Eau de parfum #{perfume.name}" rendered="#{perfume.intensity == 3}" />
                     <h:outputText value="Eau de toilette #{perfume.name}" rendered="#{perfume.intensity == 2}" />
@@ -22,13 +22,15 @@
                     <h:outputText value="#{perfume.bottle.capacity.capacity} ml - #{perfume.bottle.type.name}" />
                 </p:column>
                 <p:column headerText="Quantité">
-                    <h:outputText value="1" />
+                    <p:spinner id="quantity" value="#{shoppingCartBean.temporaryQuantityOfPerfume}" min="1" max="100">
+                        <p:ajax listener="#{shoppingCartBean.setNumberOfPerfumes(perfume)}" />
+                    </p:spinner>
                 </p:column>
                 <p:column headerText="Prix">
                     <h:outputText value="#{perfume.price} €" />
                 </p:column>
                 <p:column headerText="Supprimer">
-                    <h:commandLink action="#{shoppingCartBean.removePerfume(perfume)}" value="Remove from cart" />
+                    <h:commandLink action="#{shoppingCartBean.removePerfume(perfume)}" value="Supprimer du panier" />
                 </p:column>
             </p:dataTable>
         </h:form>
