@@ -191,7 +191,7 @@ public class ServletPerfume extends HttpServlet {
         List<Fragrance> fragances = new ArrayList<>();
         fragances.add(f14);
         fragances.add(f8);
-        Inscription inscription = new Inscription("La vie est chouette", "Arial");
+        Inscription inscription = new Inscription("La vie est chouette");
         inscriptionFacade.create(inscription);
         Bottle bottle = new Bottle(bt1, c3, st1, inscription);
         bottleFacade.create(bottle);
@@ -204,7 +204,7 @@ public class ServletPerfume extends HttpServlet {
         fragances.add(f7);
         fragances.add(f4);
         fragances.add(f15);
-        inscription = new Inscription("J'adoooore", "Serif");
+        inscription = new Inscription("J'adoooore");
         inscriptionFacade.create(inscription);
         bottle = new Bottle(bt5, c2, st2, inscription);
         bottleFacade.create(bottle);
@@ -216,7 +216,7 @@ public class ServletPerfume extends HttpServlet {
         fragances = new ArrayList<>();
         fragances.add(f2);
         fragances.add(f11);
-        inscription = new Inscription("La nuit du mâle", "Arial");
+        inscription = new Inscription("La nuit du mâle");
         inscriptionFacade.create(inscription);
         bottle = new Bottle(bt2, c1, st3, inscription);
         bottleFacade.create(bottle);

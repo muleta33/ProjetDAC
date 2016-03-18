@@ -26,10 +26,10 @@ public class Perfume implements Serializable {
         this.name = "DefaultName";
     }
 
-    public Perfume(String Name, List<Fragrance> fragances, int intensity, 
+    public Perfume(String Name, List<Fragrance> fragrances, int intensity, 
             Bottle bottle, boolean isGift, boolean belongToSelection) {
         this.name = Name;
-        this.fragances = fragances;
+        this.fragrances = fragrances;
         this.intensity = intensity;
         this.bottle = bottle;
         this.isGift = isGift;
@@ -72,24 +72,24 @@ public class Perfume implements Serializable {
     
     
     @ManyToMany
-    private List<Fragrance> fragances;
+    private List<Fragrance> fragrances;
 
     /**
      * Get the value of fragances
      *
      * @return the value of fragances
      */
-    public List<Fragrance> getFragances() {
-        return fragances;
+    public List<Fragrance> getFragrances() {
+        return fragrances;
     }
 
     /**
      * Set the value of fragances
      *
-     * @param fragances new value of fragances
+     * @param fragrances new value of fragrances
      */
-    public void setFragances(List<Fragrance> fragances) {
-        this.fragances = fragances;
+    public void setFragrances(List<Fragrance> fragrances) {
+        this.fragrances = fragrances;
     }
 
     
@@ -179,7 +179,12 @@ public class Perfume implements Serializable {
 
 
     public double getPrice() {
-        return bottle.getCapacity().getPrice();
+        double price = 0;
+        if (bottle != null && bottle.getCapacity() != null)
+            price += bottle.getCapacity().getPrice();
+        if (isGift)
+            price += 5;
+        return price;
     }
     
     @Override
