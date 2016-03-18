@@ -183,7 +183,7 @@ public class Perfume implements Serializable {
         if (bottle != null && bottle.getCapacity() != null)
             price += bottle.getCapacity().getPrice();
         if (isGift)
-            price += 20;
+            price += 5;
         return price;
     }
     
