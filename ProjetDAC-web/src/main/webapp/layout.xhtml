@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"   
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
       
-      <h:head>
+    <h:head>
         <style type="text/css">
         .ui-widget-content {
             border: 0;
@@ -28,8 +28,8 @@
                 <h:form class="float-align-right">
                     <h:commandLink action="#{authenticationBean.logout}" rendered="#{!empty authenticationBean.currentUser}">Déconnexion</h:commandLink>
                 </h:form>
-                <p:button class="float-align-right" outcome="/index.xhtml" value="Mon compte" icon="ui-icon-extlink" rendered="#{!empty authenticationBean.currentUser}"/>
-                <p:button class="float-align-right" outcome="/index.xhtml" value="Mon panier" icon="ui-icon-extlink" rendered="#{!empty authenticationBean.currentUser}"/>
+                <p:button class="float-align-right" outcome="/secure/userAccount.xhtml" value="Mon compte" icon="ui-icon-extlink" rendered="#{!empty authenticationBean.currentUser}"/>
+                <p:button class="float-align-right" outcome="/secure/shoppingCart.xhtml" value="Mon panier" icon="ui-icon-extlink" rendered="#{!empty authenticationBean.currentUser}"/>
                 <h:outputText class="float-align-right" value="#{authenticationBean.getCurrentUser().name}" rendered="#{!empty authenticationBean.currentUser}" />
                 <p:button class="float-align-right" outcome="/signup.xtml" value="Créer un compte" icon="ui-icon-extlink" rendered="#{empty authenticationBean.currentUser}"/>
                 <p:button class="float-align-right" outcome="/secure/welcomePage.xhtml" value="S'identifier" icon="ui-icon-extlink" rendered="#{empty authenticationBean.currentUser}"/>
