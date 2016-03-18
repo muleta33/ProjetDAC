@@ -1,37 +1,36 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>Commande</title>
-    </h:head>
-    <h:body>
+<ui:composition template="../layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"   
+    xmlns:p="http://primefaces.org/ui"   
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"     
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <ui:define name="content">
         <h:form id="form">
+            <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
             <p:panel header="Adresse de livraison">
                 <h:panelGrid columns="2" columnClasses="label,value" title="Adresse de livraison">
                     <p:outputLabel for="address" value="Adresse :" />
-                    <p:inputText id="address" value="#{purchaseBean.addressStreet}" required="true" label="address">
+                    <p:inputText id="address" value="#{purchaseBean.addressStreet}" required="true" requiredMessage="Vous devez saisir une adresse" label="address">
                         <f:validateLength minimum="2" />
                     </p:inputText>
 
                     <p:outputLabel for="city" value="Ville :" />
-                    <p:inputText id="city" value="#{purchaseBean.addressCity}" required="true" label="city">
+                    <p:inputText id="city" value="#{purchaseBean.addressCity}" required="true" requiredMessage="Vous devez saisir une ville" label="city">
                         <f:validateLength minimum="2" />
                     </p:inputText>
 
                     <p:outputLabel for="postalCode" value="Code postal :" />
-                    <p:inputText id="postalCode" value="#{purchaseBean.addressPostalCode}" required="true" label="postalCode">
+                    <p:inputText id="postalCode" value="#{purchaseBean.addressPostalCode}" required="true" requiredMessage="Vous devez saisir un code postal" label="postalCode">
                         <f:validateLength minimum="2" />
                     </p:inputText>
                 </h:panelGrid>
             </p:panel>
             
-            <p:panel header="Adresse de livraison">
+            <p:panel header="Mode de livraison">
                 <h:panelGrid columns="1">
                     <h:outputLabel for="modeLivraison" value="Mode de livraison" />
-                    <p:selectOneRadio id="modeLivraison" value="#{purchaseBean.deliveryMethodId}">
+                    <p:selectOneRadio id="modeLivraison" value="#{purchaseBean.deliveryMethodId}"  required="true" requiredMessage="Vous devez sélectionner un mode de livraison" >
                         <f:selectItems value="#{listAllPurchaseFeatures.deliveryMethods}" var="deliveryMethod" itemLabel="#{deliveryMethod.name} (#{deliveryMethod.price} €)" itemValue="#{deliveryMethod.id}" />
                         <p:ajax event="valueChange" update="prix" />
                     </p:selectOneRadio>
@@ -44,6 +43,6 @@
             
             <p:commandButton value="Valider" action="#{purchaseBean.savePurchase}" icon="ui-icon-check" />
         </h:form>
-    </h:body>
-</html>
+    </ui:define>
+</ui:composition>
 

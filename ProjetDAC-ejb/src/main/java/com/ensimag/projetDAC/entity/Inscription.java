@@ -22,11 +22,9 @@ public class Inscription implements Serializable {
     public Inscription() {
     }
 
-    public Inscription(String text, String font) {
+    public Inscription(String text) {
         this.text = text;
-        this.font = font;
     }
-    
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,7 +37,6 @@ public class Inscription implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    
     
     private String text;
 
@@ -59,27 +56,6 @@ public class Inscription implements Serializable {
      */
     public void setText(String text) {
         this.text = text;
-    }
-
-    
-    private String font;
-
-    /**
-     * Get the value of font
-     *
-     * @return the value of font
-     */
-    public String getFont() {
-        return font;
-    }
-
-    /**
-     * Set the value of font
-     *
-     * @param font new value of font
-     */
-    public void setFont(String font) {
-        this.font = font;
     }
 
     

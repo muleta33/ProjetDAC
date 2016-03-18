@@ -16,8 +16,8 @@
                     <h:outputText value="Eau fraîche #{perfume.name}" rendered="#{perfume.intensity == 1}" />
                     <h:outputText value="Eau tendre #{perfume.name}" rendered="#{perfume.intensity == 0}" />
                     <br/>
-                    <ui:repeat value="#{perfume.fragances}" var="fragance">
-                        <h:outputText value="#{fragance.name} - "/>
+                    <ui:repeat value="#{perfume.fragrances}" var="fragrance">
+                        <h:outputText value="#{fragrance.name} - "/>
                     </ui:repeat>
                     <h:outputText value="#{perfume.bottle.capacity.capacity} ml - #{perfume.bottle.type.name}" />
                 </p:column>

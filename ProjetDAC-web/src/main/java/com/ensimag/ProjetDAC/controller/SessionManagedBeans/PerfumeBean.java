@@ -6,6 +6,7 @@
 package com.ensimag.ProjetDAC.controller.SessionManagedBeans;
 
 import com.ensimag.projetDAC.entity.Bottle;
+import com.ensimag.projetDAC.entity.BottleType;
 import com.ensimag.projetDAC.entity.Capacity;
 import com.ensimag.projetDAC.entity.Fragrance;
 import com.ensimag.projetDAC.entity.Inscription;
@@ -199,6 +200,27 @@ public class PerfumeBean implements Serializable {
         this.isGift = isGift;
     }
 
+    private Perfume perfume;
+
+    /**
+     * Get the value of perfume
+     *
+     * @return the value of perfume
+     */
+    public Perfume getPerfume() {
+        return perfume;
+    }
+
+    /**
+     * Set the value of perfume
+     *
+     * @param perfume new value of perfume
+     */
+    public void setPerfume(Perfume perfume) {
+        this.perfume = perfume;
+    }
+
+
     
     /**
      * Creates a new instance of PerfumeBean
@@ -207,33 +229,67 @@ public class PerfumeBean implements Serializable {
     }
     
     public String onFlowProcess(FlowEvent event) {
+        if (event.getNewStep().equals("confirmation"))
+            constructPerfume();
         return event.getNewStep();
     }
     
-    public String savePerfume() {
-        // On récupère les senteurs
+    public List<Fragrance> constructFragranceList() {
         List<Fragrance> fragrancesList = new ArrayList<>();
         for (Long fragranceId : fragranceIds)
             fragrancesList.add(fragranceFacade.find(fragranceId));
-        
+        return fragrancesList;
+    }
+    
+    public Capacity constructCapacity() {
+        return capacityFacade.find(capacityId);
+    }
+    
+    public SprayerType constructSprayerType() {
+        return sprayerTypeFacade.find(spayerTypeId);
+    }
+    
+    public BottleType constructBottleType() {
+        return bottleTypeFacade.find(bottleTypeId);
+    }
+    
+    public Bottle constructBottle() {
         // On récupère le pulvérisateur
-        SprayerType sprayerType = sprayerTypeFacade.find(spayerTypeId);
+        SprayerType sprayerType = constructSprayerType();
         
-        // On récupère ou crée le flacon
-        // Faire un findOrCreate pour le flacon et l'inscription !
-        // Récupéré inscription en fonction du texte et de la police ???
-        Capacity capacity = capacityFacade.find(capacityId);
-        Inscription inscription = new Inscription(name, "Arial");
+        // On récupère le type du flacon
+        BottleType bottleType = constructBottleType();
+        
+        // On récupère la capacité
+        Capacity capacity = constructCapacity();
+        
+        // Faire un findOrCreate pour l'inscription !!!   
+        Inscription inscription = new Inscription(name);
         inscriptionFacade.create(inscription);
-        Bottle bottle = new Bottle(bottleTypeFacade.find(bottleTypeId), capacity, sprayerType, inscription);
-        bottleFacade.create(bottle);
         
+        Bottle bottle = new Bottle(bottleType, capacity, sprayerType, inscription);
+        return bottle;
+    }
+    
+    public Perfume constructPerfume() {
+        // On récupère les senteurs
+        List<Fragrance> fragrancesList = constructFragranceList();
+
+        // On récupère ou crée le flacon TODO
+        Bottle bottle = constructBottle();
+        bottleFacade.create(bottle);
+
         // On crée le parfum
-        Perfume perfume = new Perfume(name, fragrancesList, intensity, bottle, Boolean.parseBoolean(isGift), false);
+        perfume = new Perfume(name, fragrancesList, intensity, bottle, Boolean.parseBoolean(isGift), false);
+        
+        return perfume;
+    }
+    
+    public String savePerfume() {
+        // On crée le parfum
         perfumeFacade.create(perfume);
         
         // On l'ajoute au panier
-        // Ne fonctionne pas
         shoppingCartBean.addPerfume(perfume);
         
         return "/secure/shoppingCart?faces-redirect=true";
