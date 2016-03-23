@@ -5,17 +5,26 @@
  */
 package com.ensimag.ProjetDAC.controller.SessionManagedBeans;
 
+import com.ensimag.projetDAC.entity.Bottle;
+import com.ensimag.projetDAC.entity.BottleType;
 import com.ensimag.projetDAC.entity.Capacity;
 import com.ensimag.projetDAC.entity.DeliveryMethod;
 import com.ensimag.projetDAC.entity.DeliveryStatus;
 import com.ensimag.projetDAC.entity.Fragrance;
+import com.ensimag.projetDAC.entity.Inscription;
 import com.ensimag.projetDAC.entity.Perfume;
 import com.ensimag.projetDAC.entity.Purchase;
 import com.ensimag.projetDAC.entity.SprayerType;
 import com.ensimag.projetDAC.entity.User;
+import com.ensimag.projetDAC.stateless.BottleFacadeLocal;
+import com.ensimag.projetDAC.stateless.BottleTypeFacadeLocal;
+import com.ensimag.projetDAC.stateless.CapacityFacadeLocal;
+import com.ensimag.projetDAC.stateless.InscriptionFacadeLocal;
 import com.ensimag.projetDAC.stateless.PerfumeFacadeLocal;
 import com.ensimag.projetDAC.stateless.PurchaseFacadeLocal;
+import com.ensimag.projetDAC.stateless.SprayerTypeFacadeLocal;
 import com.ensimag.projetDAC.stateless.UserFacadeLocal;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -31,6 +40,21 @@ public class ManagerBean {
 
     @EJB
     private PurchaseFacadeLocal purchaseFacade;
+    
+    @EJB
+    private SprayerTypeFacadeLocal sprayerTypeFacade;
+    
+    @EJB
+    private BottleTypeFacadeLocal bottleTypeFacade;
+    
+    @EJB
+    private BottleFacadeLocal bottleFacade;
+    
+    @EJB
+    private CapacityFacadeLocal capacityFacade;
+    
+    @EJB
+    private InscriptionFacadeLocal inscriptionFacade;
     
     private List<DeliveryMethod> deliveryMethods = null;
     
@@ -115,6 +139,66 @@ public class ManagerBean {
     public void setName(String name) {
         this.name = name;
     }
+    
+    private Long bottleTypeId;
+
+    /**
+     * Get the value of bottleTypeId
+     *
+     * @return the value of bottleTypeId
+     */
+    public Long getBottleTypeId() {
+        return bottleTypeId;
+    }
+
+    /**
+     * Set the value of bottleTypeId
+     *
+     * @param bottleTypeId new value of bottleTypeId
+     */
+    public void setBottleTypeId(Long bottleTypeId) {
+        this.bottleTypeId = bottleTypeId;
+    }
+    
+    private Long spayerTypeId;
+
+    /**
+     * Get the value of nameSpayerType
+     *
+     * @return the value of nameSpayerType
+     */
+    public Long getSpayerTypeId() {
+        return spayerTypeId;
+    }
+
+    /**
+     * Set the value of nameSpayerType
+     *
+     * @param spayerTypeId new value of nameSpayerType
+     */
+    public void setSpayerTypeId(Long spayerTypeId) {
+        this.spayerTypeId = spayerTypeId;
+    }
+    
+    private int intensity;
+
+    /**
+     * Get the value of intensity
+     *
+     * @return the value of intensity
+     */
+    public int getIntensity() {
+        return intensity;
+    }
+
+    /**
+     * Set the value of intensity
+     *
+     * @param intensity new value of intensity
+     */
+    public void setIntensity(int intensity) {
+        this.intensity = intensity;
+    }
 
 
     /**
@@ -168,7 +252,6 @@ public class ManagerBean {
     
     public void removePerfume(Perfume perfume) {
         perfume.setBelongToSelection(false);
-        System.err.println(perfume);
         perfumeFacadeLocal.edit(perfume);
     }
     public boolean containsPerfume(Perfume perfume) {
@@ -188,5 +271,35 @@ public class ManagerBean {
                 break;
         }
         purchaseFacadeLocal.edit(purchase);
+    }
+    
+    public void savePerfume() {
+        
+        Perfume perfume;
+        // On crée le parfum
+        List<Fragrance> fragrancesList = new ArrayList<>();
+        if(senteur1 != null)
+            fragrancesList.add(senteur1);
+        if(senteur2 != null)
+            fragrancesList.add(senteur2);
+        if(senteur3 != null)
+            fragrancesList.add(senteur3);
+        
+
+        // On récupère ou crée le flacon 
+        SprayerType sprayerType = sprayerTypeFacade.find(spayerTypeId);
+        
+        Capacity cap = capacityFacade.find(capacity);
+        BottleType bottleType = bottleTypeFacade.find(bottleTypeId);
+        Inscription inscription = new Inscription(name);
+        inscriptionFacade.create(inscription);
+        
+        Bottle bottle = new Bottle(bottleType, cap, sprayerType, inscription);
+        bottleFacade.create(bottle);
+
+        // On crée le parfum
+        perfume = new Perfume(name, fragrancesList, intensity - 1, bottle, false, true);
+        perfumeFacadeLocal.create(perfume);
+        
     }
 }

@@ -235,7 +235,7 @@ public class ServletPerfume extends HttpServlet {
         fragances = new ArrayList<>();
         fragances.add(f7);
         fragances.add(f15);
-        inscription = new Inscription("Bleu de Perfume", "Arial");
+        inscription = new Inscription("Bleu de Perfume");
         inscriptionFacade.create(inscription);
         bottle = new Bottle(bt5, c3, st1, inscription);
         bottleFacade.create(bottle);
