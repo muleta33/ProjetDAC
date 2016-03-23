@@ -278,9 +278,13 @@ public class ServletPerfume extends HttpServlet {
         
         //Purchase(User client, Date purchaseDate, Map<Perfume, Integer> perfumes, DeliveryMethod deliveryMethod, String deliveryAddress, DeliveryStatus deliveryStatus, double price)
         Map<Perfume, Integer> perfumes = new HashMap<>();
-        perfumes.put(p, 1);
+        perfumes.put(p1, 1);
         Purchase purchase = new Purchase(user, new Date(),perfumes , dm1, "Grenoble", ds1, 100.0);
         purchaseFacadeLocal.create(purchase);
+        
+        Purchase purchase2 = new Purchase(user, new Date(),perfumes , dm1, "Paris", ds2, 100.0);
+        purchaseFacadeLocal.create(purchase2);
+
 
         processRequest(request, response);
     }

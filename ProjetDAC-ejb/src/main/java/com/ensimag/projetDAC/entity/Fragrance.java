@@ -104,7 +104,8 @@ public class Fragrance implements Serializable {
 
     @Override
     public String toString() {
-        return "com.ensimag.projetDAC.entity.Fragance[ name=" + name + " ]";
+        return name;
+        //return "com.ensimag.projetDAC.entity.Fragance[ name=" + name + " ]";
     }
     
 }

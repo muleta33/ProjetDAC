@@ -4,13 +4,13 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"    
       xmlns:p="http://primefaces.org/ui">
-      
+
     <h:head></h:head>
     <h:body>
         <h:form>
             <p:tabView>
                 <p:tab title="Commandes">
-                    <p:dataTable value="#{listAllPurchaseFeatures.orders}" var="order">
+                    <p:dataTable value="#{managerBean.orders}" var="order">
                         <p:column headerText="Numéro de commande">
                             <h:outputText value="#{order.id}" />
                         </p:column>
@@ -22,7 +22,7 @@
                         <p:column headerText="Montant" sortBy="#{order.price}">
                             <h:outputText value="#{order.price}" />
                         </p:column>
-                        
+
                         <p:column headerText="Date" sortBy="#{order.purchaseDate}">
                             <h:outputText value="#{order.purchaseDate}" />
                         </p:column>
@@ -37,7 +37,7 @@
                 </p:tab>
 
                 <p:tab title="Clients">
-                    <p:dataTable value="#{listAllPurchaseFeatures.clients}" var="client">
+                    <p:dataTable value="#{managerBean.clients}" var="client">
                         <p:column headerText="Nom">
                             <h:outputText value="#{client.name}" />
                         </p:column>
@@ -51,25 +51,62 @@
                         </p:column>
                     </p:dataTable> 
                 </p:tab>
-                    <p:tab title="Notre Sélection">
-                      <h:panelGrid columns="2" cellpadding="10">
-                            <p:dataTable id="basicDT" value="#{listAllPerfumeFeatures.perfumes}" var="perfume">
-                                <p:column headerText="Produit">
-                                    <h:outputText value="#{perfume.name}" />
-                                </p:column>
-                                <p:column headerText="">
-                                    <h:commandButton action="#{managerBean.removePerfume(perfume)}" value="Supprimer" />
-                                </p:column>
-                            </p:dataTable> 
+                <p:tab title="Notre Sélection">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <p:dataTable id="basicDT" value="#{managerBean.perfumes}" var="perfume">
+                            <p:column headerText="Produit">
+                                <h:outputText value="#{perfume.name}" />
+                            </p:column>
+                            <p:column headerText="">
+                                <p:commandButton action="#{managerBean.removePerfume(perfume)}" ajax="false" value="Supprimer" />
+                            </p:column>
+                        </p:dataTable> 
+                        
+                        <h:panelGrid columns="6" cellpadding="10">
+                            <h:panelGrid columns="3" cellpadding="10">
+                                <p:selectOneMenu id="senteur1" value="#{managerBean.senteur1}" >
+                                    <f:selectItem itemLabel="Senteur 1" itemValue="" />
+                                    <f:selectItems value="#{listAllPerfumeFeatures.fragrances}" />
+                                </p:selectOneMenu>
+
+                                <p:selectOneMenu id="senteur2" value="#{managerBean.senteur2}" >
+                                    <f:selectItem itemLabel="Senteur 2" itemValue="" />
+                                    <f:selectItems value="#{listAllPerfumeFeatures.fragrances}" />
+                                </p:selectOneMenu>
+
+                                <p:selectOneMenu id="senteur3" value="#{managerBean.senteur3}" >
+                                    <f:selectItem itemLabel="Senteur 3" itemValue="" />
+                                    <f:selectItems value="#{listAllPerfumeFeatures.fragrances}" />
+                                </p:selectOneMenu>
+                            </h:panelGrid>            
+                            
+                            <h:panelGrid columns="3" cellpadding="10">
+                                <p:selectOneMenu id="capacity" value="#{managerBean.capacity}" >
+                                    <f:selectItem itemLabel="Modèle" itemValue="" />
+                                    <f:selectItems value="#{listAllPerfumeFeatures.capacities}" />
+                                </p:selectOneMenu>
+
+                                <p:selectOneMenu id="spray" value="#{managerBean.sprayer}" >
+                                    <f:selectItem itemLabel="Pulvérisateur" itemValue="" />
+                                    <f:selectItems value="#{listAllPerfumeFeatures.sprayerTypes}" />
+                                </p:selectOneMenu>
+
+                                <h:panelGrid columns="2" columnClasses="label,value">
+                                    <p:outputLabel for="name" value="Nom" />
+                                    <p:inputText id="name" value="#{managerBean.name}" required="true" label="name" />
+                                </h:panelGrid>
+                            </h:panelGrid> 
                         </h:panelGrid>
-                    </p:tab>
-                    
+                        
+                    </h:panelGrid>
+                </p:tab>
+
                 <p:tab title="Gestion de la parfumerie">
 
                 </p:tab>
             </p:tabView>
         </h:form>
-        
+
     </h:body>
 </html>
 

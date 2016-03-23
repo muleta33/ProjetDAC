@@ -6,9 +6,11 @@
 package com.ensimag.ProjetDAC.controller.RequestManagedBeans;
 
 import com.ensimag.projetDAC.entity.DeliveryMethod;
+import com.ensimag.projetDAC.entity.Perfume;
 import com.ensimag.projetDAC.entity.Purchase;
 import com.ensimag.projetDAC.entity.User;
 import com.ensimag.projetDAC.stateless.DeliveryMethodFacadeLocal;
+import com.ensimag.projetDAC.stateless.PerfumeFacadeLocal;
 import com.ensimag.projetDAC.stateless.PurchaseFacadeLocal;
 import com.ensimag.projetDAC.stateless.UserFacadeLocal;
 import java.util.List;
@@ -25,21 +27,11 @@ public class ListAllPurchaseFeatures {
 
     @EJB
     private DeliveryMethodFacadeLocal deliveryMethodFacade;
-    
+    private List<DeliveryMethod> deliveryMethods = null;
     @EJB
     private PurchaseFacadeLocal purchaseFacade;
     
-    private List<DeliveryMethod> deliveryMethods = null;
     
-    @EJB
-    private UserFacadeLocal userFacade;
-    
-    private List<User> clients = null;
-    
-    @EJB
-    private PurchaseFacadeLocal orderFacade;
-    
-    private List<Purchase> orders = null;
     
     /**
      * Creates a new instance of ListAllOrderFeatures
@@ -57,18 +49,4 @@ public class ListAllPurchaseFeatures {
         return purchaseFacade.findByUser(user);
     }
     
-    
-    
-    public List<Purchase> getOrders() {
-        if (orders == null)
-            orders = orderFacade.findAll();
-        return orders;
-    }
-    
-    
-    public List<User> getClients() {
-        if (clients == null)
-            clients = userFacade.findAll();
-        return clients;
-    }
 }
