@@ -252,11 +252,11 @@ public class ServletPerfume extends HttpServlet {
         // Création d'utilisateurs
         String password = "ensimag";
         char[] pass = password.toCharArray();
-        User user = new User("user@gmail.com", "LastName", "FirstName", pass, userRole);
+        User user = new User("user@gmail.com", "Nicolini", "Maud", pass, userRole);
         userFacade.create(user);
-        User secondUser = new User("second-user@gmail.com", "LastName", "FirstName", pass, userRole);
+        User secondUser = new User("second-user@gmail.com", "Bencheikh", "Oumaima", pass, userRole);
         userFacade.create(secondUser);
-        User manager = new User("manager@gmail.com", "LastName", "FirstName", pass, managerRole);
+        User manager = new User("manager@gmail.com", "Souihli", "Chayma", pass, managerRole);
         userFacade.create(manager);
         
         // Ajout de méthodes de livraison

@@ -36,7 +36,7 @@
                 </h:form>
                 <p:button class="float-align-right" outcome="/secure/userAccount.xhtml" value="Mon compte" icon="ui-icon-extlink" rendered="#{!empty authenticationBean.currentUser}"/>
                 <p:button class="float-align-right" outcome="/secure/shoppingCart.xhtml" value="Mon panier" icon="ui-icon-extlink" rendered="#{!empty authenticationBean.currentUser}"/>
-                <h:outputText class="float-align-right" value="#{authenticationBean.getCurrentUser().name}" rendered="#{!empty authenticationBean.currentUser}" />
+                <h:outputText class="float-align-right" value="#{authenticationBean.getCurrentUser().firstName}" rendered="#{!empty authenticationBean.currentUser}" />
                 <p:button class="float-align-right" outcome="/signup.xtml" value="Créer un compte" icon="ui-icon-extlink" rendered="#{empty authenticationBean.currentUser}"/>
                 <p:button class="float-align-right" outcome="/secure/userAccount.xhtml" value="S'identifier" icon="ui-icon-extlink" rendered="#{empty authenticationBean.currentUser}"/>
             </p:layoutUnit>

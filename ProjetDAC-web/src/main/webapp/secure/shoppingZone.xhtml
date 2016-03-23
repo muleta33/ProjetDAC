@@ -9,46 +9,44 @@
         
         <h:form id="form">
             <p:carousel value="#{shoppingZoneBean.perfumesBySelection}" headerText="Notre sélection" var="perfume" responsive="true">
-                <p:panelGrid columns="1" style="width:100%;margin:10px 0px; border: 1px solid #a8a8a8;" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank" >
+                <p:panelGrid style="width:100%;margin:10px 0px; border: 1px solid #a8a8a8;" styleClass="ui-panelgrid-blank">
 
-                    <p:column>
-                        <p:row>
+                    <p:row>
+                         <p:column>
                             <h:outputText value="Nom : " />
-                        </p:row>
-                        <p:row>
+                        </p:column>
+                        <p:column>
                             <h:outputText value="#{perfume.name}" />
-                        </p:row>     
-                    </p:column>
+                        </p:column>
+                        <p:column rowspan="3" style="font-weight: bold;"><h:graphicImage value="../resources/images/perfume.jpg" height="200px" /></p:column>
+                    </p:row>
                     
-                    <p:column>
-                        <p:row>
+                    <p:row>
+                        <p:column>
                             <h:outputText value="Senteurs : " />
-                        </p:row>
-                        <p:row>
+                        </p:column>
+                        <p:column>
                             <ul>
-                                <ui:repeat value="#{perfume.fragances}" var="fragance">
+                                <ui:repeat value="#{perfume.fragrances}" var="fragance">
                                     <li><h:outputText value="#{fragance.name}"/></li>
                                 </ui:repeat> 
                             </ul>
-                        </p:row>     
-                    </p:column>
+                        </p:column>     
+                    </p:row>
                     
-                    <p:column>
-                        <p:row>
+                    <p:row>
+                        <p:column>
                             <h:outputText value="Capacité : " />
-                        </p:row>
-                        <p:row>
+                        </p:column>
+                        <p:column>
                             <h:outputText value="#{perfume.bottle.capacity.capacity} ml" />
-                        </p:row>     
-                    </p:column>
+                        </p:column>     
+                    </p:row>
 
                 </p:panelGrid>
                 
                 <p:commandButton value="Ajouter au panier" action="#{shoppingCartBean.addPerfume(perfume)}" icon="ui-icon-check" />
 
-                <f:facet name="footer">
-                        blabla
-                </f:facet>
             </p:carousel>
         </h:form>
         
