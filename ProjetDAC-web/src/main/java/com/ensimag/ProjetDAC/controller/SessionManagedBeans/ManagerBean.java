@@ -19,6 +19,7 @@ import com.ensimag.projetDAC.entity.User;
 import com.ensimag.projetDAC.stateless.BottleFacadeLocal;
 import com.ensimag.projetDAC.stateless.BottleTypeFacadeLocal;
 import com.ensimag.projetDAC.stateless.CapacityFacadeLocal;
+import com.ensimag.projetDAC.stateless.FragranceFacadeLocal;
 import com.ensimag.projetDAC.stateless.InscriptionFacadeLocal;
 import com.ensimag.projetDAC.stateless.PerfumeFacadeLocal;
 import com.ensimag.projetDAC.stateless.PurchaseFacadeLocal;
@@ -77,10 +78,69 @@ public class ManagerBean {
 
     @EJB
     private PurchaseFacadeLocal purchaseFacadeLocal;
+    
+    @EJB
+    private FragranceFacadeLocal fragranceFacade;
 
-    private Fragrance senteur1;
-    private Fragrance senteur2;
-    private Fragrance senteur3;
+    private Long fragranceId1;
+
+    /**
+     * Get the value of fragranceId1
+     *
+     * @return the value of fragranceId1
+     */
+    public Long getFragranceId1() {
+        return fragranceId1;
+    }
+
+    /**
+     * Set the value of fragranceId1
+     *
+     * @param fragranceId1 new value of fragranceId1
+     */
+    public void setFragranceId1(Long fragranceId1) {
+        this.fragranceId1 = fragranceId1;
+    }
+
+    private Long fragranceId2;
+
+    /**
+     * Get the value of fragranceId2
+     *
+     * @return the value of fragranceId2
+     */
+    public Long getFragranceId2() {
+        return fragranceId2;
+    }
+
+    /**
+     * Set the value of fragranceId2
+     *
+     * @param fragranceId2 new value of fragranceId2
+     */
+    public void setFragranceId2(Long fragranceId2) {
+        this.fragranceId2 = fragranceId2;
+    }
+    
+    private Long fragranceId3;
+
+    /**
+     * Get the value of fragranceId3
+     *
+     * @return the value of fragranceId3
+     */
+    public Long getFragranceId3() {
+        return fragranceId3;
+    }
+
+    /**
+     * Set the value of fragranceId3
+     *
+     * @param fragranceId3 new value of fragranceId3
+     */
+    public void setFragranceId3(Long fragranceId3) {
+        this.fragranceId3 = fragranceId3;
+    }
 
     private Capacity capacity;
 
@@ -209,30 +269,6 @@ public class ManagerBean {
 
     }
 
-    public Fragrance getSenteur1() {
-        return senteur1;
-    }
-
-    public Fragrance getSenteur2() {
-        return senteur2;
-    }
-
-    public Fragrance getSenteur3() {
-        return senteur3;
-    }
-
-    public void setSenteur1(Fragrance senteur) {
-        senteur1 = senteur;
-    }
-
-    public void setSenteur2(Fragrance senteur) {
-        senteur2 = senteur;
-    }
-
-    public void setSenteur3(Fragrance senteur) {
-        senteur3 = senteur;
-    }
-
     public List<Purchase> getOrders() {
         if (orders == null) {
             orders = orderFacade.findAll();
@@ -284,19 +320,15 @@ public class ManagerBean {
     }
 
     public void savePerfume() {
-
-        Perfume perfume;
-        // On crée le parfum
+        // On récupère les senteurs sélectionnées
+        Fragrance fragrance1 = fragranceFacade.find(fragranceId1);
+        Fragrance fragrance2 = fragranceFacade.find(fragranceId2);
+        Fragrance fragrance3 = fragranceFacade.find(fragranceId3);
+        
         List<Fragrance> fragrancesList = new ArrayList<>();
-        if (senteur1 != null) {
-            fragrancesList.add(senteur1);
-        }
-        if (senteur2 != null) {
-            fragrancesList.add(senteur2);
-        }
-        if (senteur3 != null) {
-            fragrancesList.add(senteur3);
-        }
+        fragrancesList.add(fragrance1);
+        fragrancesList.add(fragrance2);
+        fragrancesList.add(fragrance3);
 
         SprayerType sprayerType = sprayerTypeFacade.find(spayerTypeId);
 
@@ -308,7 +340,7 @@ public class ManagerBean {
         Bottle bottle = new Bottle(bottleType, cap, sprayerType, inscription);
         bottleFacade.create(bottle);
 
-        perfume = new Perfume(name, fragrancesList, intensity - 1, bottle, false, true);
+        Perfume perfume = new Perfume(name, fragrancesList, intensity - 1, bottle, false, true);
         perfumeFacadeLocal.create(perfume);
 
     }
