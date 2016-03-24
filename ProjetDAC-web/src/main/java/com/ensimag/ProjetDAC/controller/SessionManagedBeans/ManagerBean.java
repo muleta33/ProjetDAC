@@ -19,12 +19,15 @@ import com.ensimag.projetDAC.entity.User;
 import com.ensimag.projetDAC.stateless.BottleFacadeLocal;
 import com.ensimag.projetDAC.stateless.BottleTypeFacadeLocal;
 import com.ensimag.projetDAC.stateless.CapacityFacadeLocal;
+import com.ensimag.projetDAC.stateless.FragranceFacadeLocal;
 import com.ensimag.projetDAC.stateless.InscriptionFacadeLocal;
 import com.ensimag.projetDAC.stateless.PerfumeFacadeLocal;
 import com.ensimag.projetDAC.stateless.PurchaseFacadeLocal;
 import com.ensimag.projetDAC.stateless.SprayerTypeFacadeLocal;
 import com.ensimag.projetDAC.stateless.UserFacadeLocal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -40,47 +43,106 @@ public class ManagerBean {
 
     @EJB
     private PurchaseFacadeLocal purchaseFacade;
-    
+
     @EJB
     private SprayerTypeFacadeLocal sprayerTypeFacade;
-    
+
     @EJB
     private BottleTypeFacadeLocal bottleTypeFacade;
-    
+
     @EJB
     private BottleFacadeLocal bottleFacade;
-    
+
     @EJB
     private CapacityFacadeLocal capacityFacade;
-    
+
     @EJB
     private InscriptionFacadeLocal inscriptionFacade;
-    
+
     private List<DeliveryMethod> deliveryMethods = null;
-    
+
     @EJB
     private UserFacadeLocal userFacade;
-    
+
     private List<User> clients = null;
-    
+
     @EJB
     private PurchaseFacadeLocal orderFacade;
-    
+
     private List<Purchase> orders = null;
-    
-    @EJB 
+
+    @EJB
     private PerfumeFacadeLocal perfumeFacadeLocal;
-    
+
     private List<Perfume> perfumes = null;
-    
+
     @EJB
     private PurchaseFacadeLocal purchaseFacadeLocal;
     
-    private Fragrance senteur1;
-    private Fragrance senteur2;
-    private Fragrance senteur3;
+    @EJB
+    private FragranceFacadeLocal fragranceFacade;
+
+    private Long fragranceId1;
+
+    /**
+     * Get the value of fragranceId1
+     *
+     * @return the value of fragranceId1
+     */
+    public Long getFragranceId1() {
+        return fragranceId1;
+    }
+
+    /**
+     * Set the value of fragranceId1
+     *
+     * @param fragranceId1 new value of fragranceId1
+     */
+    public void setFragranceId1(Long fragranceId1) {
+        this.fragranceId1 = fragranceId1;
+    }
+
+    private Long fragranceId2;
+
+    /**
+     * Get the value of fragranceId2
+     *
+     * @return the value of fragranceId2
+     */
+    public Long getFragranceId2() {
+        return fragranceId2;
+    }
+
+    /**
+     * Set the value of fragranceId2
+     *
+     * @param fragranceId2 new value of fragranceId2
+     */
+    public void setFragranceId2(Long fragranceId2) {
+        this.fragranceId2 = fragranceId2;
+    }
     
-        private Capacity capacity;
+    private Long fragranceId3;
+
+    /**
+     * Get the value of fragranceId3
+     *
+     * @return the value of fragranceId3
+     */
+    public Long getFragranceId3() {
+        return fragranceId3;
+    }
+
+    /**
+     * Set the value of fragranceId3
+     *
+     * @param fragranceId3 new value of fragranceId3
+     */
+    public void setFragranceId3(Long fragranceId3) {
+        this.fragranceId3 = fragranceId3;
+    }
+
+    private Capacity capacity;
 
     /**
      * Get the value of capacity
@@ -139,7 +201,7 @@ public class ManagerBean {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     private Long bottleTypeId;
 
     /**
@@ -159,7 +221,7 @@ public class ManagerBean {
     public void setBottleTypeId(Long bottleTypeId) {
         this.bottleTypeId = bottleTypeId;
     }
-    
+
     private Long spayerTypeId;
 
     /**
@@ -179,7 +241,7 @@ public class ManagerBean {
     public void setSpayerTypeId(Long spayerTypeId) {
         this.spayerTypeId = spayerTypeId;
     }
-    
+
     private int intensity;
 
     /**
@@ -200,64 +262,48 @@ public class ManagerBean {
         this.intensity = intensity;
     }
 
-
     /**
      * Creates a new instance of ManagerBean
      */
     public ManagerBean() {
-        
+
     }
-    
-    public Fragrance getSenteur1() {
-        return senteur1;
-    }
-    
-    public Fragrance getSenteur2() {
-        return senteur2;
-    }
-    
-    public Fragrance getSenteur3() {
-        return senteur3;
-    }
-    
-    public void setSenteur1(Fragrance senteur) {
-        senteur1 = senteur;
-    }
-    
-    public void setSenteur2(Fragrance senteur) {
-        senteur2 = senteur;
-    }
-    
-    public void setSenteur3(Fragrance senteur) {
-        senteur3 = senteur;
-    }
-    
+
     public List<Purchase> getOrders() {
-        if (orders == null)
+        if (orders == null) {
             orders = orderFacade.findAll();
+        }
+        Collections.sort(orders, new Comparator<Purchase>() {
+            @Override
+            public int compare(Purchase order1, Purchase order2) {
+
+                return order1.getId().compareTo(order2.getId());
+            }
+        });
         return orders;
     }
-    
-    
+
     public List<User> getClients() {
-        if (clients == null)
+        if (clients == null) {
             clients = userFacade.findAll();
+        }
         return clients;
     }
-    
+
     public List<Perfume> getPerfumes() {
         perfumes = perfumeFacadeLocal.findBySelection();
         return perfumes;
     }
-    
+
     public void removePerfume(Perfume perfume) {
         perfume.setBelongToSelection(false);
         perfumeFacadeLocal.edit(perfume);
     }
+
     public boolean containsPerfume(Perfume perfume) {
         return false;
     }
-    
+
     public void setStatus(Purchase purchase) {
         switch (purchase.getDeliveryStatus().getName()) {
             case "en attente":
@@ -272,34 +318,30 @@ public class ManagerBean {
         }
         purchaseFacadeLocal.edit(purchase);
     }
-    
-    public void savePerfume() {
-        
-        Perfume perfume;
-        // On crée le parfum
-        List<Fragrance> fragrancesList = new ArrayList<>();
-        if(senteur1 != null)
-            fragrancesList.add(senteur1);
-        if(senteur2 != null)
-            fragrancesList.add(senteur2);
-        if(senteur3 != null)
-            fragrancesList.add(senteur3);
-        
 
-        // On récupère ou crée le flacon 
-        SprayerType sprayerType = sprayerTypeFacade.find(spayerTypeId);
+    public void savePerfume() {
+        // On récupère les senteurs sélectionnées
+        Fragrance fragrance1 = fragranceFacade.find(fragranceId1);
+        Fragrance fragrance2 = fragranceFacade.find(fragranceId2);
+        Fragrance fragrance3 = fragranceFacade.find(fragranceId3);
         
+        List<Fragrance> fragrancesList = new ArrayList<>();
+        fragrancesList.add(fragrance1);
+        fragrancesList.add(fragrance2);
+        fragrancesList.add(fragrance3);
+
+        SprayerType sprayerType = sprayerTypeFacade.find(spayerTypeId);
+
         Capacity cap = capacityFacade.find(capacity);
         BottleType bottleType = bottleTypeFacade.find(bottleTypeId);
         Inscription inscription = new Inscription(name);
         inscriptionFacade.create(inscription);
-        
+
         Bottle bottle = new Bottle(bottleType, cap, sprayerType, inscription);
         bottleFacade.create(bottle);
 
-        // On crée le parfum
-        perfume = new Perfume(name, fragrancesList, intensity - 1, bottle, false, true);
+        Perfume perfume = new Perfume(name, fragrancesList, intensity - 1, bottle, false, true);
         perfumeFacadeLocal.create(perfume);
-        
+
     }
 }

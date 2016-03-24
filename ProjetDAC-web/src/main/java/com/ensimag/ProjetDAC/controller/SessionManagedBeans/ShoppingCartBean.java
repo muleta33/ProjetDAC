@@ -70,6 +70,11 @@ public class ShoppingCartBean implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage("message", new FacesMessage("Info", "Le parfum a bien été ajouté au panier."));
         context.getExternalContext().getFlash().setKeepMessages(true);
+    public double getPriceOfPerfume(Perfume perfume) {
+        return content.get(perfume) * perfume.getPrice();
+    }
+    
+    public void addPerfume(Perfume perfume) {
         content.put(perfume, 1);
         return "shoppingZone.xhtml?faces-redirect=true";
     }

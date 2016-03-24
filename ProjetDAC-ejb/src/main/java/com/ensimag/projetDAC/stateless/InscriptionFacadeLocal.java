@@ -23,6 +23,10 @@ public interface InscriptionFacadeLocal {
     void remove(Inscription inscription);
 
     Inscription find(Object id);
+    
+    List<Inscription> findByName(String name);
+    
+    Inscription findByNameOrCreate(String name);
 
     List<Inscription> findAll();
 
