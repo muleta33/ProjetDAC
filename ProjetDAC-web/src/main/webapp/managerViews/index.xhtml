@@ -118,7 +118,7 @@
                                 <p:outputLabel for="name" value="Nom" />
                                 <p:inputText id="name" value="#{managerBean.name}" label="name" />
                             </h:panelGrid>
-                            <p:commandButton action="#{managerBean.savePerfume}" ajax="false" value="Confirmer" />
+                            <p:commandButton value="Confirmer" action="#{managerBean.savePerfume}" process="@this" />
                         </h:form>
                     </h:panelGrid>
 
