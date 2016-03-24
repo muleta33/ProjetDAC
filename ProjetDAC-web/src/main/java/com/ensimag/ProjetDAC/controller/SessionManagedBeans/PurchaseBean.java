@@ -16,7 +16,6 @@ import com.ensimag.projetDAC.stateless.PurchaseFacadeLocal;
 import com.ensimag.projetDAC.stateless.UserFacadeLocal;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -172,9 +171,8 @@ public class PurchaseBean implements Serializable {
         // Concaténation de l'adresse
         String deliveryAddress = addressStreet + " " + addressCity + " " + addressPostalCode;
         
-        // Find or create pour statut de livraison
-        DeliveryStatus deliveryStatus = new DeliveryStatus("En cours");
-        deliveryStatusFacade.create(deliveryStatus);
+        // Récupération du statut courant de la livraison
+        DeliveryStatus deliveryStatus = deliveryStatusFacade.findByName("en cours de préparation").get(0);
         
         // Récupération de l'utilisateur courant
         User user = userFacade.find(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName());

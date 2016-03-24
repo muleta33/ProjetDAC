@@ -23,6 +23,8 @@ public interface DeliveryStatusFacadeLocal {
     void remove(DeliveryStatus deliveryStatus);
 
     DeliveryStatus find(Object id);
+    
+    List<DeliveryStatus> findByName(String name);
 
     List<DeliveryStatus> findAll();
 

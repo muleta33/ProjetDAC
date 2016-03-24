@@ -263,9 +263,8 @@ public class PerfumeBean implements Serializable {
         // On récupère la capacité
         Capacity capacity = constructCapacity();
         
-        // Faire un findOrCreate pour l'inscription !!!   
-        Inscription inscription = new Inscription(name);
-        inscriptionFacade.create(inscription);
+        // On récupère ou crée l'inscription
+        Inscription inscription = inscriptionFacade.findByNameOrCreate(name);
         
         Bottle bottle = new Bottle(bottleType, capacity, sprayerType, inscription);
         return bottle;
@@ -275,7 +274,7 @@ public class PerfumeBean implements Serializable {
         // On récupère les senteurs
         List<Fragrance> fragrancesList = constructFragranceList();
 
-        // On récupère ou crée le flacon TODO
+        // On crée le flacon
         Bottle bottle = constructBottle();
         bottleFacade.create(bottle);
 

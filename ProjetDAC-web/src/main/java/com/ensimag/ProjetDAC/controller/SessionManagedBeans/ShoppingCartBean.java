@@ -64,6 +64,10 @@ public class ShoppingCartBean implements Serializable {
         content.replace(perfume, temporaryQuantityOfPerfume);
     }
     
+    public double getPriceOfPerfume(Perfume perfume) {
+        return content.get(perfume) * perfume.getPrice();
+    }
+    
     public void addPerfume(Perfume perfume) {
         content.put(perfume, 1);
     }

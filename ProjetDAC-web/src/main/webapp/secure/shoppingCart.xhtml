@@ -23,10 +23,11 @@
                 <p:column headerText="Quantité">
                     <p:spinner id="quantity" value="#{shoppingCartBean.temporaryQuantityOfPerfume}" min="1" max="100">
                         <p:ajax listener="#{shoppingCartBean.setNumberOfPerfumes(perfume)}" />
+                        <p:ajax event="valueChange" update="prix" />
                     </p:spinner>
                 </p:column>
                 <p:column headerText="Prix">
-                    <h:outputText value="#{perfume.price} €" />
+                    <h:outputText id="prix" value="#{shoppingCartBean.getPriceOfPerfume(perfume)} €" />
                 </p:column>
                 <p:column headerText="Supprimer">
                     <h:commandLink action="#{shoppingCartBean.removePerfume(perfume)}" value="Supprimer du panier" />
