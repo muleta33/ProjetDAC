@@ -69,7 +69,6 @@
                     </h:form>
                     <h:panelGrid columns="6" cellpadding="10">
                         <h:form>
-                            <p:wizard flowListener="#{managerBean.createPerfume}"> 
                             <h:panelGrid columns="3" cellpadding="10">
                                 <p:selectOneMenu id="senteur1" value="#{managerBean.senteur1}" >
                                     <f:selectItem itemLabel="Senteur 1" itemValue="" />
@@ -120,7 +119,6 @@
                                 <p:inputText id="name" value="#{managerBean.name}" label="name" />
                             </h:panelGrid>
                             <p:commandButton action="#{managerBean.savePerfume}" ajax="false" value="Confirmer" />
-                            </p:wizard>
                         </h:form>
                     </h:panelGrid>
 

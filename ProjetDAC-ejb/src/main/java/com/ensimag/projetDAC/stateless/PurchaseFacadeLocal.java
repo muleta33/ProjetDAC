@@ -27,6 +27,7 @@ public interface PurchaseFacadeLocal {
 
     List<Purchase> findByUser(User user);
     
+    
     List<Purchase> findAll();
 
     List<Purchase> findRange(int[] range);

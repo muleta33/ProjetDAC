@@ -183,4 +183,16 @@ public class Purchase implements Serializable {
         return "com.ensimag.projetDAC.entity.Order[ id=" + id + " ]";
     }
     
+    public int compareTo(Purchase other)
+   {
+      int resultat = 0;
+      if (this.id > other.getId())
+         resultat = 1;
+      if (this.id < other.getId())
+         resultat = -1;
+      if (this.id == other.getId())
+         resultat = 0;
+      return resultat;
+   }
+    
 }
