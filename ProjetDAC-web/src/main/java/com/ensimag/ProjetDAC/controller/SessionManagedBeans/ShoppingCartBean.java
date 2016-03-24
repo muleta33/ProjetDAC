@@ -12,6 +12,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -64,8 +66,12 @@ public class ShoppingCartBean implements Serializable {
         content.replace(perfume, temporaryQuantityOfPerfume);
     }
     
-    public void addPerfume(Perfume perfume) {
+    public String addPerfume(Perfume perfume) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage("message", new FacesMessage("Info", "Le parfum a bien été ajouté au panier."));
+        context.getExternalContext().getFlash().setKeepMessages(true);
         content.put(perfume, 1);
+        return "shoppingZone.xhtml?faces-redirect=true";
     }
     
     public void removePerfume(Perfume perfume) {

@@ -6,43 +6,30 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
       
     <h:head>
-        <style type="text/css">
-        .ui-widget-content {
-            border: 0;
-        }
-        .float-align-right {
-            float: right;
-            margin: 10px;
-        }
-        * {
-            background-color: #F7ECF7 !important;
-        }
-        head {
-            background-color: #FFB1FF;
-        }
-        </style>
+        <h:outputStylesheet library="css" name="site.css"  />
     </h:head>
     
-    <h:body>
+    <h:body> 
         
-        <p:growl id="message" showDetail="true" />  
+        <p:growl id="message" showDetail="true" /> 
         
         <p:layout fullPage="true">
  
-            <p:layoutUnit position="north" size="80">
-                <p:button outcome="/index.xhtml" value="Accueil" icon="ui-icon-home" rendered="#{!empty authenticationBean.currentUser}" />
-                <h:form class="float-align-right">
+            <p:layoutUnit class="nice-font" position="north" size="70">
+                <p:button class="float-align-left" outcome="/index.xhtml" value="Accueil" icon="ui-icon-home" rendered="#{!empty authenticationBean.currentUser}" />
+                <h:form class="float-align-right-text">
                     <h:commandLink action="#{authenticationBean.logout}" rendered="#{!empty authenticationBean.currentUser}">Déconnexion</h:commandLink>
                 </h:form>
                 <p:button class="float-align-right" outcome="/secure/userAccount.xhtml" value="Mon compte" icon="ui-icon-extlink" rendered="#{!empty authenticationBean.currentUser}"/>
                 <p:button class="float-align-right" outcome="/secure/shoppingCart.xhtml" value="Mon panier" icon="ui-icon-extlink" rendered="#{!empty authenticationBean.currentUser}"/>
-                <h:outputText class="float-align-right" value="#{authenticationBean.getCurrentUser().firstName}" rendered="#{!empty authenticationBean.currentUser}" />
+                <h:outputText class="float-align-right-text" value="Bienvenue #{authenticationBean.getCurrentUser().firstName} !" rendered="#{!empty authenticationBean.currentUser}" />
                 <p:button class="float-align-right" outcome="/signup.xtml" value="Créer un compte" icon="ui-icon-extlink" rendered="#{empty authenticationBean.currentUser}"/>
                 <p:button class="float-align-right" outcome="/secure/userAccount.xhtml" value="S'identifier" icon="ui-icon-extlink" rendered="#{empty authenticationBean.currentUser}"/>
             </p:layoutUnit>
 
-            <p:layoutUnit position="south" size="50" style="text-align: right;">
-                <h:outputText style="display: inline-block; padding-right: 20px;" value="Pour nous écrire : contact@perfume.fr" />
+            <p:layoutUnit class="nice-font" position="south" size="70" style="text-align: right;">
+                <p:button class="float-align-left" outcome="/managerViews/index.xhtml" value="Admin" icon="ui-icon-extlink" rendered="#{empty authenticationBean.currentUser}" />
+                <h:outputText style="display: inline-block; padding-right: 20px; padding-top: 15px;" value="Pour nous écrire : contact@perfume.fr" />
             </p:layoutUnit>
 
             <p:layoutUnit position="center">

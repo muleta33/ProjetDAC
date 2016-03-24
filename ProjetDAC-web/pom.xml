@@ -82,6 +82,12 @@
                                     <type>jar</type>
                                 </artifactItem>
                             </artifactItems>
+                            <resources>          
+                                <resource>
+                                   <directory>resources</directory>
+                                   <filtering>true</filtering>
+                                </resource>
+                            </resources>   
                         </configuration>
                     </execution>
                 </executions>

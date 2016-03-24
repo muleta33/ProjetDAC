@@ -1,0 +1,34 @@
+.ui-layout-unit {
+    border: 0;
+}
+.float-align-right {
+    float: right;
+    margin: 10px;
+}
+.float-align-right-text {
+    float: right;
+    margin: 20px;
+}
+.float-align-left {
+    float: left;
+    margin: 10px;
+}
+.ui-layout-container, .ui-layout-unit {
+    background-color: #FFCCCC !important;
+}
+.ui-button {
+    background: #F7ECF7 !important;
+}
+.ui-state-default {
+    color: #db7093 !important;
+}
+.nice-font {
+    font-family: Papyrus,fantasy;
+    font-style: italic;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 15.4px;
+}
+.ui-widget-header {       
+    background: #F7ECF7 !important;
+}

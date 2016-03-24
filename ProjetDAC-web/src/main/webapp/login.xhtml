@@ -5,36 +5,50 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Login page</title>
+        <title>Connexion</title>
+        <h:outputStylesheet library="css" name="site.css"  />
     </h:head>
     <h:body>
         <f:event listener="#{authenticationBean.checkErrors}" type="preRenderView"/>
         <p:growl id="message" showDetail="true" /> 
-        <form action="j_security_check">
-            <p:panel id="panel" header="S'identifier">
-                <table>
-                <tbody>
-                    <tr>
-                        <td><label for="j_username" class="ui-outputlabel ui-widget" >Login: <span class="ui-outputlabel-rfi">*</span></label></td>
-                        <td><input type="text" name="j_username" required="true" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" /></td>
-                    </tr>
-                    <tr>
-                        <td><label for="j_password" class="ui-outputlabel ui-widget" >Password: <span class="ui-outputlabel-rfi">*</span></label></td>
-                        <td><input type="password" name="j_password" required="true" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" /></td>
-                    </tr>
-                </tbody>
-                </table>
-                
-                <div class="submit">
-                    <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left">
-                        <span class="ui-button-icon-left ui-icon ui-c ui-icon-check"></span><span class="ui-button-text ui-c">Login</span>
-                    </button>
-                </div>
-            </p:panel>
-        </form>
         
-        <p:link outcome="index" value="Accueil"/><br/>
-        <p:link outcome="signup" value="Créer un compte"/>
+        <p:layout fullPage="true">
+ 
+            <p:layoutUnit class="nice-font" position="north" size="70">
+                <p:button class="float-align-left" outcome="/index.xhtml" value="Accueil" icon="ui-icon-home" />
+                <p:button class="float-align-right" outcome="/signup.xtml" value="Créer un compte" icon="ui-icon-extlink" />
+            </p:layoutUnit>
+
+            <p:layoutUnit class="nice-font" position="south" size="60" style="text-align: right;">
+                <h:outputText style="display: inline-block; padding-right: 20px; padding-top: 10px;" value="Pour nous écrire : contact@perfume.fr" />
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center">
+                <form action="j_security_check">
+                    <p:panel id="panel" header="S'identifier">
+                        <table>
+                        <tbody>
+                            <tr>
+                                <td><label for="j_username" class="ui-outputlabel ui-widget" >Login: <span class="ui-outputlabel-rfi">*</span></label></td>
+                                <td><input type="text" name="j_username" required="true" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" /></td>
+                            </tr>
+                            <tr>
+                                <td><label for="j_password" class="ui-outputlabel ui-widget" >Password: <span class="ui-outputlabel-rfi">*</span></label></td>
+                                <td><input type="password" name="j_password" required="true" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" /></td>
+                            </tr>
+                        </tbody>
+                        </table>
+
+                        <div class="submit">
+                            <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left">
+                                <span class="ui-button-icon-left ui-icon ui-c ui-icon-check"></span><span class="ui-button-text ui-c">Login</span>
+                            </button>
+                        </div>
+                    </p:panel>
+                </form>
+            </p:layoutUnit>
+
+        </p:layout>
         
     </h:body>
 </html>
