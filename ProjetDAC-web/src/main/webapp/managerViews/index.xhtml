@@ -8,8 +8,10 @@
     <h:head></h:head>
     <h:body>
 
-        <p:tabView>
+        <p:tabView dynamic="true" activeIndex="#{managerBean.activeTabIndex}">
 
+            <p:ajax event="tabChange" listener="#{managerBean.onTabChange}" />
+            
             <p:tab title="Commandes">
                 <h:form>
                     <p:dataTable value="#{managerBean.orders}" var="order">
@@ -94,7 +96,7 @@
                             </h:panelGrid>
 
                             <h:panelGrid columns="3" cellpadding="10">
-                                <p:selectOneMenu id="capacity" value="#{managerBean.capacity}" >
+                                <p:selectOneMenu id="capacity" value="#{managerBean.capacityId}" >
                                     <f:selectItem itemLabel="Taille" itemValue="" />
                                     <f:selectItems value="#{listAllPerfumeFeatures.capacities}" var="capacity" itemLabel="#{capacity.capacity}" itemValue="#{capacity.id}" />
                                 </p:selectOneMenu>
@@ -105,7 +107,7 @@
                                 </p:selectOneMenu>
 
 
-                                <p:selectOneMenu id="spray" value="#{managerBean.sprayer}" >
+                                <p:selectOneMenu id="spray" value="#{managerBean.sprayerId}" >
                                     <f:selectItem itemLabel="Pulvérisateur" itemValue="" />
                                     <f:selectItems value="#{listAllPerfumeFeatures.sprayerTypes}" var="sprayerType" itemLabel="#{sprayerType.name}" itemValue="#{sprayerType.id}" />
                                 </p:selectOneMenu>
@@ -115,7 +117,7 @@
                                 <p:outputLabel for="name" value="Nom" />
                                 <p:inputText id="name" value="#{managerBean.name}" label="name" />
                             </h:panelGrid>
-                            <p:commandButton value="Confirmer" action="#{managerBean.savePerfume}" process="@this" />
+                            <p:commandButton value="Confirmer" action="#{managerBean.savePerfume}" />
                         </h:form>
                     </h:panelGrid>
 

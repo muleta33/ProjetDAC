@@ -32,6 +32,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import org.primefaces.component.tabview.TabView;
+import org.primefaces.event.TabChangeEvent;
 
 /**
  *
@@ -82,6 +84,17 @@ public class ManagerBean {
     @EJB
     private FragranceFacadeLocal fragranceFacade;
 
+    private Integer activeTabIndex = 0;
+
+    public Integer getActiveTabIndex() {
+        return activeTabIndex;
+    }
+
+    public void setActiveTabIndex(Integer activeTabIndex) {
+        this.activeTabIndex = activeTabIndex;
+    }
+    
+    
     private Long fragranceId1;
 
     /**
@@ -142,44 +155,44 @@ public class ManagerBean {
         this.fragranceId3 = fragranceId3;
     }
 
-    private Capacity capacity;
+    private Long capacityId;
 
     /**
      * Get the value of capacity
      *
-     * @return the value of capacity
+     * @return the value of capacityId
      */
-    public Capacity getCapacity() {
-        return capacity;
+    public Long getCapacityId() {
+        return capacityId;
     }
 
     /**
      * Set the value of capacity
      *
-     * @param capacity new value of capacity
+     * @param capacityId new value of capacityId
      */
-    public void setCapacity(Capacity capacity) {
-        this.capacity = capacity;
+    public void setCapacityId(Long capacityId) {
+        this.capacityId = capacityId;
     }
 
-    private SprayerType sprayer;
+    private Long sprayerId;
 
     /**
-     * Get the value of sprayer
+     * Get the value of sprayerId
      *
      * @return the value of sprayer
      */
-    public SprayerType getSprayer() {
-        return sprayer;
+    public Long getSprayerId() {
+        return sprayerId;
     }
 
     /**
-     * Set the value of sprayer
+     * Set the value of sprayerId
      *
-     * @param sprayer new value of sprayer
+     * @param sprayerId new value of sprayerId
      */
-    public void setSprayer(SprayerType sprayer) {
-        this.sprayer = sprayer;
+    public void setSprayerId(Long sprayerId) {
+        this.sprayerId = sprayerId;
     }
 
     private String name;
@@ -284,9 +297,7 @@ public class ManagerBean {
     }
 
     public List<User> getClients() {
-        if (clients == null) {
-            clients = userFacade.findAll();
-        }
+        clients = userFacade.findAll();
         return clients;
     }
 
@@ -302,6 +313,11 @@ public class ManagerBean {
 
     public boolean containsPerfume(Perfume perfume) {
         return false;
+    }
+    
+    public void onTabChange(TabChangeEvent event) {
+        TabView tabView = (TabView) event.getComponent(); 
+        this.activeTabIndex = tabView.getActiveIndex();
     }
 
     public void setStatus(Purchase purchase) {
@@ -330,9 +346,9 @@ public class ManagerBean {
         fragrancesList.add(fragrance2);
         fragrancesList.add(fragrance3);
 
-        SprayerType sprayerType = sprayerTypeFacade.find(spayerTypeId);
+        SprayerType sprayerType = sprayerTypeFacade.find(sprayerId);
 
-        Capacity cap = capacityFacade.find(capacity);
+        Capacity cap = capacityFacade.find(capacityId);
         BottleType bottleType = bottleTypeFacade.find(bottleTypeId);
         Inscription inscription = new Inscription(name);
         inscriptionFacade.create(inscription);
