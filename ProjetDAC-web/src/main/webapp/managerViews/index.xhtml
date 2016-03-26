@@ -8,13 +8,13 @@
     <h:head></h:head>
     <h:body>
 
-        <p:tabView dynamic="true" activeIndex="#{managerBean.activeTabIndex}">
+        <p:tabView dynamic="true" cache="false" activeIndex="#{managerBean.activeTabIndex}">
 
             <p:ajax event="tabChange" listener="#{managerBean.onTabChange}" />
             
             <p:tab title="Commandes">
                 <h:form>
-                    <p:dataTable value="#{managerBean.orders}" var="order">
+                    <p:dataTable value="#{managerBean.orders}" var="order" >
                         <p:column headerText="Numéro de commande">
                             <h:outputText value="#{order.id}" />
                         </p:column>
@@ -58,19 +58,19 @@
             </p:tab>
 
             <p:tab title="Notre Sélection">
+                <h:form>
                 <h:panelGrid columns="2" cellpadding="10">
-                    <h:form>
+                    
                         <p:dataTable id="basicDT" value="#{managerBean.perfumes}" var="perfume">
                             <p:column headerText="Produit">
                                 <h:outputText value="#{perfume.name}" />
                             </p:column>
                             <p:column headerText="">
-                                <p:commandButton action="#{managerBean.removePerfume(perfume)}" ajax="false" value="Supprimer" />
+                                <p:commandButton action="#{managerBean.removePerfume(perfume)}" value="Supprimer" update="basicDT"/>
                             </p:column>
                         </p:dataTable> 
-                    </h:form>
-                    <h:panelGrid columns="6" cellpadding="10">
-                        <h:form>
+                </h:panelGrid>
+
                             <h:panelGrid columns="3" cellpadding="10">
                                 <p:selectOneMenu id="senteur1" value="#{managerBean.fragranceId1}" >
                                     <f:selectItems value="#{listAllPerfumeFeatures.fragrances}" var="fragrance" itemLabel="#{fragrance.name}" itemValue="#{fragrance.id}" />
@@ -117,11 +117,11 @@
                                 <p:outputLabel for="name" value="Nom" />
                                 <p:inputText id="name" value="#{managerBean.name}" label="name" />
                             </h:panelGrid>
-                            <p:commandButton value="Confirmer" action="#{managerBean.savePerfume}" />
-                        </h:form>
-                    </h:panelGrid>
+                            <p:commandButton value="Confirmer" action="#{managerBean.savePerfume}" update="basicDT" />
 
-                </h:panelGrid>
+
+             
+                </h:form>
             </p:tab>
         </p:tabView>
     </h:body>
