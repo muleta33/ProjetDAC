@@ -342,10 +342,18 @@ public class ManagerBean {
         Fragrance fragrance3 = fragranceFacade.find(fragranceId3);
         
         List<Fragrance> fragrancesList = new ArrayList<>();
-        fragrancesList.add(fragrance1);
-        fragrancesList.add(fragrance2);
-        fragrancesList.add(fragrance3);
-
+        if (fragrance1 != null) {
+            fragrancesList.add(fragrance1);
+        }
+            
+        if ( (fragrance2 != null) && !(fragrance2.equals(fragrance1)) ) {
+            fragrancesList.add(fragrance2);
+        }
+        
+        if((fragrance3 != null) && !(fragrance3.equals(fragrance2)) && !(fragrance3.equals(fragrance1)) ) {
+            fragrancesList.add(fragrance3);
+        }
+        
         SprayerType sprayerType = sprayerTypeFacade.find(sprayerId);
 
         Capacity cap = capacityFacade.find(capacityId);

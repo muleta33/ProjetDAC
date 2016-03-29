@@ -211,12 +211,12 @@ public class ServletPerfume extends HttpServlet {
         fragances.add(f7);
         fragances.add(f4);
         fragances.add(f15);
-        inscription = new Inscription("J'adoooore");
+        inscription = new Inscription("La petite robe rouge");
         inscriptionFacade.create(inscription);
         bottle = new Bottle(bt5, c2, st2, inscription);
         bottleFacade.create(bottle);
         Perfume p2;
-        p2 = new Perfume("J'adoooore", fragances, 3, bottle, true, true);
+        p2 = new Perfume("La petite robe rouge", fragances, 3, bottle, true, true);
         perfumeFacade.create(p2);
         
         // Création d'un troisième parfum
@@ -252,11 +252,19 @@ public class ServletPerfume extends HttpServlet {
         // Création d'utilisateurs
         String password = "ensimag";
         char[] pass = password.toCharArray();
-        User user = new User("user@gmail.com", "Nicolini", "Maud", pass, userRole);
+        User user = new User("maud@gmail.com", "Nicolini", "Maud", pass, userRole);
         userFacade.create(user);
-        User secondUser = new User("second-user@gmail.com", "Bencheikh", "Oumaima", pass, userRole);
+        User secondUser = new User("oumaima@gmail.com", "Bencheikh", "Oumaima", pass, userRole);
         userFacade.create(secondUser);
-        User manager = new User("manager@gmail.com", "Souihli", "Chayma", pass, managerRole);
+        User user3 = new User("feriel@gmail.com", "Ben Amor", "Feriel", pass, userRole);
+        userFacade.create(user3);
+        User user4 = new User("antoine@gmail.com", "Mulet", "Antoine", pass, userRole);
+        userFacade.create(user4);
+        User user5 = new User("john-elie@gmail.com", "Margot", "John-Elie", pass, userRole);
+        userFacade.create(user5);
+        User user6 = new User("theo@gmail.com", "Francesiaz", "Théo", pass, userRole);
+        userFacade.create(user6);
+        User manager = new User("chayma@gmail.com", "Souihli", "Chayma", pass, managerRole);
         userFacade.create(manager);
         
         // Ajout de méthodes de livraison
@@ -282,8 +290,14 @@ public class ServletPerfume extends HttpServlet {
         Purchase purchase = new Purchase(user, new Date(),perfumes , dm1, "Grenoble", ds1, 100.0);
         purchaseFacadeLocal.create(purchase);
         
-        Purchase purchase2 = new Purchase(user, new Date(),perfumes , dm1, "Paris", ds2, 100.0);
+        Purchase purchase2 = new Purchase(user3, new Date(),perfumes , dm1, "Paris", ds2, 100.0);
         purchaseFacadeLocal.create(purchase2);
+        
+        Purchase purchase3 = new Purchase(user5, new Date(),perfumes , dm1, "Nantes", ds3, 100.0);
+        purchaseFacadeLocal.create(purchase3);
+        
+        Purchase purchase4 = new Purchase(secondUser, new Date(),perfumes , dm1, "Bastia", ds3, 100.0);
+        purchaseFacadeLocal.create(purchase4);
 
 
         processRequest(request, response);

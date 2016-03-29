@@ -73,14 +73,17 @@
 
                             <h:panelGrid columns="3" cellpadding="10">
                                 <p:selectOneMenu id="senteur1" value="#{managerBean.fragranceId1}" >
+                                    <f:selectItem itemLabel="Senteur 1" itemValue="0" />
                                     <f:selectItems value="#{listAllPerfumeFeatures.fragrances}" var="fragrance" itemLabel="#{fragrance.name}" itemValue="#{fragrance.id}" />
                                 </p:selectOneMenu>
 
                                 <p:selectOneMenu id="senteur2" value="#{managerBean.fragranceId2}" >
+                                    <f:selectItem itemLabel="Senteur 2" itemValue="0" />
                                     <f:selectItems value="#{listAllPerfumeFeatures.fragrances}" var="fragrance" itemLabel="#{fragrance.name}" itemValue="#{fragrance.id}" />
                                 </p:selectOneMenu>
                                 
                                 <p:selectOneMenu id="senteur3" value="#{managerBean.fragranceId3}" >
+                                    <f:selectItem itemLabel="Senteur 3" itemValue="0" />
                                     <f:selectItems value="#{listAllPerfumeFeatures.fragrances}" var="fragrance" itemLabel="#{fragrance.name}" itemValue="#{fragrance.id}" />
                                 </p:selectOneMenu>
                             </h:panelGrid> 

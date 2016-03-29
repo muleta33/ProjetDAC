@@ -71,9 +71,6 @@ public class PerfumeFacade extends AbstractFacade<Perfume> implements PerfumeFac
         TypedQuery<Perfume> query = em.createQuery(q);
         // Exécution de requête
         List<Perfume> results = query.getResultList();
-        for (Perfume perf : results)
-            System.err.println(perf);
-        System.err.println("--------------------");
         return results;
     }
     
